@@ -31,7 +31,7 @@ export const Cobranza = () => {
               {...triggers}
               className="hidden items-center gap-2 lg:flex lg:rounded-full"
             >
-              <Square3Stack3DIcon className="h-[18px] w-[18px]" /> Ventas{" "}
+              <Square3Stack3DIcon className="h-[18px] w-[18px]" /> Cobranza{" "}
               <ChevronDownIcon
                 strokeWidth={2}
                 className={`h-3 w-3 transition-transform ${
@@ -47,33 +47,22 @@ export const Cobranza = () => {
         >
           <ul className="col-span-4 flex w-full flex-col gap-1">
             <Menu placement="right-start">
-              <MenuHandler>
-                <MenuItem className="hidden items-center gap-2 lg:flex lg:rounded-full">
-                  <Typography color="black">Cuotas</Typography>
-                  <ChevronDownIcon
-                    strokeWidth={2}
-                    className={`h-3 w-3 transition-transform `}
-                  />
+              <Link href={"/cobranza/recibo"}>
+                <MenuItem>
+                  <Typography color="black">Emision Recibo</Typography>
                 </MenuItem>
-              </MenuHandler>
-              <MenuList>
-                <Link href={"/cobranza/werchow/socios"}>
-                  <MenuItem>
-                    <Typography color="black">Werchow</Typography>
-                  </MenuItem>
-                </Link>
-                <Link href={"/cobranza/mutual/socios"}>
-                  <MenuItem>
-                    <Typography color="black">Mutual</Typography>
-                  </MenuItem>
-                </Link>
-              </MenuList>
+              </Link>
+              <Link href={"/caja/cierre"}>
+                <MenuItem>
+                  <Typography color="black">Cierre de Caja</Typography>
+                </MenuItem>
+              </Link>
             </Menu>
           </ul>
         </MenuList>
       </Menu>
       <MenuItem className="flex items-center gap-2 lg:hidden">
-        <Square3Stack3DIcon className="h-[18px] w-[18px]" /> Socios{" "}
+        <Square3Stack3DIcon className="h-[18px] w-[18px]" /> Cobranza{" "}
       </MenuItem>
     </React.Fragment>
   );

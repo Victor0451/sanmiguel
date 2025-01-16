@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { Redirect } from "@/components/auth/Redirect";
 import useSWR from "swr";
 import { confirmAlert } from "react-confirm-alert";
-import moment, { months } from "moment";
+import moment from "moment";
 import { registrarHistoria, regHistorialSocio } from "@/libs/funciones";
 import Router, { useRouter } from "next/router";
 import FormCierre from "@/components/caja/FormCierre";
@@ -140,6 +140,10 @@ function cierre(props) {
     }
   };
 
+  const resetForm = () => {
+    document.getElementById("impuForm").reset();
+  };
+
   const preRegImputacion = async (movim) => {
     guardarAlertas(null);
     guardarErrores(null);
@@ -158,9 +162,8 @@ function cierre(props) {
       CUIT: cuitRef.current.value,
       DETALLE: detalleSel,
       FECHA: moment().format("YYYY-MM-DD"),
-      FEC_COM: fechaRef.current.value,
+      FEC_COMP: fechaRef.current.value,
       HORA: moment().format("HH:mm"),
-      ORIGEN: "",
       OPERADOR: usu.usuario,
       f: "reg impu",
     };
@@ -185,6 +188,12 @@ function cierre(props) {
       }
 
       guardarAlertas("Imputacion registrada correctamente");
+
+      setTimeout(() => {
+        guardarErrores(null);
+        guardarAlertas(null);
+        resetForm();
+      }, 1000);
     }
   };
 
@@ -250,100 +259,191 @@ function cierre(props) {
       })
       .catch((error) => {
         console.log(error);
-        toastr.error("Ocurrio un error al chequear la caja", "ATENCION");
+        toast.error("Ocurrio un error al chequear la caja", "ATENCION");
+      });
+  };
+
+  const updateRendido = async () => {
+    let data = {
+      f: "rendir pagos",
+    };
+
+    await axios
+      .put(`/api/caja`, data)
+      .then((res) => {
+        if (res.data === 200) {
+          toast.success(
+            "Los recibos de la produccion diaria, fueron marcados como rendidos"
+          );
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(
+          "Ocurrio un error al marcar como rendido la produccion diaria"
+        );
+      });
+  };
+
+  const postCaja = async (caja, f) => {
+    await axios
+      .post(`/api/caja`, caja)
+      .then((res) => {
+        if (f === 1 && res.status === 200) {
+          toast.success(
+            "Se registraron los movimientos en la caja correctamente",
+            "ATENCION"
+          );
+
+          updateRendido();
+
+          let hist = {
+            CONTRATO: 0,
+            OPERADOR: usu.usuario,
+            ACCION: `Cierre de caja por parte de: ${usu.usuario}.`,
+            FECHA: moment().format("DD/MM/YYYY HH:mm"),
+            f: "reg historia",
+          };
+
+          registrarHistoria(hist);
+
+          // setTimeout(() => {
+          //   Router.reload();
+          // }, 1000);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Ocurrio un error al reg la caja", "ATENCION");
       });
   };
 
   const regCierreCaja = async () => {
-    if (flag === false) {
-      let totI = 0;
-      let totE = 0;
+    await confirmAlert({
+      title: "ATENCION",
+      message: "¿Estas seguro de que quieres cerrar la caja de hoy?",
+      buttons: [
+        {
+          label: "Si",
+          onClick: () => {
+            if (flag === false) {
+              let totI = 0;
+              let totE = 0;
 
-      let caja = {
-        SUCURSAL: usu.sucursal,
-        PUESTO: "30",
-        CODIGO: 0,
-        MOVIM: "",
-        CUENTA: "",
-        IMPORTE: "",
-        TIPO: "",
-        SERIE: 0,
-        NUMERO: 0,
-        CUIT: "",
-        DETALLE: "",
-        DET_AUX: "",
-        FECHA: moment().format("YYYY-MM-DD"),
-        FEC_COMP: "",
-        HORA: moment().format("HH:mm"),
-        ORIGEN: "",
-        OPERADOR: usu.usuario,
-        ASIENTO: 0,
-        EXENTO: "",
-        CANT_AFIL: 0,
-        CAE: "",
-        VTO_CAE: "",
-        f: "reg caja",
-      };
+              let caja = {
+                SUCURSAL: "",
+                PUESTO: "",
+                CODIGO: 0,
+                MOVIM: "",
+                CUENTA: "",
+                IMPORTE: "",
+                TIPO: "",
+                SERIE: 0,
+                NUMERO: 0,
+                CUIT: "",
+                DETALLE: "",
+                FECHA: "",
+                FEC_COMP: "",
+                HORA: "",
+                OPERADOR: "",
+                f: "reg caja",
+              };
 
-      for (let i = 0; i < ingresos.length; i++) {
-        caja.CODIGO = ingresos[i].CODIGO;
-        caja.CUENTA = ingresos[i].CUENTA;
-        caja.MOVIM = ingresos[i].MOVIM;
-        caja.IMPORTE = ingresos[i].IMPORTE;
-        caja.TIPO = ingresos[i].TIPO;
-        caja.DETALLE = ingresos[i].DETALLE;
-        caja.NUMERO = ingresos[i].NUMERO;
-        caja.CUIT = ingresos[i].CUIT;
+              let ingre = ingresos.concat(produc);
 
-        totI += parseFloat(ingresos[i].IMPORTE);
+              for (let i = 0; i < ingre.length; i++) {
+                caja.SUCURSAL = ingre[i].SUCURSAL;
+                caja.PUESTO = ingre[i].PUESTO;
+                caja.CODIGO = ingre[i].CODIGO;
+                caja.MOVIM = ingre[i].MOVIM;
+                caja.CUENTA = ingre[i].CUENTA;
+                caja.IMPORTE = ingre[i].IMPORTE;
+                caja.TIPO = ingre[i].TIPO;
+                caja.SERIE = ingre[i].SERIE;
+                caja.NUMERO = ingre[i].NUMERO;
+                caja.CUIT = ingre[i].CUIT;
+                caja.DETALLE = ingre[i].DETALLE;
+                caja.FECHA = ingre[i].FECHA;
+                caja.FEC_COMP = ingre[i].FEC_COMP;
+                caja.HORA = ingre[i].HORA;
+                caja.OPERADOR = ingre[i].OPERADOR;
 
-        postCaja(caja, 0);
-      }
+                totI += parseFloat(ingre[i].IMPORTE);
 
-      for (let j = 0; j < egresos.length; j++) {
-        caja.CODIGO = egresos[j].CODIGO;
-        caja.CUENTA = egresos[j].CUENTA;
-        caja.MOVIM = egresos[j].MOVIM;
-        caja.IMPORTE = egresos[j].IMPORTE;
-        caja.TIPO = egresos[j].TIPO;
-        caja.DETALLE = egresos[j].DETALLE;
-        caja.NUMERO = egresos[j].NUMERO;
-        caja.CUIT = egresos[j].CUIT;
+                postCaja(caja, 0);
+              }
 
-        totE += parseFloat(egresos[j].IMPORTE);
+              for (let j = 0; j < egresos.length; j++) {
+                caja.SUCURSAL = egresos[j].SUCURSAL;
+                caja.PUESTO = egresos[j].PUESTO;
+                caja.CODIGO = egresos[j].CODIGO;
+                caja.MOVIM = egresos[j].MOVIM;
+                caja.CUENTA = egresos[j].CUENTA;
+                caja.IMPORTE = egresos[j].IMPORTE;
+                caja.TIPO = egresos[j].TIPO;
+                caja.SERIE = egresos[j].SERIE;
+                caja.NUMERO = egresos[j].NUMERO;
+                caja.CUIT = egresos[j].CUIT;
+                caja.DETALLE = egresos[j].DETALLE;
+                caja.FECHA = egresos[j].FECHA;
+                caja.FEC_COMP = egresos[j].FEC_COMP;
+                caja.HORA = egresos[j].HORA;
+                caja.OPERADOR = egresos[j].OPERADOR;
 
-        postCaja(caja, 0);
-      }
+                totE += parseFloat(egresos[j].IMPORTE);
 
-      caja.CODIGO = 718;
-      caja.CUENTA = "0101010700";
-      caja.MOVIM = "E";
-      caja.IMPORTE = totI - totE;
-      caja.TIPO = "X";
-      caja.DETALLE = "VALORES A DEPOSITAR";
-      caja.NUMERO = 1;
-      caja.CUIT = "0";
+                postCaja(caja, 0);
+              }
 
-      postCaja(caja, 0);
+              caja.CODIGO = 718;
+              caja.PUESTO = puestos.puesto_sm;
+              caja.CUENTA = "0101010700";
+              caja.MOVIM = "E";
+              caja.IMPORTE = totI - totE;
+              caja.TIPO = "X";
+              caja.DETALLE = "VALORES A DEPOSITAR";
+              caja.NUMERO = 1;
+              caja.CUIT = "0";
+              caja.FECHA = moment().format("YYYY-MM-DD");
+              caja.FEC_COMP = moment().format("YYYY-MM-DD");
+              caja.HORA = moment().format("HH:mm");
 
-      caja.CODIGO = -1;
-      caja.CUENTA = "";
-      caja.MOVIM = "I";
-      caja.IMPORTE = 0;
-      caja.TIPO = "";
-      caja.DETALLE = "SALDO INICIAL";
-      caja.NUMERO = 0;
-      caja.CUIT = "0";
+              postCaja(caja, 0);
 
-      postCaja(caja, 1);
-    } else if (flag === true) {
-      toastr.warning(
-        `Ya se genero una caja con la fecha en el dia de hoy (${moment().format(
-          "DD/MM/YYYY"
-        )})`,
-        "ATENCION"
-      );
-    }
+              caja.CODIGO = -1;
+              caja.PUESTO = puestos.puesto_sm;
+              caja.CUENTA = "";
+              caja.MOVIM = "I";
+              caja.IMPORTE = 0;
+              caja.TIPO = "";
+              caja.DETALLE = "SALDO INICIAL";
+              caja.NUMERO = 0;
+              caja.CUIT = "0";
+              caja.FECHA = moment().format("YYYY-MM-DD");
+              caja.FEC_COMP = moment().format("YYYY-MM-DD");
+              caja.HORA = moment().format("HH:mm");
+
+              postCaja(caja, 1);
+            } else if (flag === true) {
+              toast.warning(
+                `Ya se genero una caja con la fecha en el dia de hoy (${moment().format(
+                  "DD/MM/YYYY"
+                )})`,
+                "ATENCION"
+              );
+            }
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {
+            toast.info(
+              "Cierre cancelado, puede seguir confeccionando la caja de hoy"
+            );
+          },
+        },
+      ],
+    });
   };
 
   useSWR("/api/caja", traerMovimientos);
@@ -374,6 +474,7 @@ function cierre(props) {
             alertas={alertas}
             errores={errores}
             totales={totales}
+            regCierreCaja={regCierreCaja}
           />
         </>
       )}

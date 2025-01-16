@@ -12,7 +12,11 @@ export default async function handler(req, res) {
                 'I' as 'MOVIM',
                 0 as 'SERIE',                                  
                 0 as 'NUMERO',
-                665 as 'CODIGO'                                 
+                665 as 'CODIGO',
+                '0401010600' as 'CUENTA',
+                DATE_FORMAT(CURDATE(), "%Y-%m-%d" ) as 'FECHA',
+                DATE_FORMAT(CURDATE(), "%Y-%m-%d" ) as 'FEC_COMP',
+                DATE_FORMAT(NOW( ), "%H:%i" ) as 'HORA'
           FROM pagos
           WHERE OPERADOR = ${req.query.operador}
           AND RENDIDO = 0
@@ -58,34 +62,46 @@ export default async function handler(req, res) {
         );
     }
   } else if (req.method === "POST") {
-    if (req.body.f && req.body.f === "reg movimientos") {
-      const caja = await SGI.movimiento_caja_sucursales.create({
+    if (req.body.f && req.body.f === "reg caja") {
+      const movCaja = await SanMiguel.caja.create({
         data: {
-          idcaja: parseInt(req.body.idcaja),
-          fecha_carga: new Date(req.body.fecha_carga),
-          sucursal: req.body.sucursal,
-          fecha_movimiento: new Date(req.body.fecha_movimiento),
-          concepto: req.body.concepto,
-          movimiento: req.body.movimiento,
-          importe: parseFloat(req.body.importe),
-          operador_carga: req.body.operador_carga,
-          empresa: req.body.empresa,
-        },
-      });
-      res.status(200).json(caja);
-    } else if (req.body.f && req.body.f === "reg caja") {
-      const movCaja = await SGI.caja_sucursales.create({
-        data: {
-          fecha_carga: new Date(req.body.fecha_carga),
-          sucursal: req.body.sucursal,
-          ingresos: parseFloat(req.body.ingresos),
-          egresos: parseFloat(req.body.egresos),
-          saldo: parseFloat(req.body.saldo),
-          operador_carga: req.body.operador_carga,
-          empresa: req.body.empresa,
+          SUCURSAL: req.body.SUCURSAL,
+          PUESTO: req.body.PUESTO,
+          CODIGO: parseInt(req.body.CODIGO),
+          MOVIM: req.body.MOVIM,
+          CUENTA: req.body.CUENTA,
+          IMPORTE: parseFloat(req.body.IMPORTE),
+          TIPO: req.body.TIPO,
+          SERIE: parseInt(req.body.SERIE),
+          NUMERO: parseInt(req.body.NUMERO),
+          CUIT: req.body.CUIT,
+          DETALLE: req.body.DETALLE,
+          FECHA: req.body.FECHA,
+          FEC_COMP: req.body.FEC_COMP,
+          HORA: req.body.HORA,
+          OPERADOR: req.body.OPERADOR,
         },
       });
       res.status(200).json(movCaja);
+    }
+  } else if (req.method === "PUT") {
+    if (req.body.f && req.body.f === "rendir pagos") {
+      const mae = await SanMiguel.$queryRaw`
+          UPDATE pagos
+          SET RENDIDO = 1,
+              FECHA_CAJA = CURDATE()
+          WHERE DIA_PAG = CURDATE()  
+          AND RENDIDO = 0
+               
+`;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(mae, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
     }
   }
 }

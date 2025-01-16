@@ -426,7 +426,7 @@ export type cajaPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultAr
   objects: {}
   scalars: $Extensions.GetResult<{
     SUCURSAL: string | null
-    PUESTO: string | null
+    PUESTO: number | null
     CODIGO: number | null
     MOVIM: string | null
     CUENTA: string | null
@@ -437,8 +437,8 @@ export type cajaPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultAr
     NUMERO: number | null
     CUIT: string | null
     DETALLE: string | null
-    FECHA: Date | null
-    FEC_COMP: Date | null
+    FECHA: string | null
+    FEC_COMP: string | null
     HORA: string | null
     OPERADOR: string | null
     idmovim: number
@@ -17416,6 +17416,7 @@ export namespace Prisma {
   }
 
   export type CajaAvgAggregateOutputType = {
+    PUESTO: number | null
     CODIGO: number | null
     IMPORTE: number | null
     SERIE: number | null
@@ -17424,6 +17425,7 @@ export namespace Prisma {
   }
 
   export type CajaSumAggregateOutputType = {
+    PUESTO: number | null
     CODIGO: number | null
     IMPORTE: number | null
     SERIE: number | null
@@ -17433,7 +17435,7 @@ export namespace Prisma {
 
   export type CajaMinAggregateOutputType = {
     SUCURSAL: string | null
-    PUESTO: string | null
+    PUESTO: number | null
     CODIGO: number | null
     MOVIM: string | null
     CUENTA: string | null
@@ -17444,8 +17446,8 @@ export namespace Prisma {
     NUMERO: number | null
     CUIT: string | null
     DETALLE: string | null
-    FECHA: Date | null
-    FEC_COMP: Date | null
+    FECHA: string | null
+    FEC_COMP: string | null
     HORA: string | null
     OPERADOR: string | null
     idmovim: number | null
@@ -17453,7 +17455,7 @@ export namespace Prisma {
 
   export type CajaMaxAggregateOutputType = {
     SUCURSAL: string | null
-    PUESTO: string | null
+    PUESTO: number | null
     CODIGO: number | null
     MOVIM: string | null
     CUENTA: string | null
@@ -17464,8 +17466,8 @@ export namespace Prisma {
     NUMERO: number | null
     CUIT: string | null
     DETALLE: string | null
-    FECHA: Date | null
-    FEC_COMP: Date | null
+    FECHA: string | null
+    FEC_COMP: string | null
     HORA: string | null
     OPERADOR: string | null
     idmovim: number | null
@@ -17494,6 +17496,7 @@ export namespace Prisma {
 
 
   export type CajaAvgAggregateInputType = {
+    PUESTO?: true
     CODIGO?: true
     IMPORTE?: true
     SERIE?: true
@@ -17502,6 +17505,7 @@ export namespace Prisma {
   }
 
   export type CajaSumAggregateInputType = {
+    PUESTO?: true
     CODIGO?: true
     IMPORTE?: true
     SERIE?: true
@@ -17659,7 +17663,7 @@ export namespace Prisma {
 
   export type CajaGroupByOutputType = {
     SUCURSAL: string | null
-    PUESTO: string | null
+    PUESTO: number | null
     CODIGO: number | null
     MOVIM: string | null
     CUENTA: string | null
@@ -17670,8 +17674,8 @@ export namespace Prisma {
     NUMERO: number | null
     CUIT: string | null
     DETALLE: string | null
-    FECHA: Date | null
-    FEC_COMP: Date | null
+    FECHA: string | null
+    FEC_COMP: string | null
     HORA: string | null
     OPERADOR: string | null
     idmovim: number
@@ -18140,7 +18144,7 @@ export namespace Prisma {
    */ 
   interface cajaFieldRefs {
     readonly SUCURSAL: FieldRef<"caja", 'String'>
-    readonly PUESTO: FieldRef<"caja", 'String'>
+    readonly PUESTO: FieldRef<"caja", 'Int'>
     readonly CODIGO: FieldRef<"caja", 'Int'>
     readonly MOVIM: FieldRef<"caja", 'String'>
     readonly CUENTA: FieldRef<"caja", 'String'>
@@ -18151,8 +18155,8 @@ export namespace Prisma {
     readonly NUMERO: FieldRef<"caja", 'Int'>
     readonly CUIT: FieldRef<"caja", 'String'>
     readonly DETALLE: FieldRef<"caja", 'String'>
-    readonly FECHA: FieldRef<"caja", 'DateTime'>
-    readonly FEC_COMP: FieldRef<"caja", 'DateTime'>
+    readonly FECHA: FieldRef<"caja", 'String'>
+    readonly FEC_COMP: FieldRef<"caja", 'String'>
     readonly HORA: FieldRef<"caja", 'String'>
     readonly OPERADOR: FieldRef<"caja", 'String'>
     readonly idmovim: FieldRef<"caja", 'Int'>
@@ -21105,7 +21109,7 @@ export namespace Prisma {
     OR?: cajaWhereInput[]
     NOT?: cajaWhereInput | cajaWhereInput[]
     SUCURSAL?: StringNullableFilter<"caja"> | string | null
-    PUESTO?: StringNullableFilter<"caja"> | string | null
+    PUESTO?: IntNullableFilter<"caja"> | number | null
     CODIGO?: IntNullableFilter<"caja"> | number | null
     MOVIM?: StringNullableFilter<"caja"> | string | null
     CUENTA?: StringNullableFilter<"caja"> | string | null
@@ -21116,8 +21120,8 @@ export namespace Prisma {
     NUMERO?: IntNullableFilter<"caja"> | number | null
     CUIT?: StringNullableFilter<"caja"> | string | null
     DETALLE?: StringNullableFilter<"caja"> | string | null
-    FECHA?: DateTimeNullableFilter<"caja"> | Date | string | null
-    FEC_COMP?: DateTimeNullableFilter<"caja"> | Date | string | null
+    FECHA?: StringNullableFilter<"caja"> | string | null
+    FEC_COMP?: StringNullableFilter<"caja"> | string | null
     HORA?: StringNullableFilter<"caja"> | string | null
     OPERADOR?: StringNullableFilter<"caja"> | string | null
     idmovim?: IntFilter<"caja"> | number
@@ -21177,7 +21181,7 @@ export namespace Prisma {
     OR?: cajaScalarWhereWithAggregatesInput[]
     NOT?: cajaScalarWhereWithAggregatesInput | cajaScalarWhereWithAggregatesInput[]
     SUCURSAL?: StringNullableWithAggregatesFilter<"caja"> | string | null
-    PUESTO?: StringNullableWithAggregatesFilter<"caja"> | string | null
+    PUESTO?: IntNullableWithAggregatesFilter<"caja"> | number | null
     CODIGO?: IntNullableWithAggregatesFilter<"caja"> | number | null
     MOVIM?: StringNullableWithAggregatesFilter<"caja"> | string | null
     CUENTA?: StringNullableWithAggregatesFilter<"caja"> | string | null
@@ -21188,8 +21192,8 @@ export namespace Prisma {
     NUMERO?: IntNullableWithAggregatesFilter<"caja"> | number | null
     CUIT?: StringNullableWithAggregatesFilter<"caja"> | string | null
     DETALLE?: StringNullableWithAggregatesFilter<"caja"> | string | null
-    FECHA?: DateTimeNullableWithAggregatesFilter<"caja"> | Date | string | null
-    FEC_COMP?: DateTimeNullableWithAggregatesFilter<"caja"> | Date | string | null
+    FECHA?: StringNullableWithAggregatesFilter<"caja"> | string | null
+    FEC_COMP?: StringNullableWithAggregatesFilter<"caja"> | string | null
     HORA?: StringNullableWithAggregatesFilter<"caja"> | string | null
     OPERADOR?: StringNullableWithAggregatesFilter<"caja"> | string | null
     idmovim?: IntWithAggregatesFilter<"caja"> | number
@@ -23085,7 +23089,7 @@ export namespace Prisma {
 
   export type cajaCreateInput = {
     SUCURSAL?: string | null
-    PUESTO?: string | null
+    PUESTO?: number | null
     CODIGO?: number | null
     MOVIM?: string | null
     CUENTA?: string | null
@@ -23096,15 +23100,15 @@ export namespace Prisma {
     NUMERO?: number | null
     CUIT?: string | null
     DETALLE?: string | null
-    FECHA?: Date | string | null
-    FEC_COMP?: Date | string | null
+    FECHA?: string | null
+    FEC_COMP?: string | null
     HORA?: string | null
     OPERADOR?: string | null
   }
 
   export type cajaUncheckedCreateInput = {
     SUCURSAL?: string | null
-    PUESTO?: string | null
+    PUESTO?: number | null
     CODIGO?: number | null
     MOVIM?: string | null
     CUENTA?: string | null
@@ -23115,8 +23119,8 @@ export namespace Prisma {
     NUMERO?: number | null
     CUIT?: string | null
     DETALLE?: string | null
-    FECHA?: Date | string | null
-    FEC_COMP?: Date | string | null
+    FECHA?: string | null
+    FEC_COMP?: string | null
     HORA?: string | null
     OPERADOR?: string | null
     idmovim?: number
@@ -23124,7 +23128,7 @@ export namespace Prisma {
 
   export type cajaUpdateInput = {
     SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
-    PUESTO?: NullableStringFieldUpdateOperationsInput | string | null
+    PUESTO?: NullableIntFieldUpdateOperationsInput | number | null
     CODIGO?: NullableIntFieldUpdateOperationsInput | number | null
     MOVIM?: NullableStringFieldUpdateOperationsInput | string | null
     CUENTA?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23135,15 +23139,15 @@ export namespace Prisma {
     NUMERO?: NullableIntFieldUpdateOperationsInput | number | null
     CUIT?: NullableStringFieldUpdateOperationsInput | string | null
     DETALLE?: NullableStringFieldUpdateOperationsInput | string | null
-    FECHA?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    FEC_COMP?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    FECHA?: NullableStringFieldUpdateOperationsInput | string | null
+    FEC_COMP?: NullableStringFieldUpdateOperationsInput | string | null
     HORA?: NullableStringFieldUpdateOperationsInput | string | null
     OPERADOR?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type cajaUncheckedUpdateInput = {
     SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
-    PUESTO?: NullableStringFieldUpdateOperationsInput | string | null
+    PUESTO?: NullableIntFieldUpdateOperationsInput | number | null
     CODIGO?: NullableIntFieldUpdateOperationsInput | number | null
     MOVIM?: NullableStringFieldUpdateOperationsInput | string | null
     CUENTA?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23154,8 +23158,8 @@ export namespace Prisma {
     NUMERO?: NullableIntFieldUpdateOperationsInput | number | null
     CUIT?: NullableStringFieldUpdateOperationsInput | string | null
     DETALLE?: NullableStringFieldUpdateOperationsInput | string | null
-    FECHA?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    FEC_COMP?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    FECHA?: NullableStringFieldUpdateOperationsInput | string | null
+    FEC_COMP?: NullableStringFieldUpdateOperationsInput | string | null
     HORA?: NullableStringFieldUpdateOperationsInput | string | null
     OPERADOR?: NullableStringFieldUpdateOperationsInput | string | null
     idmovim?: IntFieldUpdateOperationsInput | number
@@ -23163,7 +23167,7 @@ export namespace Prisma {
 
   export type cajaCreateManyInput = {
     SUCURSAL?: string | null
-    PUESTO?: string | null
+    PUESTO?: number | null
     CODIGO?: number | null
     MOVIM?: string | null
     CUENTA?: string | null
@@ -23174,8 +23178,8 @@ export namespace Prisma {
     NUMERO?: number | null
     CUIT?: string | null
     DETALLE?: string | null
-    FECHA?: Date | string | null
-    FEC_COMP?: Date | string | null
+    FECHA?: string | null
+    FEC_COMP?: string | null
     HORA?: string | null
     OPERADOR?: string | null
     idmovim?: number
@@ -23183,7 +23187,7 @@ export namespace Prisma {
 
   export type cajaUpdateManyMutationInput = {
     SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
-    PUESTO?: NullableStringFieldUpdateOperationsInput | string | null
+    PUESTO?: NullableIntFieldUpdateOperationsInput | number | null
     CODIGO?: NullableIntFieldUpdateOperationsInput | number | null
     MOVIM?: NullableStringFieldUpdateOperationsInput | string | null
     CUENTA?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23194,15 +23198,15 @@ export namespace Prisma {
     NUMERO?: NullableIntFieldUpdateOperationsInput | number | null
     CUIT?: NullableStringFieldUpdateOperationsInput | string | null
     DETALLE?: NullableStringFieldUpdateOperationsInput | string | null
-    FECHA?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    FEC_COMP?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    FECHA?: NullableStringFieldUpdateOperationsInput | string | null
+    FEC_COMP?: NullableStringFieldUpdateOperationsInput | string | null
     HORA?: NullableStringFieldUpdateOperationsInput | string | null
     OPERADOR?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type cajaUncheckedUpdateManyInput = {
     SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
-    PUESTO?: NullableStringFieldUpdateOperationsInput | string | null
+    PUESTO?: NullableIntFieldUpdateOperationsInput | number | null
     CODIGO?: NullableIntFieldUpdateOperationsInput | number | null
     MOVIM?: NullableStringFieldUpdateOperationsInput | string | null
     CUENTA?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23213,8 +23217,8 @@ export namespace Prisma {
     NUMERO?: NullableIntFieldUpdateOperationsInput | number | null
     CUIT?: NullableStringFieldUpdateOperationsInput | string | null
     DETALLE?: NullableStringFieldUpdateOperationsInput | string | null
-    FECHA?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    FEC_COMP?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    FECHA?: NullableStringFieldUpdateOperationsInput | string | null
+    FEC_COMP?: NullableStringFieldUpdateOperationsInput | string | null
     HORA?: NullableStringFieldUpdateOperationsInput | string | null
     OPERADOR?: NullableStringFieldUpdateOperationsInput | string | null
     idmovim?: IntFieldUpdateOperationsInput | number
@@ -24540,6 +24544,7 @@ export namespace Prisma {
   }
 
   export type cajaAvgOrderByAggregateInput = {
+    PUESTO?: SortOrder
     CODIGO?: SortOrder
     IMPORTE?: SortOrder
     SERIE?: SortOrder
@@ -24588,6 +24593,7 @@ export namespace Prisma {
   }
 
   export type cajaSumOrderByAggregateInput = {
+    PUESTO?: SortOrder
     CODIGO?: SortOrder
     IMPORTE?: SortOrder
     SERIE?: SortOrder

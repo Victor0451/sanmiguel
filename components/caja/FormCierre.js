@@ -18,6 +18,7 @@ import {
   CheckCircleIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/solid";
+import Link from "next/link";
 
 const FormCierre = ({
   produc,
@@ -37,6 +38,7 @@ const FormCierre = ({
   alertas,
   errores,
   totales,
+  regCierreCaja,
 }) => {
   return (
     <Card className="h-full w-full p-4 mt-5 border-2 ">
@@ -68,6 +70,7 @@ const FormCierre = ({
                   importeRef={importeRef}
                   preRegImputacion={preRegImputacion}
                   errores={errores}
+                  alertas={alertas}
                 />
               </div>
               <div className=" w-full md:w-full px-3 mt-6  md:mb-0">
@@ -157,6 +160,17 @@ const FormCierre = ({
               {totales("D", ingresos.concat(produc), egresos)}
             </Alert>
           </div>
+        </div>
+        <div className="flex justify-end mt-6">
+          <Button className="" onClick={regCierreCaja}>
+            Cerrar Caja
+          </Button>
+
+          <Link href={"/"}>
+            <Button className="ml-1" color="red">
+              Cerrar
+            </Button>
+          </Link>
         </div>
       </CardBody>
     </Card>

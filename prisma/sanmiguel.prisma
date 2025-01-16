@@ -319,23 +319,23 @@ model pago_bco {
 }
 
 model caja {
-  SUCURSAL    String?   @db.VarChar(10)
-  PUESTO      String?   @db.VarChar(5)
+  SUCURSAL    String? @db.VarChar(10)
+  PUESTO      Int?
   CODIGO      Int?
-  MOVIM       String?   @db.VarChar(1)
-  CUENTA      String?   @db.VarChar(255)
-  CUENTA_DESC String?   @db.VarChar(255)
-  IMPORTE     Float?
-  TIPO        String?   @db.VarChar(255)
+  MOVIM       String? @db.VarChar(1)
+  CUENTA      String? @db.VarChar(255)
+  CUENTA_DESC String? @db.VarChar(255)
+  IMPORTE     Float?  @db.Float
+  TIPO        String? @db.VarChar(255)
   SERIE       Int?
   NUMERO      Int?
-  CUIT        String?   @db.VarChar(255)
-  DETALLE     String?   @db.VarChar(1000)
-  FECHA       DateTime? @db.Date
-  FEC_COMP    DateTime? @db.Date
-  HORA        String?   @db.VarChar(255)
-  OPERADOR    String?   @db.VarChar(255)
-  idmovim     Int       @id @default(autoincrement())
+  CUIT        String? @db.VarChar(255)
+  DETALLE     String? @db.VarChar(1000)
+  FECHA       String? @db.VarChar(255)
+  FEC_COMP    String? @db.VarChar(255)
+  HORA        String? @db.VarChar(255)
+  OPERADOR    String? @db.VarChar(255)
+  idmovim     Int     @id @default(autoincrement())
 }
 
 model subcta {

@@ -70,74 +70,85 @@ export default function ModalMovimientos({
         ) : null}
 
         <DialogBody divider={true} className="h-[30vw] overflow-scroll">
-          <div className="flex flex-wrap -mx-3 mb-6 border-2 rounded-xl p-4">
-            <div className=" w-full md:w-full px-3 mt-3  md:mb-0">
-              <Typography variant="h5" className="mb-5">
-                Datos del movimiento
-              </Typography>
+          <form id="impuForm">
+            <div className="flex flex-wrap -mx-3 mb-6 border-2 rounded-xl p-4">
+              <div className=" w-full md:w-full px-3 mt-3  md:mb-0">
+                <Typography variant="h5" className="mb-5">
+                  Datos del movimiento
+                </Typography>
+              </div>
+              <div className=" w-full md:w-1/4 px-3 mt-6  md:mb-0">
+                <Input
+                  size="md"
+                  label="Fecha"
+                  type="date"
+                  inputRef={fechaRef}
+                />
+              </div>
+              <div className=" w-full md:w-1/4 px-3 mt-6  md:mb-0">
+                <Select
+                  className=" text-sm rounded-xl"
+                  placeholder="Cuenta"
+                  options={cuentas.map((i) => ({
+                    label: `${i.DESC}`,
+                    value: `${i.CODI}-${i.CUEN}-${i.DESC}`,
+                  }))}
+                  onChange={(value) => {
+                    handleChange("cuenta", value.value);
+                  }}
+                />
+              </div>
+              <div className=" w-full md:w-1/4 px-3 mt-6  md:mb-0">
+                <Select
+                  className=" text-sm rounded-xl"
+                  placeholder="Comprobante"
+                  options={tipoFac.map((i) => ({
+                    label: `${i.tipo_factura}`,
+                    value: `${i.tipo_factura}`,
+                  }))}
+                  onChange={(value) => {
+                    handleChange("comprobante", value.value);
+                  }}
+                />
+              </div>
+              <div className=" w-full md:w-1/4 px-3 mt-6  md:mb-0">
+                <Input
+                  size="md"
+                  label="Serie"
+                  type="number"
+                  inputRef={serieRef}
+                />
+              </div>
+              <div className=" w-full md:w-1/4 px-3 mt-6  md:mb-0">
+                <Input
+                  size="md"
+                  label="N° Comprobante"
+                  type="number"
+                  inputRef={nroCompRef}
+                />
+              </div>
+              <div className=" w-full md:w-1/4 px-3 mt-6  md:mb-0">
+                <Input
+                  size="md"
+                  label="Importe"
+                  type="number"
+                  inputRef={importeRef}
+                />
+              </div>
+              <div className=" w-full md:w-1/4 px-3 mt-6  md:mb-0">
+                <Input size="md" label="CUIT" type="text" inputRef={cuitRef} />
+              </div>
+              <div className=" w-full md:w-full px-3 mt-6  md:mb-0">
+                <Textarea
+                  rows={5}
+                  label="Detalle"
+                  onChange={(value) => {
+                    handleChange("detalle", value);
+                  }}
+                />
+              </div>
             </div>
-            <div className=" w-full md:w-1/4 px-3 mt-6  md:mb-0">
-              <Input size="md" label="Fecha" type="date" inputRef={fechaRef} />
-            </div>
-            <div className=" w-full md:w-1/4 px-3 mt-6  md:mb-0">
-              <Select
-                className=" text-sm rounded-xl"
-                placeholder="Cuenta"
-                options={cuentas.map((i) => ({
-                  label: `${i.DESC}`,
-                  value: `${i.CODI}-${i.CUEN}-${i.DESC}`,
-                }))}
-                onChange={(value) => {
-                  handleChange("cuenta", value.value);
-                }}
-              />
-            </div>
-            <div className=" w-full md:w-1/4 px-3 mt-6  md:mb-0">
-              <Select
-                className=" text-sm rounded-xl"
-                placeholder="Comprobante"
-                options={tipoFac.map((i) => ({
-                  label: `${i.tipo_factura}`,
-                  value: `${i.tipo_factura}`,
-                }))}
-                onChange={(value) => {
-                  handleChange("comprobante", value.value);
-                }}
-              />
-            </div>
-            <div className=" w-full md:w-1/4 px-3 mt-6  md:mb-0">
-              <Input size="md" label="Serie" type="text" inputRef={serieRef} />
-            </div>
-            <div className=" w-full md:w-1/4 px-3 mt-6  md:mb-0">
-              <Input
-                size="md"
-                label="N° Comprobante"
-                type="text"
-                inputRef={nroCompRef}
-              />
-            </div>
-            <div className=" w-full md:w-1/4 px-3 mt-6  md:mb-0">
-              <Input
-                size="md"
-                label="Importe"
-                type="number"
-                inputRef={importeRef}
-              />
-            </div>
-            <div className=" w-full md:w-1/4 px-3 mt-6  md:mb-0">
-              <Input size="md" label="CUIT" type="text" inputRef={cuitRef} />
-            </div>
-            <div className=" w-full md:w-full px-3 mt-6  md:mb-0">
-              <Textarea
-                rows={5}
-                label="Detalle"
-                onChange={(value) => {
-                  handleChange("detalle", value);
-                }}
-              />
-            </div>
-          </div>
-
+          </form>
           {errores ? (
             <Alert
               className="mt-5 mb-5"
