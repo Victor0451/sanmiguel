@@ -886,6 +886,7 @@ export default async function handler(req, res) {
           OPERADOR: parseInt(req.body.OPERADOR),
           OBRA_SOC: parseInt(req.body.OBRA_SOC),
           PLAN: req.body.PLAN,
+          SEXO: req.body.SEXO,
         },
       });
 
@@ -904,6 +905,7 @@ export default async function handler(req, res) {
           VIGENCIA: new Date(req.body.VIGENCIA),
           OBRA_SOC: req.body.OBRA_SOC,
           PLAN: req.body.PLAN,
+          SEXO: req.body.SEXO,
         },
       });
 

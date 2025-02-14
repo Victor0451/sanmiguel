@@ -24,7 +24,7 @@ model adherent {
   OBRA_SOC   Int?
   SEGURO     Int?      @db.TinyInt
   PRODUCTOR  Int?
-  PLAN       String?   @db.VarChar(10)
+  PLAN       String?   @db.VarChar(255)
   ORDEN      Int?
   EDAD       Int?
   ESTADO     Boolean?
@@ -98,11 +98,11 @@ model maestro {
   GRUPO      Int?
   SEXO       String?   @db.VarChar(1)
   ADHERENTES Int?
-  OPERADOR   Int?
+  OPERADOR   String?   @db.VarChar(255)
   OBRA_SOC   Int?
   PRODUCTOR  Int?
-  PLAN       String?   @db.VarChar(10)
-  EMPRESA    String?   @db.VarChar(1)
+  PLAN       String?   @db.VarChar(255)
+  EMPRESA    String?   @db.VarChar(10)
   EDAD       Int?
   COD_POST   Int?
   TELEFONO   String?   @db.VarChar(100)
@@ -293,7 +293,7 @@ model pagos {
   EMPRESA    String?   @db.VarChar(255)
   DNI        Int?
   RENDIDO    Int?
-  FECHA_CAJA Int?
+  FECHA_CAJA String?   @db.VarChar(255)
   id         Int       @id @default(autoincrement())
 
   @@index([CONTRATO, DIA_PAG, MES, ANO, MOVIM, NRO_RECIBO], map: "idx")

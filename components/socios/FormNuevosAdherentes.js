@@ -39,6 +39,7 @@ const FormNuevosAdherentes = ({
   checkvigencia,
   vigencia,
   alertas,
+  sexo,
 }) => {
   return (
     <Card className="h-full w-full p-4 ">
@@ -128,6 +129,7 @@ const FormNuevosAdherentes = ({
                 checkvigencia={checkvigencia}
                 vigencia={vigencia}
                 alertas={alertas}
+                sexo={sexo}
               />
             </div>
           </div>

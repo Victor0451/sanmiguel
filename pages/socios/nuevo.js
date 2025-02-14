@@ -13,6 +13,11 @@ import Router, { useRouter } from "next/router";
 import FormNuevoSocio from "@/components/socios/FormNuevoSocio";
 
 function nuevo(props) {
+  const sexo = [
+    { DESCRIP: "Masculino", CODIGO: "M" },
+    { DESCRIP: "Femenino", CODIGO: "F" },
+  ];
+
   let cuotaRef = React.createRef();
   let apellidoRef = React.createRef();
   let nombreRef = React.createRef();
@@ -46,6 +51,7 @@ function nuevo(props) {
   const [localidadSel, guardarLocalidadSel] = useState("");
   const [obraSocSel, guardarObraSocSel] = useState("");
   const [planSel, guardarPlanSel] = useState("");
+  const [sexoSel, guardarSexoSel] = useState("");
   const [vigencia, guardarVigencia] = useState("");
 
   const { usu } = useWerchow();
@@ -229,6 +235,8 @@ function nuevo(props) {
       guardarObraSocSel(value);
     } else if (f === "plan") {
       guardarPlanSel(value);
+    } else if (f === "sexo") {
+      guardarSexoSel(value);
     }
   };
 
@@ -281,9 +289,10 @@ function nuevo(props) {
       TELEFONO: telefonoRef.current.value,
       MOVIL: movilRef.current.value,
       MAIL: mailRef.current.value,
-      EMPRESA: "W",
+      EMPRESA: "SM",
       OPERADOR: usu.usuario,
       PLAN: planSel,
+      SEXO: sexoSel,
       f: "reg socio",
     };
 
@@ -494,6 +503,7 @@ function nuevo(props) {
             checkEdad={checkEdad}
             checkvigencia={checkvigencia}
             vigencia={vigencia}
+            sexo={sexo}
           />
         </>
       )}

@@ -51,6 +51,7 @@ const FormNuevoSocio = ({
   checkEdad,
   checkvigencia,
   vigencia,
+  sexo,
 }) => {
   return (
     <Card className="h-full w-full p-4 ">
@@ -61,7 +62,7 @@ const FormNuevoSocio = ({
           <Typography variant="h5">Datos del Titular</Typography>
 
           <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
+            <div className="w-full md:w-1/2 px-3 mt-6 mb-6 md:mb-0">
               <Input
                 size="md"
                 label="Apellido"
@@ -69,7 +70,7 @@ const FormNuevoSocio = ({
                 inputRef={apellidoRef}
               />
             </div>
-            <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
+            <div className="w-full md:w-1/2 px-3 mt-6 mb-6 md:mb-0">
               <Input
                 size="md"
                 label="Nombre"
@@ -77,10 +78,23 @@ const FormNuevoSocio = ({
                 inputRef={nombreRef}
               />
             </div>
-            <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
+            <div className="w-full md:w-1/4 px-3 mt-6 mb-6 md:mb-0">
               <Input size="md" label="DNI" type="number" inputRef={dniRef} />
             </div>
-            <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
+            <div className="w-full md:w-1/4 px-3 mt-6 mb-6 md:mb-0">
+              <Select
+                className=" text-sm rounded-xl"
+                placeholder="Sexo"
+                options={sexo.map((i) => ({
+                  label: `${i.DESCRIP}`,
+                  value: i.CODIGO,
+                }))}
+                onChange={(value) => {
+                  handleChange("sexo", value.value);
+                }}
+              />
+            </div>
+            <div className="w-full md:w-1/4 px-3 mt-6 mb-6 md:mb-0">
               <Input
                 size="md"
                 label="Fecha de Nacimiento"
@@ -89,6 +103,40 @@ const FormNuevoSocio = ({
                 onBlur={checkEdad}
               />
             </div>
+            <div className="w-full md:w-1/4 px-3 mt-6 mb-6 md:mb-0">
+              <Select
+                className=" text-sm rounded-xl"
+                placeholder="Obra Social"
+                options={obraSoc.map((i) => ({
+                  label: `${i.CODIGO} - ${i.DESCRIP}`,
+                  value: i.CODIGO,
+                }))}
+                onChange={(value) => {
+                  handleChange("obra social", value.value);
+                }}
+              />
+            </div>
+            <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
+              <Input
+                size="md"
+                label="Telefono"
+                type="text"
+                inputRef={telefonoRef}
+              />
+            </div>
+
+            <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
+              <Input
+                size="md"
+                label="Celular"
+                type="text"
+                inputRef={movilRef}
+              />
+            </div>
+
+            <hr className="border-1 mt-5 mb-5 w-full md:w-full px-3  md:mb-0" />
+       
+
             <div className="w-full md:w-2/3 px-3 mt-6 mb-6 md:mb-0">
               <Input
                 size="md"
@@ -136,38 +184,6 @@ const FormNuevoSocio = ({
                 label="Domicilio Laboral"
                 type="text"
                 inputRef={domiLabRef}
-              />
-            </div>
-
-            <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
-              <Select
-                className=" text-sm rounded-xl"
-                placeholder="Obra Social"
-                options={obraSoc.map((i) => ({
-                  label: `${i.CODIGO} - ${i.DESCRIP}`,
-                  value: i.CODIGO,
-                }))}
-                onChange={(value) => {
-                  handleChange("obra social", value.value);
-                }}
-              />
-            </div>
-
-            <div className="w-full md:w-1/2 px-3 mt-6 mb-6 md:mb-0">
-              <Input
-                size="md"
-                label="Telefono"
-                type="text"
-                inputRef={telefonoRef}
-              />
-            </div>
-
-            <div className="w-full md:w-1/2 px-3 mt-6 mb-6 md:mb-0">
-              <Input
-                size="md"
-                label="Celular"
-                type="text"
-                inputRef={movilRef}
               />
             </div>
 
@@ -250,7 +266,7 @@ const FormNuevoSocio = ({
                 placeholder="Plan"
                 options={planes.map((i) => ({
                   label: `${i.PLAN}- ${i.DESCRIP}`,
-                  value: `${i.PLAN}`,
+                  value: `${i.PLAN}- ${i.DESCRIP}`,
                 }))}
                 onChange={(value) => {
                   handleChange("plan", value.value);

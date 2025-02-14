@@ -29,6 +29,7 @@ export default function ModalNuevoAdherente({
   checkvigencia,
   vigencia,
   alertas,
+  sexo,
 }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
@@ -70,9 +71,25 @@ export default function ModalNuevoAdherente({
                   inputRef={nombreRef}
                 />
               </div>
+
               <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                 <Input size="md" label="DNI" type="number" inputRef={dniRef} />
               </div>
+
+              <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
+                <Select
+                  className=" text-sm rounded-xl"
+                  placeholder="Sexo"
+                  options={sexo.map((i) => ({
+                    label: `${i.DESCRIP}`,
+                    value: i.CODIGO,
+                  }))}
+                  onChange={(value) => {
+                    handleChange("sexo", value.value);
+                  }}
+                />
+              </div>
+
               <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                 <Input
                   size="md"

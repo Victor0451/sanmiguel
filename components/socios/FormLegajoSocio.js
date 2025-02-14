@@ -406,7 +406,7 @@ const FormLegajoSocio = ({
                         size="md"
                         label="Plan"
                         type="text"
-                        defaultValue={`${ficha.PLAN}${ficha.SUB_PLAN}`}
+                        defaultValue={`${ficha.PLAN}`}
                         readOnly
                       />
                     </div>

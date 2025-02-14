@@ -14,6 +14,11 @@ import jsCookie from "js-cookie";
 import FormNuevosAdherentes from "@/components/socios/FormNuevosAdherentes";
 
 function adherentes(props) {
+  const sexo = [
+    { DESCRIP: "Masculino", CODIGO: "M" },
+    { DESCRIP: "Femenino", CODIGO: "F" },
+  ];
+
   let apellidoRef = React.createRef();
   let nombreRef = React.createRef();
   let dniRef = React.createRef();
@@ -27,6 +32,7 @@ function adherentes(props) {
   const [procutores, guardarProductores] = useState([]);
   const [obraSocSel, guardarObraSocSel] = useState("");
   const [productoSel, guardarProductorSel] = useState("");
+  const [sexoSel, guardarSexoSel] = useState("");
   const [errores, guardarErrores] = useState(null);
   const [fclose, guardarFClose] = useState(false);
   const [vigencia, guardarVigencia] = useState("");
@@ -131,6 +137,8 @@ function adherentes(props) {
       guardarObraSocSel(value);
     } else if (f === "productor") {
       guardarProductorSel(value);
+    } else if (f === "sexo") {
+      guardarSexoSel(value);
     }
   };
 
@@ -149,6 +157,7 @@ function adherentes(props) {
       VIGENCIA: vigenciaRef.current.value,
       OBRA_SOC: obraSocSel,
       PLAN: ficha.PLAN,
+      SEXO: sexoSel,
       f: "reg adh",
     };
 
@@ -304,6 +313,7 @@ function adherentes(props) {
               checkvigencia={checkvigencia}
               vigencia={vigencia}
               alertas={alertas}
+              sexo={sexo}
             />
           )}
         </>

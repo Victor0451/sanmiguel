@@ -152,7 +152,7 @@ export type maestroPayload<ExtArgs extends $Extensions.Args = $Extensions.Defaul
     GRUPO: number | null
     SEXO: string | null
     ADHERENTES: number | null
-    OPERADOR: number | null
+    OPERADOR: string | null
     OBRA_SOC: number | null
     PRODUCTOR: number | null
     PLAN: string | null
@@ -384,7 +384,7 @@ export type pagosPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultA
     EMPRESA: string | null
     DNI: number | null
     RENDIDO: number | null
-    FECHA_CAJA: number | null
+    FECHA_CAJA: string | null
     id: number
   }, ExtArgs["result"]["pagos"]>
   composites: {}
@@ -7521,7 +7521,6 @@ export namespace Prisma {
     ZONA: number | null
     GRUPO: number | null
     ADHERENTES: number | null
-    OPERADOR: number | null
     OBRA_SOC: number | null
     PRODUCTOR: number | null
     EDAD: number | null
@@ -7537,7 +7536,6 @@ export namespace Prisma {
     ZONA: number | null
     GRUPO: number | null
     ADHERENTES: number | null
-    OPERADOR: number | null
     OBRA_SOC: number | null
     PRODUCTOR: number | null
     EDAD: number | null
@@ -7565,7 +7563,7 @@ export namespace Prisma {
     GRUPO: number | null
     SEXO: string | null
     ADHERENTES: number | null
-    OPERADOR: number | null
+    OPERADOR: string | null
     OBRA_SOC: number | null
     PRODUCTOR: number | null
     PLAN: string | null
@@ -7598,7 +7596,7 @@ export namespace Prisma {
     GRUPO: number | null
     SEXO: string | null
     ADHERENTES: number | null
-    OPERADOR: number | null
+    OPERADOR: string | null
     OBRA_SOC: number | null
     PRODUCTOR: number | null
     PLAN: string | null
@@ -7654,7 +7652,6 @@ export namespace Prisma {
     ZONA?: true
     GRUPO?: true
     ADHERENTES?: true
-    OPERADOR?: true
     OBRA_SOC?: true
     PRODUCTOR?: true
     EDAD?: true
@@ -7670,7 +7667,6 @@ export namespace Prisma {
     ZONA?: true
     GRUPO?: true
     ADHERENTES?: true
-    OPERADOR?: true
     OBRA_SOC?: true
     PRODUCTOR?: true
     EDAD?: true
@@ -7885,7 +7881,7 @@ export namespace Prisma {
     GRUPO: number | null
     SEXO: string | null
     ADHERENTES: number | null
-    OPERADOR: number | null
+    OPERADOR: string | null
     OBRA_SOC: number | null
     PRODUCTOR: number | null
     PLAN: string | null
@@ -8405,7 +8401,7 @@ export namespace Prisma {
     readonly GRUPO: FieldRef<"maestro", 'Int'>
     readonly SEXO: FieldRef<"maestro", 'String'>
     readonly ADHERENTES: FieldRef<"maestro", 'Int'>
-    readonly OPERADOR: FieldRef<"maestro", 'Int'>
+    readonly OPERADOR: FieldRef<"maestro", 'String'>
     readonly OBRA_SOC: FieldRef<"maestro", 'Int'>
     readonly PRODUCTOR: FieldRef<"maestro", 'Int'>
     readonly PLAN: FieldRef<"maestro", 'String'>
@@ -15254,7 +15250,6 @@ export namespace Prisma {
     ZONA: number | null
     DNI: number | null
     RENDIDO: number | null
-    FECHA_CAJA: number | null
     id: number | null
   }
 
@@ -15269,7 +15264,6 @@ export namespace Prisma {
     ZONA: number | null
     DNI: number | null
     RENDIDO: number | null
-    FECHA_CAJA: number | null
     id: number | null
   }
 
@@ -15294,7 +15288,7 @@ export namespace Prisma {
     EMPRESA: string | null
     DNI: number | null
     RENDIDO: number | null
-    FECHA_CAJA: number | null
+    FECHA_CAJA: string | null
     id: number | null
   }
 
@@ -15319,7 +15313,7 @@ export namespace Prisma {
     EMPRESA: string | null
     DNI: number | null
     RENDIDO: number | null
-    FECHA_CAJA: number | null
+    FECHA_CAJA: string | null
     id: number | null
   }
 
@@ -15361,7 +15355,6 @@ export namespace Prisma {
     ZONA?: true
     DNI?: true
     RENDIDO?: true
-    FECHA_CAJA?: true
     id?: true
   }
 
@@ -15376,7 +15369,6 @@ export namespace Prisma {
     ZONA?: true
     DNI?: true
     RENDIDO?: true
-    FECHA_CAJA?: true
     id?: true
   }
 
@@ -15564,7 +15556,7 @@ export namespace Prisma {
     EMPRESA: string | null
     DNI: number | null
     RENDIDO: number | null
-    FECHA_CAJA: number | null
+    FECHA_CAJA: string | null
     id: number
     _count: PagosCountAggregateOutputType | null
     _avg: PagosAvgAggregateOutputType | null
@@ -16060,7 +16052,7 @@ export namespace Prisma {
     readonly EMPRESA: FieldRef<"pagos", 'String'>
     readonly DNI: FieldRef<"pagos", 'Int'>
     readonly RENDIDO: FieldRef<"pagos", 'Int'>
-    readonly FECHA_CAJA: FieldRef<"pagos", 'Int'>
+    readonly FECHA_CAJA: FieldRef<"pagos", 'String'>
     readonly id: FieldRef<"pagos", 'Int'>
   }
     
@@ -20187,7 +20179,7 @@ export namespace Prisma {
     GRUPO?: IntNullableFilter<"maestro"> | number | null
     SEXO?: StringNullableFilter<"maestro"> | string | null
     ADHERENTES?: IntNullableFilter<"maestro"> | number | null
-    OPERADOR?: IntNullableFilter<"maestro"> | number | null
+    OPERADOR?: StringNullableFilter<"maestro"> | string | null
     OBRA_SOC?: IntNullableFilter<"maestro"> | number | null
     PRODUCTOR?: IntNullableFilter<"maestro"> | number | null
     PLAN?: StringNullableFilter<"maestro"> | string | null
@@ -20298,7 +20290,7 @@ export namespace Prisma {
     GRUPO?: IntNullableWithAggregatesFilter<"maestro"> | number | null
     SEXO?: StringNullableWithAggregatesFilter<"maestro"> | string | null
     ADHERENTES?: IntNullableWithAggregatesFilter<"maestro"> | number | null
-    OPERADOR?: IntNullableWithAggregatesFilter<"maestro"> | number | null
+    OPERADOR?: StringNullableWithAggregatesFilter<"maestro"> | string | null
     OBRA_SOC?: IntNullableWithAggregatesFilter<"maestro"> | number | null
     PRODUCTOR?: IntNullableWithAggregatesFilter<"maestro"> | number | null
     PLAN?: StringNullableWithAggregatesFilter<"maestro"> | string | null
@@ -20934,7 +20926,7 @@ export namespace Prisma {
     EMPRESA?: StringNullableFilter<"pagos"> | string | null
     DNI?: IntNullableFilter<"pagos"> | number | null
     RENDIDO?: IntNullableFilter<"pagos"> | number | null
-    FECHA_CAJA?: IntNullableFilter<"pagos"> | number | null
+    FECHA_CAJA?: StringNullableFilter<"pagos"> | string | null
     id?: IntFilter<"pagos"> | number
   }
 
@@ -21021,7 +21013,7 @@ export namespace Prisma {
     EMPRESA?: StringNullableWithAggregatesFilter<"pagos"> | string | null
     DNI?: IntNullableWithAggregatesFilter<"pagos"> | number | null
     RENDIDO?: IntNullableWithAggregatesFilter<"pagos"> | number | null
-    FECHA_CAJA?: IntNullableWithAggregatesFilter<"pagos"> | number | null
+    FECHA_CAJA?: StringNullableWithAggregatesFilter<"pagos"> | string | null
     id?: IntWithAggregatesFilter<"pagos"> | number
   }
 
@@ -21726,7 +21718,7 @@ export namespace Prisma {
     GRUPO?: number | null
     SEXO?: string | null
     ADHERENTES?: number | null
-    OPERADOR?: number | null
+    OPERADOR?: string | null
     OBRA_SOC?: number | null
     PRODUCTOR?: number | null
     PLAN?: string | null
@@ -21758,7 +21750,7 @@ export namespace Prisma {
     GRUPO?: number | null
     SEXO?: string | null
     ADHERENTES?: number | null
-    OPERADOR?: number | null
+    OPERADOR?: string | null
     OBRA_SOC?: number | null
     PRODUCTOR?: number | null
     PLAN?: string | null
@@ -21791,7 +21783,7 @@ export namespace Prisma {
     GRUPO?: NullableIntFieldUpdateOperationsInput | number | null
     SEXO?: NullableStringFieldUpdateOperationsInput | string | null
     ADHERENTES?: NullableIntFieldUpdateOperationsInput | number | null
-    OPERADOR?: NullableIntFieldUpdateOperationsInput | number | null
+    OPERADOR?: NullableStringFieldUpdateOperationsInput | string | null
     OBRA_SOC?: NullableIntFieldUpdateOperationsInput | number | null
     PRODUCTOR?: NullableIntFieldUpdateOperationsInput | number | null
     PLAN?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21823,7 +21815,7 @@ export namespace Prisma {
     GRUPO?: NullableIntFieldUpdateOperationsInput | number | null
     SEXO?: NullableStringFieldUpdateOperationsInput | string | null
     ADHERENTES?: NullableIntFieldUpdateOperationsInput | number | null
-    OPERADOR?: NullableIntFieldUpdateOperationsInput | number | null
+    OPERADOR?: NullableStringFieldUpdateOperationsInput | string | null
     OBRA_SOC?: NullableIntFieldUpdateOperationsInput | number | null
     PRODUCTOR?: NullableIntFieldUpdateOperationsInput | number | null
     PLAN?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21856,7 +21848,7 @@ export namespace Prisma {
     GRUPO?: number | null
     SEXO?: string | null
     ADHERENTES?: number | null
-    OPERADOR?: number | null
+    OPERADOR?: string | null
     OBRA_SOC?: number | null
     PRODUCTOR?: number | null
     PLAN?: string | null
@@ -21889,7 +21881,7 @@ export namespace Prisma {
     GRUPO?: NullableIntFieldUpdateOperationsInput | number | null
     SEXO?: NullableStringFieldUpdateOperationsInput | string | null
     ADHERENTES?: NullableIntFieldUpdateOperationsInput | number | null
-    OPERADOR?: NullableIntFieldUpdateOperationsInput | number | null
+    OPERADOR?: NullableStringFieldUpdateOperationsInput | string | null
     OBRA_SOC?: NullableIntFieldUpdateOperationsInput | number | null
     PRODUCTOR?: NullableIntFieldUpdateOperationsInput | number | null
     PLAN?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21921,7 +21913,7 @@ export namespace Prisma {
     GRUPO?: NullableIntFieldUpdateOperationsInput | number | null
     SEXO?: NullableStringFieldUpdateOperationsInput | string | null
     ADHERENTES?: NullableIntFieldUpdateOperationsInput | number | null
-    OPERADOR?: NullableIntFieldUpdateOperationsInput | number | null
+    OPERADOR?: NullableStringFieldUpdateOperationsInput | string | null
     OBRA_SOC?: NullableIntFieldUpdateOperationsInput | number | null
     PRODUCTOR?: NullableIntFieldUpdateOperationsInput | number | null
     PLAN?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22827,7 +22819,7 @@ export namespace Prisma {
     EMPRESA?: string | null
     DNI?: number | null
     RENDIDO?: number | null
-    FECHA_CAJA?: number | null
+    FECHA_CAJA?: string | null
   }
 
   export type pagosUncheckedCreateInput = {
@@ -22851,7 +22843,7 @@ export namespace Prisma {
     EMPRESA?: string | null
     DNI?: number | null
     RENDIDO?: number | null
-    FECHA_CAJA?: number | null
+    FECHA_CAJA?: string | null
     id?: number
   }
 
@@ -22876,7 +22868,7 @@ export namespace Prisma {
     EMPRESA?: NullableStringFieldUpdateOperationsInput | string | null
     DNI?: NullableIntFieldUpdateOperationsInput | number | null
     RENDIDO?: NullableIntFieldUpdateOperationsInput | number | null
-    FECHA_CAJA?: NullableIntFieldUpdateOperationsInput | number | null
+    FECHA_CAJA?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type pagosUncheckedUpdateInput = {
@@ -22900,7 +22892,7 @@ export namespace Prisma {
     EMPRESA?: NullableStringFieldUpdateOperationsInput | string | null
     DNI?: NullableIntFieldUpdateOperationsInput | number | null
     RENDIDO?: NullableIntFieldUpdateOperationsInput | number | null
-    FECHA_CAJA?: NullableIntFieldUpdateOperationsInput | number | null
+    FECHA_CAJA?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
   }
 
@@ -22925,7 +22917,7 @@ export namespace Prisma {
     EMPRESA?: string | null
     DNI?: number | null
     RENDIDO?: number | null
-    FECHA_CAJA?: number | null
+    FECHA_CAJA?: string | null
     id?: number
   }
 
@@ -22950,7 +22942,7 @@ export namespace Prisma {
     EMPRESA?: NullableStringFieldUpdateOperationsInput | string | null
     DNI?: NullableIntFieldUpdateOperationsInput | number | null
     RENDIDO?: NullableIntFieldUpdateOperationsInput | number | null
-    FECHA_CAJA?: NullableIntFieldUpdateOperationsInput | number | null
+    FECHA_CAJA?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type pagosUncheckedUpdateManyInput = {
@@ -22974,7 +22966,7 @@ export namespace Prisma {
     EMPRESA?: NullableStringFieldUpdateOperationsInput | string | null
     DNI?: NullableIntFieldUpdateOperationsInput | number | null
     RENDIDO?: NullableIntFieldUpdateOperationsInput | number | null
-    FECHA_CAJA?: NullableIntFieldUpdateOperationsInput | number | null
+    FECHA_CAJA?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
   }
 
@@ -23754,7 +23746,6 @@ export namespace Prisma {
     ZONA?: SortOrder
     GRUPO?: SortOrder
     ADHERENTES?: SortOrder
-    OPERADOR?: SortOrder
     OBRA_SOC?: SortOrder
     PRODUCTOR?: SortOrder
     EDAD?: SortOrder
@@ -23836,7 +23827,6 @@ export namespace Prisma {
     ZONA?: SortOrder
     GRUPO?: SortOrder
     ADHERENTES?: SortOrder
-    OPERADOR?: SortOrder
     OBRA_SOC?: SortOrder
     PRODUCTOR?: SortOrder
     EDAD?: SortOrder
@@ -24386,7 +24376,6 @@ export namespace Prisma {
     ZONA?: SortOrder
     DNI?: SortOrder
     RENDIDO?: SortOrder
-    FECHA_CAJA?: SortOrder
     id?: SortOrder
   }
 
@@ -24451,7 +24440,6 @@ export namespace Prisma {
     ZONA?: SortOrder
     DNI?: SortOrder
     RENDIDO?: SortOrder
-    FECHA_CAJA?: SortOrder
     id?: SortOrder
   }
 
