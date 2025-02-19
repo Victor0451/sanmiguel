@@ -50,7 +50,7 @@ export default function ModalNuevoAdherente({
         size="xl"
       >
         <DialogHeader>Registro de Adherente</DialogHeader>
-        <DialogBody divider={true} className="h-[45vw] overflow-scroll">
+        <DialogBody divider={true} className="h-[35vw] overflow-scroll">
           <div className="w-full  p-4 border-2 rounded-xl mt-5">
             <Typography variant="h5">Datos del Adherente</Typography>
 
@@ -169,6 +169,31 @@ export default function ModalNuevoAdherente({
                 {alertas}
               </Alert>
             ) : null}
+
+            <div className="flex justify-end mt-8">
+              <Button
+                variant="gradient"
+                color="blue"
+                onClick={() => {
+                  if (fclose === true) {
+                    handleOpen();
+                    regAdh();
+                  } else if (fclose === false) {
+                    regAdh();
+                  }
+                }}
+              >
+                <span>Registrar</span>
+              </Button>
+              <Button
+                variant="gradient"
+                color="red"
+                onClick={handleOpen}
+                className="ml-1"
+              >
+                <span>Cerrar</span>
+              </Button>
+            </div>
           </div>
 
           <Alert
@@ -180,30 +205,7 @@ export default function ModalNuevoAdherente({
             familiar.
           </Alert>
         </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="gradient"
-            color="blue"
-            onClick={() => {
-              if (fclose === true) {
-                handleOpen();
-                regAdh();
-              } else if (fclose === false) {
-                regAdh();
-              }
-            }}
-          >
-            <span>Registrar</span>
-          </Button>
-          <Button
-            variant="gradient"
-            color="red"
-            onClick={handleOpen}
-            className="ml-1"
-          >
-            <span>Cerrar</span>
-          </Button>
-        </DialogFooter>
+        <DialogFooter></DialogFooter>
       </Dialog>
     </Fragment>
   );

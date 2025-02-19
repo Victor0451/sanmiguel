@@ -628,7 +628,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer zonas") {
-      const zonas = await SGI.$queryRaw`
+      const zonas = await SanMiguel.$queryRaw`
          
             SELECT
                CODIGO,
