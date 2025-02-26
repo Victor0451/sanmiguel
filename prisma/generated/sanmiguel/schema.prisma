@@ -190,74 +190,6 @@ model bajas {
   BAJA       DateTime? @db.Date
 }
 
-model campanacasos {
-  idcaso          Int       @id @default(autoincrement())
-  idcampana       Int?
-  fechacampana    DateTime? @db.Date
-  mes             Int?
-  ano             Int?
-  sucursal        String?   @db.VarChar(45)
-  contrato        Int?
-  apellido        String?   @db.VarChar(45)
-  nombre          String?   @db.VarChar(45)
-  dni             Int?
-  telefono        String?   @db.VarChar(45)
-  movil           String?   @db.VarChar(45)
-  calle           String?   @db.VarChar(45)
-  nro_calle       Int?
-  barrio          String?   @db.VarChar(45)
-  localidad       String?   @db.VarChar(45)
-  cuota           Int?
-  cuotasadeudadas Int?
-  montoadeudado   Int?
-  estadocaso      Boolean?
-  accion          Int?
-  edad            Int?
-  adherentes      Int?
-  alta            DateTime? @db.Date
-  vigencia        DateTime? @db.Date
-}
-
-model campanas {
-  idcampana   Int       @id @default(autoincrement())
-  descripcion String?   @db.VarChar(150)
-  operador    String?   @db.VarChar(50)
-  fecha       DateTime? @db.Date
-  empresa     String?   @db.VarChar(50)
-  sucursal    String?   @db.VarChar(50)
-}
-
-model campanatemporal {
-  SUCURSAL          String?   @db.VarChar(1)
-  CONTRATO          Int
-  NRO_DOC           Int?
-  APELLIDOS         String?   @db.VarChar(15)
-  NOMBRES           String?   @db.VarChar(20)
-  ALTA              DateTime? @db.Date
-  VIGENCIA          DateTime? @db.Date
-  CALLE             String?   @db.VarChar(30)
-  NRO_CALLE         Int?
-  BARRIO            String?   @db.VarChar(15)
-  LOCALIDAD         String?   @db.VarChar(15)
-  GRUPO             Int?
-  ZONA              Int?
-  TELEFONO          String?   @db.VarChar(20)
-  MOVIL             String?   @db.VarChar(20)
-  EDAD              Int?
-  MES               Int?
-  ANO               Int?
-  IMPORTE           Float?
-  operador          String?   @db.VarChar(255)
-  estado            Boolean?
-  idcaso            Int       @id @default(autoincrement())
-  observacion       String?   @db.VarChar(2000)
-  fecha             String?   @db.VarChar(255)
-  fecha_observacion String?   @db.VarChar(255)
-  accion            String?   @db.VarChar(255)
-
-  @@index([CONTRATO], map: "CONTRATO")
-}
-
 model gestioncaso {
   idgestion               Int      @id @default(autoincrement())
   idcaso                  Int?
@@ -344,4 +276,39 @@ model subcta {
   CUEN  String? @db.VarChar(14)
   MOVIM String? @db.VarChar(14)
   id    Int     @id @default(autoincrement())
+}
+
+model maestro_cuentas {
+  idcuenta    Int     @id @default(autoincrement())
+  contrato    Int?
+  dni         Int?
+  grupo       Int?
+  cuenta      String? @db.VarChar(255)
+  observacion String? @db.VarChar(1000)
+}
+
+model operador {
+  id             Int      @id @default(autoincrement())
+  nombre         String   @db.VarChar(255)
+  apellido       String   @db.VarChar(255)
+  usuario        String   @db.VarChar(255)
+  contrasena     String   @db.VarChar(255)
+  createdAt      DateTime @db.DateTime(0)
+  updatedAt      DateTime @db.DateTime(0)
+  perfil         Int?
+  estado         Boolean?
+  codigo         Int?
+  medicos        Boolean?
+  sucursal       String?  @db.VarChar(255)
+  prestamos      Boolean?
+  ordenpago      Boolean?
+  clubwerchow    Boolean?
+  ventas         Boolean?
+  administracion Boolean?
+  campanas       Boolean?
+  socios         Boolean?
+  sepelio        Boolean?
+  gestion        Boolean?
+  contabilidad   Boolean?
+  cobranza       Boolean?
 }

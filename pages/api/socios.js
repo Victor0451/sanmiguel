@@ -768,7 +768,7 @@ export default async function handler(req, res) {
       WHERE 
          CONTRATO = ${parseInt(req.query.contrato)}                
 
-      ORDER BY idhistoria DESC
+      ORDER BY idhistoria ASC
         `;
 
       res
@@ -810,6 +810,25 @@ export default async function handler(req, res) {
             typeof value === "bigint" ? value.toString() : value
           )
         );
+    } else if (req.query.f && req.query.f === "traer cuenta") {
+      const cuenta = await SanMiguel.$queryRaw`
+         
+            SELECT
+              *
+            FROM
+             maestro_cuentas
+            WHERE 
+               CONTRATO = ${parseInt(req.query.contrato)}                
+            
+              `;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(cuenta, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
     } else if (req.query.f && req.query.f === "listado reintegros") {
       const listReintegros = await SGI.$queryRaw`
          
@@ -828,8 +847,7 @@ export default async function handler(req, res) {
           )
         );
     }
-  }
-  if (req.method === "POST") {
+  } else if (req.method === "POST") {
     if (req.body.f && req.body.f === "soli afi") {
       const regSoli = await SGI.rehabilitaciones.create({
         data: {
@@ -883,7 +901,7 @@ export default async function handler(req, res) {
           MOVIL: req.body.MOVIL,
           MAIL: req.body.MAIL,
           EMPRESA: req.body.EMPRESA,
-          OPERADOR: parseInt(req.body.OPERADOR),
+          OPERADOR: req.body.OPERADOR,
           OBRA_SOC: parseInt(req.body.OBRA_SOC),
           PLAN: req.body.PLAN,
           SEXO: req.body.SEXO,
@@ -938,9 +956,20 @@ export default async function handler(req, res) {
       });
 
       res.status(200).json(regCuota);
+    } else if (req.body.f && req.body.f === "reg cuenta") {
+      const regCuenta = await SanMiguel.maestro_cuentas.create({
+        data: {
+          contrato: parseInt(req.body.contrato),
+          dni: parseInt(req.body.dni),
+          grupo: parseInt(req.body.grupo),
+          cuenta: req.body.cuenta,
+          observacion: req.body.observacion,
+        },
+      });
+
+      res.status(200).json(regCuenta);
     }
-  }
-  if (req.method === "PUT") {
+  } else if (req.method === "PUT") {
     if (req.body.f && req.body.f === "renov poliza") {
       const regAuto = await Sep.autos.update({
         data: {

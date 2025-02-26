@@ -15,7 +15,11 @@ import { DocumentIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
 import moment from "moment";
 import ReactToPrint from "react-to-print";
 
-export default function ListadoHistorial({ listado }) {
+export default function ListadoHistorial({
+  listado,
+  traerHistorial,
+  contrato,
+}) {
   let componentRef = React.createRef();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
@@ -41,7 +45,6 @@ export default function ListadoHistorial({ listado }) {
       sortable: true,
       width: "150px",
     },
-
   ];
 
   const [filterText, setFilterText] = React.useState("");
@@ -75,7 +78,14 @@ export default function ListadoHistorial({ listado }) {
 
   return (
     <Fragment>
-      <Button className=" bg-gray-900" size="sm" onClick={handleOpen}>
+      <Button
+        className=" bg-gray-900"
+        size="sm"
+        onClick={() => {
+          handleOpen();
+          traerHistorial(contrato);
+        }}
+      >
         Historial del Socio
       </Button>
 

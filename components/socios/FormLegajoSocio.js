@@ -31,6 +31,7 @@ import ListadoHistorial from "./ListadoHistorial";
 import Link from "next/link";
 import ModalActualizarCuota from "./ModalActualizarCuota";
 import ModalApellidos from "./ModalApellidos";
+import ModalCtaTjt from "./ModalCtaTjt";
 
 const FormLegajoSocio = ({
   dniRef,
@@ -69,6 +70,12 @@ const FormLegajoSocio = ({
   apellidoRef,
   listApe,
   gl,
+  cuentaRef,
+  observacionRef,
+  regDebCred,
+  fclose,
+  cuenta,
+  traerHistorial,
 }) => {
   return (
     <Card className="h-full w-full p-4 ">
@@ -319,7 +326,7 @@ const FormLegajoSocio = ({
                   </Typography>
 
                   <div className=" mt-4 grid gap-6 mb-6 md:grid-cols-5">
-                    <div>
+                    {/* <div>
                       <ModalAfiliacion
                         ficha={ficha}
                         cuotasRef={cuotasRef}
@@ -331,7 +338,7 @@ const FormLegajoSocio = ({
                         showAfi={showAfi}
                         regAfi={regAfi}
                       />
-                    </div>
+                    </div> */}
 
                     {/* <div>
                       <ListadoUsos listado={usos} />
@@ -352,7 +359,11 @@ const FormLegajoSocio = ({
                     </Link>
 
                     <div>
-                      <ListadoHistorial listado={historial} />
+                      <ListadoHistorial
+                        listado={historial}
+                        traerHistorial={traerHistorial}
+                        contrato={ficha.CONTRATO}
+                      />
                     </div>
 
                     <div>
@@ -361,6 +372,20 @@ const FormLegajoSocio = ({
                         cuotaMensual={cuotaMensual}
                       />
                     </div>
+
+                    {ficha && ficha.GRUPO > 3000 ? (
+                      <div>
+                        <ModalCtaTjt
+                          ficha={ficha}
+                          cuentaRef={cuentaRef}
+                          observacionRef={observacionRef}
+                          regDebCred={regDebCred}
+                          errores={errores}
+                          fclose={fclose}
+                          cuenta={cuenta}
+                        />
+                      </div>
+                    ) : null}
                   </div>
                 </div>
 

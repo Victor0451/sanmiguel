@@ -21,6 +21,7 @@ export default async function handler(req, res) {
           WHERE OPERADOR = ${req.query.operador}
           AND RENDIDO = 0
           AND DIA_EMI = CURDATE()
+          AND MOVIM = 'P'
           GROUP BY DIA_EMI, PUESTO, OPERADOR
 `;
 

@@ -253,72 +253,6 @@ exports.Prisma.BajasScalarFieldEnum = {
   BAJA: 'BAJA'
 };
 
-exports.Prisma.CampanacasosScalarFieldEnum = {
-  idcaso: 'idcaso',
-  idcampana: 'idcampana',
-  fechacampana: 'fechacampana',
-  mes: 'mes',
-  ano: 'ano',
-  sucursal: 'sucursal',
-  contrato: 'contrato',
-  apellido: 'apellido',
-  nombre: 'nombre',
-  dni: 'dni',
-  telefono: 'telefono',
-  movil: 'movil',
-  calle: 'calle',
-  nro_calle: 'nro_calle',
-  barrio: 'barrio',
-  localidad: 'localidad',
-  cuota: 'cuota',
-  cuotasadeudadas: 'cuotasadeudadas',
-  montoadeudado: 'montoadeudado',
-  estadocaso: 'estadocaso',
-  accion: 'accion',
-  edad: 'edad',
-  adherentes: 'adherentes',
-  alta: 'alta',
-  vigencia: 'vigencia'
-};
-
-exports.Prisma.CampanasScalarFieldEnum = {
-  idcampana: 'idcampana',
-  descripcion: 'descripcion',
-  operador: 'operador',
-  fecha: 'fecha',
-  empresa: 'empresa',
-  sucursal: 'sucursal'
-};
-
-exports.Prisma.CampanatemporalScalarFieldEnum = {
-  SUCURSAL: 'SUCURSAL',
-  CONTRATO: 'CONTRATO',
-  NRO_DOC: 'NRO_DOC',
-  APELLIDOS: 'APELLIDOS',
-  NOMBRES: 'NOMBRES',
-  ALTA: 'ALTA',
-  VIGENCIA: 'VIGENCIA',
-  CALLE: 'CALLE',
-  NRO_CALLE: 'NRO_CALLE',
-  BARRIO: 'BARRIO',
-  LOCALIDAD: 'LOCALIDAD',
-  GRUPO: 'GRUPO',
-  ZONA: 'ZONA',
-  TELEFONO: 'TELEFONO',
-  MOVIL: 'MOVIL',
-  EDAD: 'EDAD',
-  MES: 'MES',
-  ANO: 'ANO',
-  IMPORTE: 'IMPORTE',
-  operador: 'operador',
-  estado: 'estado',
-  idcaso: 'idcaso',
-  observacion: 'observacion',
-  fecha: 'fecha',
-  fecha_observacion: 'fecha_observacion',
-  accion: 'accion'
-};
-
 exports.Prisma.GestioncasoScalarFieldEnum = {
   idgestion: 'idgestion',
   idcaso: 'idcaso',
@@ -402,6 +336,41 @@ exports.Prisma.SubctaScalarFieldEnum = {
   id: 'id'
 };
 
+exports.Prisma.Maestro_cuentasScalarFieldEnum = {
+  idcuenta: 'idcuenta',
+  contrato: 'contrato',
+  dni: 'dni',
+  grupo: 'grupo',
+  cuenta: 'cuenta',
+  observacion: 'observacion'
+};
+
+exports.Prisma.OperadorScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  apellido: 'apellido',
+  usuario: 'usuario',
+  contrasena: 'contrasena',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  perfil: 'perfil',
+  estado: 'estado',
+  codigo: 'codigo',
+  medicos: 'medicos',
+  sucursal: 'sucursal',
+  prestamos: 'prestamos',
+  ordenpago: 'ordenpago',
+  clubwerchow: 'clubwerchow',
+  ventas: 'ventas',
+  administracion: 'administracion',
+  campanas: 'campanas',
+  socios: 'socios',
+  sepelio: 'sepelio',
+  gestion: 'gestion',
+  contabilidad: 'contabilidad',
+  cobranza: 'cobranza'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -422,14 +391,13 @@ exports.Prisma.ModelName = {
   maestro: 'maestro',
   obra_soc: 'obra_soc',
   bajas: 'bajas',
-  campanacasos: 'campanacasos',
-  campanas: 'campanas',
-  campanatemporal: 'campanatemporal',
   gestioncaso: 'gestioncaso',
   pagos: 'pagos',
   pago_bco: 'pago_bco',
   caja: 'caja',
-  subcta: 'subcta'
+  subcta: 'subcta',
+  maestro_cuentas: 'maestro_cuentas',
+  operador: 'operador'
 };
 
 /**

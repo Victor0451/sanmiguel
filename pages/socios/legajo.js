@@ -23,6 +23,8 @@ function Legajo(props) {
   let contratoRef = React.createRef();
   let cuotasRef = React.createRef();
   let apellidoRef = React.createRef();
+  let cuentaRef = React.createRef();
+  let observacionRef = React.createRef();
 
   const [errores, guardarErrores] = useState(null);
   const [alertas, guardarAlertas] = useState(null);
@@ -43,6 +45,8 @@ function Legajo(props) {
   const [baja, guardarBaja] = useState(false);
   const [listApe, guardarApellidos] = useState([]);
   const [gl, guardarGastoLuto] = useState([]);
+  const [fclose, guardarFClose] = useState(false);
+  const [cuenta, guardarCuenta] = useState([]);
 
   const { usu } = useWerchow();
 
@@ -422,6 +426,7 @@ function Legajo(props) {
             //traerUsos(ficha[0].CONTRATO);
             traerHistorial(ficha[0].CONTRATO);
             traerCuotas(ficha[0].CONTRATO);
+            traerCuenta(ficha[0].CONTRATO);
           } else if (re.length === 0) {
             axios
               .get("/api/socios", {
@@ -511,6 +516,7 @@ function Legajo(props) {
             //traerUsos(ficha[0].CONTRATO);
             traerHistorial(ficha[0].CONTRATO);
             traerCuotas(ficha[0].CONTRATO);
+            traerCuenta(ficha[0].CONTRATO);
           } else if (re.length === 0) {
             axios
               .get("/api/socios", {
@@ -664,7 +670,6 @@ function Legajo(props) {
     await axios
       .post(`/api/socios`, rehab)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           toast.success(
             "La rehabilitacion del socio fue registrada, puede imprimir la notificacion"
@@ -761,6 +766,108 @@ function Legajo(props) {
       });
   };
 
+  const traerCuenta = async (contrato) => {
+    await axios
+      .get(`/api/socios`, {
+        params: {
+          contrato: contrato,
+          f: "traer cuenta",
+        },
+      })
+      .then((res) => {
+        if (res.data) {
+          let arr = JSON.parse(res.data);
+          guardarCuenta(arr);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(
+          "Ocurrio un error al traer el N° de Tarjeta/Cuenta Bancaria"
+        );
+      });
+
+    await axios
+      .get(`/api/socios`, {
+        params: {
+          contrato: contrato,
+          f: "traer cuota mensual",
+        },
+      })
+      .then((res) => {
+        if (res.data) {
+          guardarCuotaMensual(res.data[0].IMPORTE);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Ocurrio un error al traer la cuota mensual");
+      });
+  };
+
+  const regDebCred = async () => {
+    guardarErrores(null);
+
+    const data = {
+      contrato: ficha[0].CONTRATO,
+      dni: ficha[0].NRO_DOC,
+      grupo: ficha[0].GRUPO,
+      cuenta: `${cuentaRef.current.value}`,
+      observacion: observacionRef.current.value,
+      f: "reg cuenta",
+    };
+
+    if (data.cuenta === "") {
+      guardarFClose(false);
+      guardarErrores(
+        "Debes ingresar un N° de tarjeta o cuenta bancaria, segun corresponda"
+      );
+    } else {
+      guardarFClose(true);
+      await confirmAlert({
+        title: "ATENCION",
+        message: "¿Seguro quieres registrar el N° de Tarjeta/Cuenta Bancaria?",
+        buttons: [
+          {
+            label: "Si",
+            onClick: () => {
+              axios
+                .post(`/api/socios`, data)
+                .then((res) => {
+                  if (res.status === 200) {
+                    toast.success(
+                      "El debito/credito del socio fue registrado correctamente"
+                    );
+
+                    let hist = {
+                      CONTRATO: data.contrato,
+                      OPERADOR: usu.usuario,
+                      ACCION: `Alta N° de Tarjeta/Cuenta Bancaria: ${data.cuenta}.`,
+                      FECHA: moment().format("DD/MM/YYYY HH:mm"),
+                      f: "reg historia",
+                    };
+
+                    registrarHistoria(hist);
+
+                    traerCuenta(data.contrato);
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            },
+          },
+          {
+            label: "No",
+            onClick: () => {
+              toast.info("Accion cancelada, no se realizo el registro");
+            },
+          },
+        ],
+      });
+    }
+  };
+
   // const gasLuto = async (plan, alta, cantadh) => {
   //   await axios
   //     .get(`/api/sepelio/servicios`, {
@@ -826,6 +933,12 @@ function Legajo(props) {
             apellidoRef={apellidoRef}
             listApe={listApe}
             gl={gl}
+            cuentaRef={cuentaRef}
+            observacionRef={observacionRef}
+            regDebCred={regDebCred}
+            fclose={fclose}
+            cuenta={cuenta}
+            traerHistorial={traerHistorial}
           />
         </>
       )}
