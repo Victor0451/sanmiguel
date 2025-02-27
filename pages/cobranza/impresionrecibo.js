@@ -11,6 +11,7 @@ import moment, { months } from "moment";
 import { registrarHistoria, regHistorialSocio } from "@/libs/funciones";
 import FormImpRecibo from "@/components/cobranza/FormImpRecibo";
 import Router, { useRouter } from "next/router";
+import jsCookie from "js-cookie";
 
 function ImpresionRecibo(props) {
   let recRef = React.createRef();
@@ -23,13 +24,19 @@ function ImpresionRecibo(props) {
   const [socio, guardarSocio] = useState(null);
 
   let router = useRouter();
+  if (router.query.serie) {
+    jsCookie.set("serie", router.query.serie);
+    jsCookie.set("rec", router.query.rec);
+    jsCookie.set("contrato", router.query.contrato);
+    jsCookie.set("fecha", router.query.fecha);
+  }
 
   const traerDatos = async () => {
-    if (router.query.serie) {
-      const serie = router.query.serie;
-      const rec = router.query.rec;
-      const contrato = router.query.contrato;
-      const fecha = router.query.fecha;
+    if (jsCookie.get("serie")) {
+      const serie = jsCookie.get("serie");
+      const rec = jsCookie.get("rec");
+      const contrato = jsCookie.get("contrato");
+      const fecha = jsCookie.get("fecha");
 
       await axios
         .get(`/api/cobranza`, {

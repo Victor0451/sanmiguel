@@ -4,7 +4,7 @@ import DataTable from "react-data-table-component";
 import moment from "moment";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
-const ListadoMovimientos = ({ listado, eliminarImpuPrecargado, movim }) => {
+const ListadoMovimientos = ({ listado, eliminarImpuPrecargado, movim, imp }) => {
   let columns = [
     {
       name: "#",
@@ -47,10 +47,14 @@ const ListadoMovimientos = ({ listado, eliminarImpuPrecargado, movim }) => {
       grow: 0.1,
       cell: (row, index) => (
         <>
-          {!row.DIA_PAGO ? (
-            <>{moment(row.DIA_PAG).format("DD/MM/YYYY")}</>
-          ) : (
-            <>{moment(row.DIA_PAGO).format("DD/MM/YYYY")}</>
+          {imp ? null : (
+            <>
+              {!row.DIA_PAGO ? (
+                <>{moment(row.DIA_PAG).format("DD/MM/YYYY")}</>
+              ) : (
+                <>{moment(row.DIA_PAGO).format("DD/MM/YYYY")}</>
+              )}
+            </>
           )}
         </>
       ),

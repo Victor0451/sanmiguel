@@ -12,6 +12,10 @@ import {
 } from "@material-tailwind/react";
 import moment from "moment";
 import ReactToPrint from "react-to-print";
+import {
+  CheckCircleIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/solid";
 
 const FormImpRecibo = ({ datos, socio, totalCuotas, recRef }) => {
   return (
@@ -27,11 +31,23 @@ const FormImpRecibo = ({ datos, socio, totalCuotas, recRef }) => {
               Impresion de Recibo
             </Typography>
           </div>
-          <div className=" w-full md:w-1/2 px-3 mt-6  md:mb-0 ">
-            <ReactToPrint
-              trigger={() => <Button>Imprimir</Button>}
-              content={() => recRef}
-            />
+          <div className=" w-full md:w-1/2 px-3   md:mb-0 ">
+            {datos[0].MOVIM === "A" ? (
+              <Alert
+                className="mt-5 mb-5"
+                color="red"
+                icon={
+                  <InformationCircleIcon strokeWidth={2} className="h-6 w-6" />
+                }
+              >
+                RECIBO ANULADO, SIN VALIDEZ.
+              </Alert>
+            ) : (
+              <ReactToPrint
+                trigger={() => <Button>Imprimir</Button>}
+                content={() => recRef}
+              />
+            )}
           </div>
         </div>
 
@@ -92,7 +108,10 @@ const FormImpRecibo = ({ datos, socio, totalCuotas, recRef }) => {
                       color="blue-gray"
                       className="font-bold  leading-none mt-2"
                     >
-                      Fecha: {moment(datos[0].DIA_PAG).format("DD/MM/YYYY")}
+                      Fecha:{" "}
+                      {moment(datos[0].DIA_PAG)
+                        .utcOffset("+0300")
+                        .format("DD/MM/YYYY")}
                     </Typography>
                   </div>
                 </div>
@@ -311,7 +330,10 @@ const FormImpRecibo = ({ datos, socio, totalCuotas, recRef }) => {
                       color="blue-gray"
                       className="font-bold  leading-none mt-2"
                     >
-                      Fecha: {moment(datos[0].DIA_PAG).format("DD/MM/YYYY")}
+                      Fecha:{" "}
+                      {moment(datos[0].DIA_PAG)
+                        .utcOffset("+0300")
+                        .format("DD/MM/YYYY")}
                     </Typography>
                   </div>
                 </div>

@@ -61,6 +61,74 @@ export default async function handler(req, res) {
             typeof value === "bigint" ? value.toString() : value
           )
         );
+    } else if (req.query.f && req.query.f === "listado cajas") {
+      const listadoCajas = await SanMiguel.$queryRaw`
+          SELECT FECHA, HORA, IMPORTE, OPERADOR              
+          FROM caja
+          WHERE DETALLE = 'VALORES A DEPOSITAR'
+          AND OPERADOR = ${req.query.operador}
+          GROUP BY FECHA, HORA, IMPORTE, OPERADOR     
+`;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(listadoCajas, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
+    } else if (req.query.f && req.query.f === "listado cajas admin") {
+      const listadoCajas = await SanMiguel.$queryRaw`
+          SELECT FECHA, HORA, IMPORTE, OPERADOR              
+          FROM caja
+          WHERE DETALLE = 'VALORES A DEPOSITAR'
+        
+          GROUP BY FECHA, HORA, IMPORTE, OPERADOR     
+`;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(listadoCajas, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
+    } else if (req.query.f && req.query.f === "traer ingresos caja fecha") {
+      const ingFecha = await SanMiguel.$queryRaw`
+          SELECT *             
+          FROM caja
+          WHERE FECHA = ${req.query.fecha}
+          AND MOVIM = 'I'
+          AND DETALLE != ('SALDO INICIAL')
+          
+          
+`;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(ingFecha, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
+    } else if (req.query.f && req.query.f === "traer egresos caja fecha") {
+      const egFecha = await SanMiguel.$queryRaw`
+          SELECT *             
+          FROM caja
+          WHERE FECHA = ${req.query.fecha}
+          AND MOVIM = 'E'
+          AND DETALLE != ('VALORES A DEPOSITAR')
+          
+          
+`;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(egFecha, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
     }
   } else if (req.method === "POST") {
     if (req.body.f && req.body.f === "reg caja") {
@@ -93,6 +161,7 @@ export default async function handler(req, res) {
               FECHA_CAJA = CURDATE()
           WHERE DIA_PAG = CURDATE()  
           AND RENDIDO = 0
+          AND MOVIM = 'P'
                
 `;
 

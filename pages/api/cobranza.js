@@ -34,6 +34,16 @@ export default async function handler(req, res) {
         },
       });
       res.status(200).json(traerRec);
+    } else if (req.query.f && req.query.f === "listado recibos") {
+      const listRec = await SanMiguel.pagos.findMany({
+        where: {
+          OPERADOR: req.query.operador,
+        },
+      });
+      res.status(200).json(listRec);
+    } else if (req.query.f && req.query.f === "listado recibos admin") {
+      const listRec = await SanMiguel.pagos.findMany({});
+      res.status(200).json(listRec);
     }
   } else if (req.method === "POST") {
     if (req.body.f && req.body.f === "reg pago") {
@@ -61,6 +71,23 @@ export default async function handler(req, res) {
         },
       });
       res.status(200).json(nuPago);
+    }
+  } else if (req.method === "PUT") {
+    if (req.body.f && req.body.f === "anular recibo") {
+      const mae = await SanMiguel.$queryRaw`
+          UPDATE pagos
+          SET MOVIM = 'A'              
+          WHERE id = ${req.body.id}          
+               
+`;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(mae, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
     }
   }
 }

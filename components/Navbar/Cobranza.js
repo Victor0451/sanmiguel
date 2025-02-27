@@ -47,16 +47,53 @@ export const Cobranza = () => {
         >
           <ul className="col-span-4 flex w-full flex-col gap-1">
             <Menu placement="right-start">
-              <Link href={"/cobranza/recibo"}>
-                <MenuItem>
-                  <Typography color="black">Emision Recibo</Typography>
-                </MenuItem>
-              </Link>
-              <Link href={"/caja/cierre"}>
-                <MenuItem>
-                  <Typography color="black">Cierre de Caja</Typography>
-                </MenuItem>
-              </Link>
+              <Menu placement="right-start">
+                <MenuHandler>
+                  <MenuItem className="hidden items-center gap-2 lg:flex lg:rounded-full">
+                    <Typography color="black">Recibos</Typography>
+                    <ChevronDownIcon
+                      strokeWidth={2}
+                      className={`h-3 w-3 transition-transform `}
+                    />
+                  </MenuItem>
+                </MenuHandler>
+                <MenuList>
+                  <Link href={"/cobranza/recibo"}>
+                    <MenuItem>
+                      <Typography color="black">Emision Recibo</Typography>
+                    </MenuItem>
+                  </Link>
+                  <Link href={"/cobranza/listadorecibos"}>
+                    <MenuItem>
+                      <Typography color="black">Listado de Recibos</Typography>
+                    </MenuItem>
+                  </Link>
+                </MenuList>
+              </Menu>
+
+              <Menu placement="right-start">
+                <MenuHandler>
+                  <MenuItem className="hidden items-center gap-2 lg:flex lg:rounded-full">
+                    <Typography color="black">Caja</Typography>
+                    <ChevronDownIcon
+                      strokeWidth={2}
+                      className={`h-3 w-3 transition-transform `}
+                    />
+                  </MenuItem>
+                </MenuHandler>
+                <MenuList>
+                  <Link href={"/caja/cierre"}>
+                    <MenuItem>
+                      <Typography color="black">Cierre</Typography>
+                    </MenuItem>
+                  </Link>
+                  <Link href={"/caja/listadocajas"}>
+                    <MenuItem>
+                      <Typography color="black">Listado de Caja</Typography>
+                    </MenuItem>
+                  </Link>
+                </MenuList>
+              </Menu>
             </Menu>
           </ul>
         </MenuList>
