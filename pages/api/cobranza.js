@@ -8,6 +8,7 @@ export default async function handler(req, res) {
           SERIE: true,
           NRO_RECIBO: true,
           DIA_PAG: true,
+          id: true,
         },
         where: {
           SERIE: parseInt(req.query.serie),

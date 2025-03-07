@@ -412,7 +412,8 @@ function socios(props) {
           })
           .then((res) => {
             if (res.data) {
-              guardarRecibo(res.data.NRO_RECIBO);
+              console.log(res.data.id);
+              guardarRecibo(res.data.id);
             }
           })
           .catch((error) => {
