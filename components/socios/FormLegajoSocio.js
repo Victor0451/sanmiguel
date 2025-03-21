@@ -32,6 +32,7 @@ import Link from "next/link";
 import ModalActualizarCuota from "./ModalActualizarCuota";
 import ModalApellidos from "./ModalApellidos";
 import ModalCtaTjt from "./ModalCtaTjt";
+import ModalPagoCero from "./ModalPagoCero";
 
 const FormLegajoSocio = ({
   dniRef,
@@ -76,6 +77,11 @@ const FormLegajoSocio = ({
   fclose,
   cuenta,
   traerHistorial,
+  nuCuotaRef,
+  actCuota,
+  mes0Ref,
+  ano0Ref,
+  regPag0,
 }) => {
   return (
     <Card className="h-full w-full p-4 ">
@@ -370,6 +376,20 @@ const FormLegajoSocio = ({
                       <ModalActualizarCuota
                         histCuotas={histCuotas}
                         cuotaMensual={cuotaMensual}
+                        nuCuotaRef={nuCuotaRef}
+                        actCuota={actCuota}
+                        fclose={fclose}
+                        errores={errores}
+                      />
+                    </div>
+
+                    <div>
+                      <ModalPagoCero
+                        mes0Ref={mes0Ref}
+                        ano0Ref={ano0Ref}
+                        fclose={fclose}
+                        errores={errores}
+                        regPag0={regPag0}
                       />
                     </div>
 

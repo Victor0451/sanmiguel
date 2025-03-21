@@ -25,6 +25,9 @@ function Legajo(props) {
   let apellidoRef = React.createRef();
   let cuentaRef = React.createRef();
   let observacionRef = React.createRef();
+  let nuCuotaRef = React.createRef();
+  let mes0Ref = React.createRef();
+  let ano0Ref = React.createRef();
 
   const [errores, guardarErrores] = useState(null);
   const [alertas, guardarAlertas] = useState(null);
@@ -868,6 +871,124 @@ function Legajo(props) {
     }
   };
 
+  const actCuota = async () => {
+    if (nuCuotaRef.current.value === "") {
+      guardarErrores("Debes ingresar el valor de la nueva cuota");
+    } else {
+      let data = {
+        f: "act valor cuota",
+        cuota: nuCuotaRef.current.value,
+        vieja: cuotaMensual,
+        contrato: ficha[0].CONTRATO,
+      };
+
+      guardarErrores(null);
+
+      guardarFClose(true);
+      await confirmAlert({
+        title: "ATENCION",
+        message: "¿Seguro quieres actualizar el valor de la cuota?",
+        buttons: [
+          {
+            label: "Si",
+            onClick: () => {
+              axios
+                .put(`/api/socios`, data)
+                .then((res) => {
+                  if (res.status === 200) {
+                    toast.success("El valor de la cuota fue actualizado");
+
+                    let hist = {
+                      CONTRATO: data.contrato,
+                      OPERADOR: usu.usuario,
+                      ACCION: `Actualizacion de cuota de $${cuotaMensual} a $${data.cuota}.`,
+                      FECHA: moment().format("DD/MM/YYYY HH:mm"),
+                      f: "reg historia",
+                    };
+
+                    registrarHistoria(hist);
+
+                    traerHistorial(ficha[0].CONTRATO);
+                    traerCuotas(ficha[0].CONTRATO);
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            },
+          },
+          {
+            label: "No",
+            onClick: () => {
+              toast.info("Accion cancelada, no se realizo la actualizacion");
+            },
+          },
+        ],
+      });
+    }
+  };
+
+  const regPag0 = async () => {
+    if (mes0Ref.current.value === "") {
+      guardarErrores("Debes ingresar el mes del pago 0");
+    } else if (ano0Ref.current.value === "") {
+      guardarErrores("Debes ingresar el año del pago 0");
+    } else {
+      let data = {
+        f: "reg pago 0",
+        ano: ano0Ref.current.value,
+        mes: mes0Ref.current.value,
+        fecha: moment().format("YYYY-MM-DD"),
+        hora: moment().format("HH:mm"),
+        operador: usu.usuario,
+        contrato: ficha[0].CONTRATO,
+      };
+
+      guardarErrores(null);
+
+      guardarFClose(true);
+      await confirmAlert({
+        title: "ATENCION",
+        message: "¿Seguro quieres actualizar el valor de la cuota?",
+        buttons: [
+          {
+            label: "Si",
+            onClick: () => {
+              axios
+                .post(`/api/socios`, data)
+                .then((res) => {
+                  if (res.status === 200) {
+                    toast.success("El pago 0 fue registrado");
+
+                    let hist = {
+                      CONTRATO: data.contrato,
+                      OPERADOR: usu.usuario,
+                      ACCION: `Registro Pago 0 en la cuota: ${data.mes}-${data.ano}.`,
+                      FECHA: moment().format("DD/MM/YYYY HH:mm"),
+                      f: "reg historia",
+                    };
+
+                    registrarHistoria(hist);
+
+                    traerPagos(ficha[0].CONTRATO, ficha[0].EMPRESA);
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            },
+          },
+          {
+            label: "No",
+            onClick: () => {
+              toast.info("Accion cancelada, no se realizo el registro");
+            },
+          },
+        ],
+      });
+    }
+  };
+
   // const gasLuto = async (plan, alta, cantadh) => {
   //   await axios
   //     .get(`/api/sepelio/servicios`, {
@@ -939,6 +1060,11 @@ function Legajo(props) {
             fclose={fclose}
             cuenta={cuenta}
             traerHistorial={traerHistorial}
+            nuCuotaRef={nuCuotaRef}
+            actCuota={actCuota}
+            mes0Ref={mes0Ref}
+            ano0Ref={ano0Ref}
+            regPag0={regPag0}
           />
         </>
       )}

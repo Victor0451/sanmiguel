@@ -73,19 +73,11 @@ export default function ModalApellidos({
       grow: 0.1,
       cell: (row, index) => (
         <>
-          {nombreBoton === "Werchow" ? (
-            <ArrowLeftCircleIcon
-              color="green"
-              className="butlist mt-px h-6 w-6 "
-              onClick={() => tarerSocioContrato(row.CONTRATO)}
-            />
-          ) : nombreBoton === "Mutual" ? (
-            <ArrowLeftCircleIcon
-              color="green"
-              className="butlist mt-px h-6 w-6 "
-              onClick={() => tarerSocioContratoMutual(row.CONTRATO)}
-            />
-          ) : null}
+          <ArrowLeftCircleIcon
+            color="green"
+            className="butlist mt-px h-6 w-6 "
+            onClick={() => tarerSocioContrato(row.CONTRATO)}
+          />
         </>
       ),
     },

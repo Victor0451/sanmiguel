@@ -780,6 +780,9 @@ export default async function handler(req, res) {
         );
     } else if (req.query.f && req.query.f === "traer cuota mensual") {
       const cuotaMensual = await SanMiguel.cuo_fija.findMany({
+        select: {
+          IMPORTE: true,
+        },
         where: {
           CONTRATO: parseInt(req.query.contrato),
         },
@@ -790,16 +793,13 @@ export default async function handler(req, res) {
       const histCuota = await SanMiguel.$queryRaw`
          
             SELECT
-               CONTRATO,
-               OPERADOR,
-               ACCION,
-               FECHA
+              *
             FROM
                historia
             WHERE 
                CONTRATO = ${parseInt(req.query.contrato)}                
             AND 
-               ACCION like '%AUMENTO%'                       
+               ACCION like '%Actualizacion%'                       
             ORDER BY idhistoria DESC
               `;
 
@@ -883,24 +883,24 @@ export default async function handler(req, res) {
           CONTRATO: parseInt(req.body.CONTRATO),
           GRUPO: parseInt(req.body.GRUPO),
           ZONA: parseInt(req.body.ZONA),
-          SUCURSAL: req.body.SUCURSAL,
+          SUCURSAL: req.body.SUCURSAL.toUpperCase(),
           PRODUCTOR: parseInt(req.body.PRODUCTO),
-          APELLIDOS: req.body.APELLIDOS,
-          NOMBRES: req.body.NOMBRES,
+          APELLIDOS: req.body.APELLIDOS.toUpperCase(),
+          NOMBRES: req.body.NOMBRES.toUpperCase(),
           NRO_DOC: parseInt(req.body.NRO_DOC),
           NACIMIENTO: new Date(req.body.NACIMIENTO),
-          CALLE: req.body.CALLE,
+          CALLE: req.body.CALLE.toUpperCase(),
           NRO_CALLE: parseInt(req.body.NRO_CALLE),
-          BARRIO: req.body.BARRIO,
-          LOCALIDAD: req.body.LOCALIDAD,
-          DOMI_COBR: req.body.DOMI_COBR,
-          DOM_LAB: req.body.DOMI_LAB,
+          BARRIO: req.body.BARRIO.toUpperCase(),
+          LOCALIDAD: req.body.LOCALIDAD.toUpperCase(),
+          DOMI_COBR: req.body.DOMI_COBR.toUpperCase(),
+          DOM_LAB: req.body.DOMI_LAB.toUpperCase(),
           ALTA: new Date(req.body.ALTA),
           VIGENCIA: new Date(req.body.VIGENCIA),
           TELEFONO: req.body.TELEFONO,
           MOVIL: req.body.MOVIL,
-          MAIL: req.body.MAIL,
-          EMPRESA: req.body.EMPRESA,
+          MAIL: req.body.MAIL.toUpperCase(),
+          EMPRESA: req.body.EMPRESA.toUpperCase(),
           OPERADOR: req.body.OPERADOR,
           OBRA_SOC: parseInt(req.body.OBRA_SOC),
           PLAN: req.body.PLAN,
@@ -913,10 +913,10 @@ export default async function handler(req, res) {
       const regAdh = await SanMiguel.adherent.create({
         data: {
           CONTRATO: parseInt(req.body.CONTRATO),
-          SUCURSAL: req.body.SUCURSAL,
+          SUCURSAL: req.body.SUCURSAL.toUpperCase(),
           PRODUCTOR: parseInt(req.body.PRODUCTOR),
-          APELLIDOS: req.body.APELLIDOS,
-          NOMBRES: req.body.NOMBRES,
+          APELLIDOS: req.body.APELLIDOS.toUpperCase(),
+          NOMBRES: req.body.NOMBRES.toUpperCase(),
           NRO_DOC: parseInt(req.body.NRO_DOC),
           NACIMIENTO: new Date(req.body.NACIMIENTO),
           ALTA: new Date(req.body.ALTA),
@@ -968,6 +968,32 @@ export default async function handler(req, res) {
       });
 
       res.status(200).json(regCuenta);
+    } else if (req.body.f && req.body.f === "reg pago 0") {
+      const regPag0 = await SanMiguel.pagos.create({
+        data: {
+          SERIE: 0,
+          NRO_RECIBO: 0,
+          MES: parseInt(req.body.mes),
+          ANO: parseInt(req.body.ano),
+          IMPORTE: 0,
+          DIA_REN: new Date(req.body.mes),
+          DIA_CAR: new Date(req.body.mes),
+          DIA_EMI: new Date(req.body.mes),
+          DIA_PAG: new Date(req.body.mes),
+          HORA_CAR: req.body.hora,
+          CONTRATO: parseInt(req.body.contrato),
+          MAN_COM: "-",
+          MOVIM: "P",
+          OPERADOR: req.body.operador,
+          PUESTO: 0,
+          ZONA: 0,
+          SUCURSAL: "-",
+          EMPRESA: "SM",
+          RENDIDO: 0,
+        },
+      });
+
+      res.status(200).json(regPag0);
     }
   } else if (req.method === "PUT") {
     if (req.body.f && req.body.f === "renov poliza") {
@@ -984,6 +1010,24 @@ export default async function handler(req, res) {
       });
 
       res.status(200).json(regAuto);
+    } else if (req.body.f && req.body.f === "act valor cuota") {
+      const actCuota = await SanMiguel.$queryRaw`         
+
+        UPDATE cuo_fija
+        SET IMPORTE = ${parseInt(req.body.cuota)},
+            CUO_ANT   = ${parseInt(req.body.vieja)}
+        WHERE CONTRATO =  ${parseInt(req.body.contrato)}    
+
+    
+        `;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(actCuota, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
     }
   }
 }

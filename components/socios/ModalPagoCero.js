@@ -12,13 +12,12 @@ import {
 import { DocumentIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
 import ListadoHistorialCuota from "./ListadoHistorialCuotas";
 
-export default function ModalActualizarCuota({
-  errores,
-  histCuotas,
-  cuotaMensual,
-  nuCuotaRef,
-  actCuota,
+export default function ModalPagoCero({
+  mes0Ref,
+  ano0Ref,
   fclose,
+  errores,
+  regPag0,
 }) {
   let componentRef = React.createRef();
   const [open, setOpen] = useState(false);
@@ -27,7 +26,7 @@ export default function ModalActualizarCuota({
   return (
     <Fragment>
       <Button className=" bg-gray-900" size="sm" onClick={handleOpen}>
-        Actualizar Cuota
+        Pago Cero
       </Button>
 
       <Dialog
@@ -39,53 +38,35 @@ export default function ModalActualizarCuota({
         }}
         size="xl"
       >
-        <DialogHeader>Actualizar Cuota</DialogHeader>
-        <DialogBody divider={true} className="h-[45vw] overflow-scroll">
+        <DialogHeader>Asignacion Pago Cero</DialogHeader>
+        <DialogBody divider={true} className="h-[25vw] overflow-scroll">
           <Typography variant="h6" color="blue-gray" className="mb-6">
-            Modificar Cuota
+            Registrar Pago Cero
           </Typography>
           <div className="border-2 rounded-xl p-4 grid md:grid-cols-4 md:gap-6 mt-6">
             <div className="relative w-full mb-6 group">
-              <Input
-                size="md"
-                label="Cuota Actual"
-                type="text"
-                readOnly
-                value={`$${cuotaMensual}`}
-              />
+              <Input size="md" label="Mes" type="number" inputRef={mes0Ref} />
             </div>
             <div className="relative w-full mb-6 group">
-              <Input
-                size="md"
-                label="Nueva Cuota"
-                type="number"
-                inputRef={nuCuotaRef}
-              />
+              <Input size="md" label="Año" type="number" inputRef={ano0Ref} />
             </div>
             <div className="relative w-full mb-6 group">
               <Button
                 onClick={() => {
                   if (fclose === true) {
                     handleOpen();
-                    actCuota();
+                    regPag0();
                   } else if (fclose === false) {
-                    actCuota();
+                    regPag0();
                   }
                 }}
               >
-                Actualizar
+                Reg. Pago Cero
               </Button>
             </div>
           </div>
 
           <hr className="mt-5 mb-5 border-2" />
-
-          <Typography variant="h6" color="blue-gray" className="mb-6">
-            Historial de Cuota Mensual
-          </Typography>
-          <div className="border-2 rounded-xl p-4">
-            <ListadoHistorialCuota listado={histCuotas} />
-          </div>
 
           {errores ? (
             <Alert

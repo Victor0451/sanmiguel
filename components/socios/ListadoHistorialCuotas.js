@@ -12,15 +12,8 @@ const ListadoHistorialCuota = ({ listado }) => {
       cell: (row, index) => <>{index + 1}</>,
     },
     {
-      name: "Socio",
-      selector: (row) => `${row.CONTRATO}`,
-      sortable: true,
-      grow: 0.1,
-    },
-    {
       name: "Fecha",
-      selector: (row) =>
-        `${moment(row.FECHA).utcOffset("+0300").format("DD/MM/YYYY")}`,
+      selector: (row) => `${row.FECHA}`,
 
       sortable: true,
       grow: 0.2,
@@ -29,7 +22,7 @@ const ListadoHistorialCuota = ({ listado }) => {
       name: "Accion",
       selector: (row) => `${row.ACCION}`,
       sortable: true,
-      grow: 0.3,
+      grow: 0.4,
     },
     {
       name: "Operador",
