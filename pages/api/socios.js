@@ -27,13 +27,15 @@ export default async function handler(req, res) {
                 c.IMPORTE, 
                 m.PRODUCTOR, 
                 m.LOCALIDAD, 
+                m.DOMI_COBR,
                 m.DOM_LAB ,                 
                 "T" as "perfil", 
                 o.NOMBRE "OBRA_SOC",
                 o.CODIGO "COD_OBRA", 
                 m.ADHERENTES, 
                 TIMESTAMPDIFF(YEAR,m.NACIMIENTO,CURDATE()) "EDAD",  
-                m.SEXO                         
+                m.SEXO,
+                m.ZONA                         
                 FROM maestro as m
                 INNER JOIN cuo_fija as c on c.CONTRATO = m.CONTRATO
                 INNER JOIN obra_soc as o on o.CODIGO = m.OBRA_SOC
@@ -71,13 +73,15 @@ export default async function handler(req, res) {
                 c.IMPORTE, 
                 m.PRODUCTOR, 
                 m.LOCALIDAD, 
-                m.DOM_LAB ,                 
+                m.DOM_LAB ,    
+                m.DOMI_COBR,             
                 "T" as "perfil", 
                 o.NOMBRE "OBRA_SOC",
                 o.CODIGO "COD_OBRA", 
                 m.ADHERENTES, 
                 TIMESTAMPDIFF(YEAR,m.NACIMIENTO,CURDATE()) "EDAD",  
-                m.SEXO
+                m.SEXO,
+                m.ZONA
                                     
                 FROM maestro as m
                 INNER JOIN cuo_fija as c on c.CONTRATO = m.CONTRATO
@@ -132,13 +136,15 @@ export default async function handler(req, res) {
                 c.IMPORTE, 
                 m.PRODUCTOR, 
                 m.LOCALIDAD, 
-                m.DOM_LAB ,                 
+                m.DOM_LAB ,   
+                m.DOMI_COBR,              
                 "T" as "perfil", 
                 o.NOMBRE "OBRA_SOC",
                 o.CODIGO "COD_OBRA", 
                 m.ADHERENTES, 
                 TIMESTAMPDIFF(YEAR,m.NACIMIENTO,CURDATE()) "EDAD",  
-                m.SEXO  
+                m.SEXO,
+                m.ZONA  
                 FROM bajas as m              
                 WHERE m.NRO_DOC = ${req.query.dni}
 
@@ -174,13 +180,15 @@ export default async function handler(req, res) {
                 c.IMPORTE, 
                 m.PRODUCTOR, 
                 m.LOCALIDAD, 
-                m.DOM_LAB ,                 
+                m.DOM_LAB ,   
+                m.DOMI_COBR,              
                 "T" as "perfil", 
                 o.NOMBRE "OBRA_SOC",
                 o.CODIGO "COD_OBRA", 
                 m.ADHERENTES, 
                 TIMESTAMPDIFF(YEAR,m.NACIMIENTO,CURDATE()) "EDAD",  
-                m.SEXO              
+                m.SEXO,
+                m.ZONA              
                 FROM bajas as m              
                 WHERE m.CONTRATO = ${req.query.ficha}
 
@@ -208,7 +216,8 @@ export default async function handler(req, res) {
                 a.NACIMIENTO,
                 m.GRUPO,
                 o.NOMBRE "OBRA_SOC",
-                o.CODIGO "COD_OBRA",                 
+                o.CODIGO "COD_OBRA",  
+                a.PRODUCTOR,                  
                 TIMESTAMPDIFF(YEAR,a.NACIMIENTO,CURDATE()) "EDAD",                                
                 "A" as "perfil",
                 a.BAJA,
@@ -244,7 +253,8 @@ export default async function handler(req, res) {
                 m.GRUPO,
                 o.NOMBRE "OBRA_SOC",
                 o.CODIGO "COD_OBRA",                 
-                TIMESTAMPDIFF(YEAR,a.NACIMIENTO,CURDATE()) "EDAD",                
+                TIMESTAMPDIFF(YEAR,a.NACIMIENTO,CURDATE()) "EDAD",     
+                a.PRODUCTOR,           
                 CASE 
                     WHEN m.EMPRESA = "W" THEN  "WERCHOW"
                     WHEN m.EMPRESA = "M" THEN  "MUTUAL"
@@ -282,7 +292,8 @@ export default async function handler(req, res) {
                 a.NACIMIENTO,
                 m.GRUPO,
                 o.NOMBRE "OBRA_SOC",
-                o.CODIGO "COD_OBRA",                 
+                o.CODIGO "COD_OBRA",   
+                a.PRODUCTOR,                 
                 TIMESTAMPDIFF(YEAR,a.NACIMIENTO,CURDATE()) "EDAD",       
                 "A" as "perfil",
                 a.EDAD 'FALLE'
@@ -1028,6 +1039,66 @@ export default async function handler(req, res) {
             typeof value === "bigint" ? value.toString() : value
           )
         );
+    } else if (req.body.f && req.body.f === "editar socio") {
+      if (req.body.tc === "I") {
+        let camp = `${req.body.campo}`;
+
+        const socio = await SanMiguel.$queryRawUnsafe(
+          `      
+        UPDATE maestro
+        SET ${camp} = ${parseInt(req.body.dato)}         
+        WHERE CONTRATO = ${parseInt(req.body.contrato)}    
+       
+         `
+        );
+
+        res
+          .status(200)
+          .json(
+            JSON.stringify(socio, (key, value) =>
+              typeof value === "bigint" ? value.toString() : value
+            )
+          );
+      } else if (req.body.tc === "S") {
+        let camp = `${req.body.campo}`;
+
+        const socio = await SanMiguel.$queryRawUnsafe(
+          `      
+        UPDATE maestro
+        SET ${camp} = '${req.body.dato}'        
+        WHERE CONTRATO = ${parseInt(req.body.contrato)}    
+       
+         `
+        );
+
+        res
+          .status(200)
+          .json(
+            JSON.stringify(socio, (key, value) =>
+              typeof value === "bigint" ? value.toString() : value
+            )
+          );
+      } else if (req.body.tc === "D") {
+        let camp = `${req.body.campo}`;
+        let dat = moment(req.body.dato).format("YYYY-MM-DD");
+
+        const socio = await SanMiguel.$queryRawUnsafe(
+          `      
+        UPDATE maestro
+        SET ${camp} = '${dat}'         
+        WHERE CONTRATO = ${parseInt(req.body.contrato)}    
+       
+         `
+        );
+
+        res
+          .status(200)
+          .json(
+            JSON.stringify(socio, (key, value) =>
+              typeof value === "bigint" ? value.toString() : value
+            )
+          );
+      }
     }
   }
 }

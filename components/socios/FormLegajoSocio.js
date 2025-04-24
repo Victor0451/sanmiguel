@@ -406,6 +406,20 @@ const FormLegajoSocio = ({
                         />
                       </div>
                     ) : null}
+
+                    <Link
+                      href={{
+                        pathname: "/socios/editartitular",
+                        query: {
+                          contrato: ficha.CONTRATO,
+                        },
+                      }}
+                      target="__blank"
+                    >
+                      <Button className=" bg-orange-900" size="sm">
+                        Editar Datos
+                      </Button>
+                    </Link>
                   </div>
                 </div>
 

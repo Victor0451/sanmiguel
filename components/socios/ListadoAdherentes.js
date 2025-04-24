@@ -2,6 +2,8 @@ import React, { useMemo } from "react";
 import FilterComponent from "../Layouts/FilterComponent";
 import DataTable from "react-data-table-component";
 import moment from "moment";
+import { PencilSquareIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
 
 const ListadoAdherentes = ({ listado }) => {
   let columns = [
@@ -62,6 +64,29 @@ const ListadoAdherentes = ({ listado }) => {
               Baja - {moment(row.BAJA).utcOffset("+0300").format("DD/MM/YYYY")}
             </>
           ) : null}
+        </>
+      ),
+    },
+    {
+      name: "Acciones",
+      button: true,
+      grow: 0.1,
+      cell: (row, index) => (
+        <>
+          <Link
+            href={{
+              pathname: "/socios/editaradherente",
+              query: {
+                dni: row.NRO_DOC,
+              },
+            }}
+            target="__blank"
+          >
+            <PencilSquareIcon
+              color="orange"
+              className="butlist mt-px h-6 w-6"
+            />
+          </Link>
         </>
       ),
     },

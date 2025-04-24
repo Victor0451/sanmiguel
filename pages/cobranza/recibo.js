@@ -499,7 +499,17 @@ function socios(props) {
               axios
                 .post("/api/cobranza", pago)
                 .then((res) => {
-                  console.log(res);
+                  if (res.status === 200) {
+                    let hist = {
+                      CONTRATO: pago.CONTRATO,
+                      OPERADOR: usu.usuario,
+                      ACCION: `Cobranza de cuota ${arr[i].MES}/${arr[i].ANO} por un monto de $${arr[i].IMPORTE}.`,
+                      FECHA: moment().format("DD/MM/YYYY HH:mm"),
+                      f: "reg historia",
+                    };
+
+                    registrarHistoria(hist);
+                  }
                 })
                 .catch((error) => {
                   console.log(error);
