@@ -120,11 +120,11 @@ function editaradherente(props) {
 
   const putDato = async (dato, tc, campo) => {
     let data = {
-      contrato: ficha.CONTRATO,
+      dni: ficha.NRO_DOC,
       campo: campo,
       dato: dato,
       tc: tc,
-      f: "editar socio",
+      f: "editar adh",
     };
 
     if (tc === "D") {
@@ -153,71 +153,20 @@ function editaradherente(props) {
     guardarErrores(null);
 
     let data = {
-      GRUPO: grupoSel,
-      ZONA: zonaSel,
-      SUCURSAL: sucursalSel,
-      PRODUCTO: procutorSel,
+      PRODUCTOR: productoSel,
       APELLIDOS: apellidoRef.current.value,
       NOMBRES: nombreRef.current.value,
       NRO_DOC: dniRef.current.value,
       NACIMIENTO: fechaNacRef.current.value,
-      CALLE: domiRef.current.value,
-      NRO_CALLE: nDomiRef.current.value,
-      BARRIO: barrioRef.current.value,
-      LOCALIDAD: localidadSel,
-      DOMI_COBR: domiCobRef.current.value,
-      DOMI_LAB: domiLabRef.current.value,
       ALTA: altaRef.current.value,
       VIGENCIA: vigenciaRef.current.value,
       OBRA_SOC: obraSocSel,
-      TELEFONO: telefonoRef.current.value,
-      MOVIL: movilRef.current.value,
-      MAIL: mailRef.current.value,
-      EMPRESA: "SM",
-      OPERADOR: usu.usuario,
-      PLAN: planSel,
       SEXO: sexoSel,
-      f: "edit socio",
+      f: "edit adh",
     };
 
-    if (data.GRUPO !== "") {
-      putDato(data.GRUPO, "I", "GRUPO");
-
-      let hist = {
-        CONTRATO: ficha.CONTRATO,
-        OPERADOR: usu.usuario,
-        ACCION: `Edicion de datos, GRUPO anterior: ${ficha.GRUPO} ----> GRUPO nuevo: ${data.GRUPO}.`,
-        FECHA: moment().format("DD/MM/YYYY HH:mm"),
-        f: "reg historia",
-      };
-
-      registrarHistoria(hist);
-    } else if (data.ZONA !== "") {
-      putDato(data.ZONA, "S", "ZONA");
-
-      let hist = {
-        CONTRATO: ficha.CONTRATO,
-        OPERADOR: usu.usuario,
-        ACCION: `Edicion de datos,  ZONA anterior: ${ficha.ZONA} ----> ZONA nueva: ${data.ZONA}.`,
-        FECHA: moment().format("DD/MM/YYYY HH:mm"),
-        f: "reg historia",
-      };
-
-      registrarHistoria(hist);
-    } else if (data.SUCURSAL !== "") {
-      putDato(data.SUCURSAL, "S", "SUCURSAL");
-
-      let hist = {
-        CONTRATO: ficha.CONTRATO,
-        OPERADOR: usu.usuario,
-        ACCION: `Edicion de datos, SUCURSAL anterior: ${ficha.SUCURSAL} ----> SUCURSAL nueva: ${data.SUCURSAL}.`,
-        FECHA: moment().format("DD/MM/YYYY HH:mm"),
-        f: "reg historia",
-      };
-
-      registrarHistoria(hist);
-    } else if (data.PRODUCTO !== "") {
-      putDato(data.PRODUCTO, "S", "PRODUCTO");
+    if (data.PRODUCTOR !== "") {
+      putDato(data.PRODUCTOR, "S", "PRODUCTOR");
 
       let hist = {
         CONTRATO: ficha.CONTRATO,
@@ -310,78 +259,6 @@ function editaradherente(props) {
       };
 
       registrarHistoria(hist);
-    } else if (data.CALLE !== "") {
-      putDato(data.CALLE, "S", "CALLE");
-
-      let hist = {
-        CONTRATO: ficha.CONTRATO,
-        OPERADOR: usu.usuario,
-        ACCION: `Edicion de datos, CALLE anterior: ${ficha.CALLE} ----> CALLE nuevo: ${data.CALLE}.`,
-        FECHA: moment().format("DD/MM/YYYY HH:mm"),
-        f: "reg historia",
-      };
-
-      registrarHistoria(hist);
-    } else if (data.NRO_CALLE !== "") {
-      putDato(data.NRO_CALLE, "I", "NRO_CALLE");
-
-      let hist = {
-        CONTRATO: ficha.CONTRATO,
-        OPERADOR: usu.usuario,
-        ACCION: `Edicion de datos, N° CALLE anterior: ${ficha.NRO_CALLE} ----> N° CALLE nuevo: ${data.NRO_CALLE}.`,
-        FECHA: moment().format("DD/MM/YYYY HH:mm"),
-        f: "reg historia",
-      };
-
-      registrarHistoria(hist);
-    } else if (data.BARRIO !== "") {
-      putDato(data.BARRIO, "S", "BARRIO");
-
-      let hist = {
-        CONTRATO: ficha.CONTRATO,
-        OPERADOR: usu.usuario,
-        ACCION: `Edicion de datos, BARRIO anterior: ${ficha.BARRIO} ----> BARRIO nuevo: ${data.BARRIO}.`,
-        FECHA: moment().format("DD/MM/YYYY HH:mm"),
-        f: "reg historia",
-      };
-
-      registrarHistoria(hist);
-    } else if (data.LOCALIDAD !== "") {
-      putDato(data.LOCALIDAD, "S", "LOCALIDAD");
-
-      let hist = {
-        CONTRATO: ficha.CONTRATO,
-        OPERADOR: usu.usuario,
-        ACCION: `Edicion de datos, LOCALIDAD anterior: ${ficha.LOCALIDAD} ----> LOCALIDAD nueva: ${data.LOCALIDAD}.`,
-        FECHA: moment().format("DD/MM/YYYY HH:mm"),
-        f: "reg historia",
-      };
-
-      registrarHistoria(hist);
-    } else if (data.TELEFONO !== "") {
-      putDato(data.TELEFONO, "S", "TELEFONO");
-
-      let hist = {
-        CONTRATO: ficha.CONTRATO,
-        OPERADOR: usu.usuario,
-        ACCION: `Edicion de datos, TELEFONO anterior: ${ficha.TELEFONO} ----> TELEFONO nuevo: ${data.TELEFONO}.`,
-        FECHA: moment().format("DD/MM/YYYY HH:mm"),
-        f: "reg historia",
-      };
-
-      registrarHistoria(hist);
-    } else if (data.MOVIL !== "") {
-      putDato(data.MOVIL, "S", "MOVIL");
-
-      let hist = {
-        CONTRATO: ficha.CONTRATO,
-        OPERADOR: usu.usuario,
-        ACCION: `Edicion de datos, MOVIL anterior: ${ficha.MOVIL} ----> MOVIL nuevo: ${data.MOVIL}.`,
-        FECHA: moment().format("DD/MM/YYYY HH:mm"),
-        f: "reg historia",
-      };
-
-      registrarHistoria(hist);
     } else if (data.OBRA_SOC !== "") {
       putDato(data.OBRA_SOC, "I", "OBRA_SOC");
 
@@ -389,30 +266,6 @@ function editaradherente(props) {
         CONTRATO: ficha.CONTRATO,
         OPERADOR: usu.usuario,
         ACCION: `Edicion de datos, OBRA SOCIAL anterior: ${ficha.OBRA_SOC} ----> OBRA SOCIAL nueva: ${data.OBRA_SOC}.`,
-        FECHA: moment().format("DD/MM/YYYY HH:mm"),
-        f: "reg historia",
-      };
-
-      registrarHistoria(hist);
-    } else if (data.MAIL !== "") {
-      putDato(data.MAIL, "S", "MAIL");
-
-      let hist = {
-        CONTRATO: ficha.CONTRATO,
-        OPERADOR: usu.usuario,
-        ACCION: `Edicion de datos, MAIL anterior: ${ficha.MAIL} ----> MAIL nuevo: ${data.MAIL}.`,
-        FECHA: moment().format("DD/MM/YYYY HH:mm"),
-        f: "reg historia",
-      };
-
-      registrarHistoria(hist);
-    } else if (data.PLAN !== "") {
-      putDato(data.PLAN, "S", "PLAN");
-
-      let hist = {
-        CONTRATO: ficha.CONTRATO,
-        OPERADOR: usu.usuario,
-        ACCION: `Edicion de datos, PLAN anterior: ${ficha.PLAN} ----> PLAN nuevo: ${data.PLAN}.`,
         FECHA: moment().format("DD/MM/YYYY HH:mm"),
         f: "reg historia",
       };
@@ -518,6 +371,7 @@ function editaradherente(props) {
               vigencia={vigencia}
               alertas={alertas}
               sexo={sexo}
+              editSocio={editSocio}
             />
           )}
         </>

@@ -1099,6 +1099,66 @@ export default async function handler(req, res) {
             )
           );
       }
+    } else if (req.body.f && req.body.f === "editar adh") {
+      if (req.body.tc === "I") {
+        let camp = `${req.body.campo}`;
+
+        const socio = await SanMiguel.$queryRawUnsafe(
+          `      
+        UPDATE adherent
+        SET ${camp} = ${parseInt(req.body.dato)}         
+        WHERE NRO_DOC = ${parseInt(req.body.dni)}    
+       
+         `
+        );
+
+        res
+          .status(200)
+          .json(
+            JSON.stringify(socio, (key, value) =>
+              typeof value === "bigint" ? value.toString() : value
+            )
+          );
+      } else if (req.body.tc === "S") {
+        let camp = `${req.body.campo}`;
+
+        const socio = await SanMiguel.$queryRawUnsafe(
+          `      
+        UPDATE adherent
+        SET ${camp} = '${req.body.dato}'        
+        WHERE NRO_DOC = ${parseInt(req.body.dni)}     
+       
+         `
+        );
+
+        res
+          .status(200)
+          .json(
+            JSON.stringify(socio, (key, value) =>
+              typeof value === "bigint" ? value.toString() : value
+            )
+          );
+      } else if (req.body.tc === "D") {
+        let camp = `${req.body.campo}`;
+        let dat = moment(req.body.dato).format("YYYY-MM-DD");
+
+        const socio = await SanMiguel.$queryRawUnsafe(
+          `      
+        UPDATE adherent
+        SET ${camp} = '${dat}'         
+        WHERE NRO_DOC = ${parseInt(req.body.dni)}      
+       
+         `
+        );
+
+        res
+          .status(200)
+          .json(
+            JSON.stringify(socio, (key, value) =>
+              typeof value === "bigint" ? value.toString() : value
+            )
+          );
+      }
     }
   }
 }

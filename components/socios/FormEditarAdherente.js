@@ -36,7 +36,10 @@ const FormEditarAdherente = ({
   alertas,
   sexo,
   ficha,
+  editSocio,
 }) => {
+  const [render, setRender] = useState(true);
+
   return (
     <Card className="h-full w-full p-4 ">
       <CardBody className="rounded-none">
@@ -70,6 +73,11 @@ const FormEditarAdherente = ({
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                 <Input
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      editSocio();
+                    }
+                  }}
                   size="md"
                   label={`Apellido: ${ficha.APELLIDOS}`}
                   type="text"
@@ -78,6 +86,11 @@ const FormEditarAdherente = ({
               </div>
               <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                 <Input
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      editSocio();
+                    }
+                  }}
                   size="md"
                   label={`Nombre: ${ficha.NOMBRES}`}
                   type="text"
@@ -87,6 +100,11 @@ const FormEditarAdherente = ({
 
               <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                 <Input
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      editSocio();
+                    }
+                  }}
                   size="md"
                   label={`DNI: ${ficha.NRO_DOC}`}
                   type="number"
@@ -96,6 +114,13 @@ const FormEditarAdherente = ({
 
               <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                 <Select
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      editSocio();
+                      setRender(!render);
+                    }
+                  }}
+                  key={render ? "first-render" : "second-render"}
                   className=" text-sm rounded-xl"
                   placeholder={`Seco: ${ficha.SEXO}`}
                   options={sexo.map((i) => ({
@@ -110,6 +135,11 @@ const FormEditarAdherente = ({
 
               <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                 <Input
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      editSocio();
+                    }
+                  }}
                   size="md"
                   label={`Fec. Nacimiento: ${moment(ficha.NACIMIENTO).format(
                     "DD/MM/YYYY"
@@ -121,6 +151,13 @@ const FormEditarAdherente = ({
 
               <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                 <Select
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      editSocio();
+                      setRender(!render);
+                    }
+                  }}
+                  key={render ? "first-render" : "second-render"}
                   className=" text-sm rounded-xl"
                   placeholder={`Obra Social: ${ficha.OBRA_SOC}`}
                   options={obraSoc.map((i) => ({
@@ -135,6 +172,11 @@ const FormEditarAdherente = ({
 
               <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                 <Input
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      editSocio();
+                    }
+                  }}
                   size="md"
                   label={`Alta: ${moment(ficha.ALTA).format("DD/MM/YYYY")}`}
                   type="date"
@@ -144,6 +186,11 @@ const FormEditarAdherente = ({
               </div>
               <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                 <Input
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      editSocio();
+                    }
+                  }}
                   size="md"
                   label={`Vigencia: ${moment(ficha.VIGENCIA).format(
                     "DD/MM/YYYY"
@@ -155,6 +202,13 @@ const FormEditarAdherente = ({
               </div>
               <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                 <Select
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      editSocio();
+                      setRender(!render);
+                    }
+                  }}
+                  key={render ? "first-render" : "second-render"}
                   className=" text-sm rounded-xl"
                   placeholder={`Productor: ${ficha.PRODUCTOR}`}
                   options={procutores.map((i) => ({
