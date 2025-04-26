@@ -9,6 +9,7 @@ import {
   CardBody,
   Button,
   Collapse,
+  Switch,
 } from "@material-tailwind/react";
 import moment from "moment";
 import { IconSolid } from "../../libs/funciones";
@@ -35,6 +36,8 @@ const FormCobranza = ({
   usu,
   puestos,
   registrarPagos,
+  pagoJubilado,
+  pagoTarjeta,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -282,15 +285,73 @@ const FormCobranza = ({
                     </Alert>
 
                     {nupagos.length === 0 ? null : (
-                      <div className=" flex justify-end">
-                        <Button
-                          color="green"
-                          className="mt-2"
-                          onClick={() => registrarPagos(nupagos)}
-                        >
-                          Registrar Pagos
-                        </Button>
-                      </div>
+                      <>
+                        <div className="p-2 border-2 rounded-xl mt-5 mb-2">
+                          <Switch
+                            onChange={(e) => pagoTarjeta(e)}
+                            label={
+                              <div className="p-2">
+                                <Typography
+                                  color="blue-gray"
+                                  className="font-medium"
+                                >
+                                  Pago con Tarjeta
+                                </Typography>
+                                <Typography
+                                  variant="small"
+                                  color="gray"
+                                  className="font-normal"
+                                >
+                                  Activa el 10% en el total del monto por pago
+                                  con Debito/Credito. Por defecto esta
+                                  DESACTIVADO
+                                </Typography>
+                              </div>
+                            }
+                            containerProps={{
+                              className: "-mt-5",
+                            }}
+                          />
+                        </div>
+
+                        <div className="p-2 border-2 rounded-xl mt-5 mb-2">
+                          <Switch
+                            onChange={(e) => pagoJubilado(e)}
+                            label={
+                              <div className="p-2">
+                                <Typography
+                                  color="blue-gray"
+                                  className="font-medium"
+                                >
+                                  Jubilados
+                                </Typography>
+                                <Typography
+                                  variant="small"
+                                  color="gray"
+                                  className="font-normal"
+                                >
+                                  Quita del monto total todo aumento aplicado
+                                  por vencimientos de fecha. Por defecto esta
+                                  DESACTIVADO
+                                </Typography>
+                              </div>
+                            }
+                            containerProps={{
+                              className: "-mt-5",
+                            }}
+                          />
+                        </div>
+
+                        <div className=" flex justify-end">
+                          <Button
+                            color="green"
+                            className="mt-2"
+                            onClick={() => registrarPagos(nupagos)}
+                          >
+                            Registrar Pagos
+                          </Button>
+                        </div>
+                      </>
                     )}
                   </div>
                 </div>

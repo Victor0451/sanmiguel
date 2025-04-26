@@ -15,7 +15,6 @@ import Router from "next/router";
 function socios(props) {
   let dniRef = React.createRef();
   let contratoRef = React.createRef();
-  let cuotasRef = React.createRef();
 
   const [errores, guardarErrores] = useState(null);
   const [alertas, guardarAlertas] = useState(null);
@@ -537,6 +536,70 @@ function socios(props) {
     });
   };
 
+  const pagoJubilado = (e) => {
+    let mesCurso = parseInt(moment().format("MM"));
+    let anoCurso = parseInt(moment().format("YYYY"));
+    let diaCurso = parseInt(moment().format("DD"));
+    if (e.target.checked === true) {
+      for (let i = 0; i < nupagos.length; i++) {
+        nupagos[i].IMPORTE = cuotaMensual;
+        guardarNuPagos([nupagos[i]]);
+      }
+    } else {
+      for (let i = 0; i < nupagos.length; i++) {
+        if (nupagos[i].ANO < anoCurso) {
+          nupagos[i].IMPORTE = cuotaMensual * 1.2;
+        } else if (nupagos[i].ANO === anoCurso) {
+          if (nupagos[i].MES === mesCurso) {
+            if (diaCurso > 15 && diaCurso <= 20) {
+              nupagos[i].IMPORTE = cuotaMensual * 1.1;
+            } else if (diaCurso > 20) {
+              nupagos[i].IMPORTE = cuotaMensual * 1.2;
+            }
+          } else if (nupagos[i].MES < mesCurso) {
+            nupagos[i].IMPORTE = cuotaMensual * 1.2;
+          }
+        } else if (nupagos[i].ANO > anoCurso) {
+          nupagos[i].IMPORTE = cuotaMensual;
+        }
+        guardarNuPagos([nupagos[i]]);
+      }
+    }
+  };
+
+  const pagoTarjeta = (e) => {
+    let mesCurso = parseInt(moment().format("MM"));
+    let anoCurso = parseInt(moment().format("YYYY"));
+    let diaCurso = parseInt(moment().format("DD"));
+    if (e.target.checked === true) {
+      for (let i = 0; i < nupagos.length; i++) {
+        nupagos[i].IMPORTE = nupagos[i].IMPORTE * 1.1;
+        guardarNuPagos([nupagos[i]]);
+      }
+    } else {
+      for (let i = 0; i < nupagos.length; i++) {
+        if (nupagos[i].ANO < anoCurso) {
+          nupagos[i].IMPORTE = cuotaMensual * 1.2;
+        } else if (nupagos[i].ANO === anoCurso) {
+          if (nupagos[i].MES === mesCurso) {
+            if (diaCurso > 15 && diaCurso <= 20) {
+              nupagos[i].IMPORTE = cuotaMensual * 1.1;
+            } else if (diaCurso > 20) {
+              nupagos[i].IMPORTE = cuotaMensual * 1.2;
+            }
+          } else if (nupagos[i].MES < mesCurso) {
+            nupagos[i].IMPORTE = cuotaMensual * 1.2;
+          } else if (nupagos[i].MES > mesCurso) {
+            nupagos[i].IMPORTE = cuotaMensual;
+          }
+        } else if (nupagos[i].ANO > anoCurso) {
+          nupagos[i].IMPORTE = cuotaMensual;
+        }
+        guardarNuPagos([nupagos[i]]);
+      }
+    }
+  };
+
   useSWR("/api/cobranza", traerPuestos);
 
   if (isLoading === true) return <Skeleton />;
@@ -566,6 +629,8 @@ function socios(props) {
             usu={usu}
             puestos={puestos}
             registrarPagos={registrarPagos}
+            pagoJubilado={pagoJubilado}
+            pagoTarjeta={pagoTarjeta}
           />
         </>
       )}
