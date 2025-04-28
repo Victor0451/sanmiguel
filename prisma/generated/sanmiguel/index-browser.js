@@ -289,7 +289,8 @@ exports.Prisma.PagosScalarFieldEnum = {
   DNI: 'DNI',
   RENDIDO: 'RENDIDO',
   FECHA_CAJA: 'FECHA_CAJA',
-  id: 'id'
+  id: 'id',
+  MED_PAG: 'MED_PAG'
 };
 
 exports.Prisma.Pago_bcoScalarFieldEnum = {

@@ -290,6 +290,7 @@ export type pagosPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultA
     RENDIDO: number | null
     FECHA_CAJA: string | null
     id: number
+    MED_PAG: string | null
   }, ExtArgs["result"]["pagos"]>
   composites: {}
 }
@@ -11887,6 +11888,7 @@ export namespace Prisma {
     RENDIDO: number | null
     FECHA_CAJA: string | null
     id: number | null
+    MED_PAG: string | null
   }
 
   export type PagosMaxAggregateOutputType = {
@@ -11912,6 +11914,7 @@ export namespace Prisma {
     RENDIDO: number | null
     FECHA_CAJA: string | null
     id: number | null
+    MED_PAG: string | null
   }
 
   export type PagosCountAggregateOutputType = {
@@ -11937,6 +11940,7 @@ export namespace Prisma {
     RENDIDO: number
     FECHA_CAJA: number
     id: number
+    MED_PAG: number
     _all: number
   }
 
@@ -11992,6 +11996,7 @@ export namespace Prisma {
     RENDIDO?: true
     FECHA_CAJA?: true
     id?: true
+    MED_PAG?: true
   }
 
   export type PagosMaxAggregateInputType = {
@@ -12017,6 +12022,7 @@ export namespace Prisma {
     RENDIDO?: true
     FECHA_CAJA?: true
     id?: true
+    MED_PAG?: true
   }
 
   export type PagosCountAggregateInputType = {
@@ -12042,6 +12048,7 @@ export namespace Prisma {
     RENDIDO?: true
     FECHA_CAJA?: true
     id?: true
+    MED_PAG?: true
     _all?: true
   }
 
@@ -12155,6 +12162,7 @@ export namespace Prisma {
     RENDIDO: number | null
     FECHA_CAJA: string | null
     id: number
+    MED_PAG: string | null
     _count: PagosCountAggregateOutputType | null
     _avg: PagosAvgAggregateOutputType | null
     _sum: PagosSumAggregateOutputType | null
@@ -12199,6 +12207,7 @@ export namespace Prisma {
     RENDIDO?: boolean
     FECHA_CAJA?: boolean
     id?: boolean
+    MED_PAG?: boolean
   }, ExtArgs["result"]["pagos"]>
 
   export type pagosSelectScalar = {
@@ -12224,6 +12233,7 @@ export namespace Prisma {
     RENDIDO?: boolean
     FECHA_CAJA?: boolean
     id?: boolean
+    MED_PAG?: boolean
   }
 
 
@@ -12651,6 +12661,7 @@ export namespace Prisma {
     readonly RENDIDO: FieldRef<"pagos", 'Int'>
     readonly FECHA_CAJA: FieldRef<"pagos", 'String'>
     readonly id: FieldRef<"pagos", 'Int'>
+    readonly MED_PAG: FieldRef<"pagos", 'String'>
   }
     
 
@@ -18278,7 +18289,8 @@ export namespace Prisma {
     DNI: 'DNI',
     RENDIDO: 'RENDIDO',
     FECHA_CAJA: 'FECHA_CAJA',
-    id: 'id'
+    id: 'id',
+    MED_PAG: 'MED_PAG'
   };
 
   export type PagosScalarFieldEnum = (typeof PagosScalarFieldEnum)[keyof typeof PagosScalarFieldEnum]
@@ -19246,6 +19258,7 @@ export namespace Prisma {
     RENDIDO?: IntNullableFilter<"pagos"> | number | null
     FECHA_CAJA?: StringNullableFilter<"pagos"> | string | null
     id?: IntFilter<"pagos"> | number
+    MED_PAG?: StringNullableFilter<"pagos"> | string | null
   }
 
   export type pagosOrderByWithRelationInput = {
@@ -19271,6 +19284,7 @@ export namespace Prisma {
     RENDIDO?: SortOrderInput | SortOrder
     FECHA_CAJA?: SortOrderInput | SortOrder
     id?: SortOrder
+    MED_PAG?: SortOrderInput | SortOrder
   }
 
   export type pagosWhereUniqueInput = {
@@ -19300,6 +19314,7 @@ export namespace Prisma {
     RENDIDO?: SortOrderInput | SortOrder
     FECHA_CAJA?: SortOrderInput | SortOrder
     id?: SortOrder
+    MED_PAG?: SortOrderInput | SortOrder
     _count?: pagosCountOrderByAggregateInput
     _avg?: pagosAvgOrderByAggregateInput
     _max?: pagosMaxOrderByAggregateInput
@@ -19333,6 +19348,7 @@ export namespace Prisma {
     RENDIDO?: IntNullableWithAggregatesFilter<"pagos"> | number | null
     FECHA_CAJA?: StringNullableWithAggregatesFilter<"pagos"> | string | null
     id?: IntWithAggregatesFilter<"pagos"> | number
+    MED_PAG?: StringNullableWithAggregatesFilter<"pagos"> | string | null
   }
 
   export type pago_bcoWhereInput = {
@@ -20855,6 +20871,7 @@ export namespace Prisma {
     DNI?: number | null
     RENDIDO?: number | null
     FECHA_CAJA?: string | null
+    MED_PAG?: string | null
   }
 
   export type pagosUncheckedCreateInput = {
@@ -20880,6 +20897,7 @@ export namespace Prisma {
     RENDIDO?: number | null
     FECHA_CAJA?: string | null
     id?: number
+    MED_PAG?: string | null
   }
 
   export type pagosUpdateInput = {
@@ -20904,6 +20922,7 @@ export namespace Prisma {
     DNI?: NullableIntFieldUpdateOperationsInput | number | null
     RENDIDO?: NullableIntFieldUpdateOperationsInput | number | null
     FECHA_CAJA?: NullableStringFieldUpdateOperationsInput | string | null
+    MED_PAG?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type pagosUncheckedUpdateInput = {
@@ -20929,6 +20948,7 @@ export namespace Prisma {
     RENDIDO?: NullableIntFieldUpdateOperationsInput | number | null
     FECHA_CAJA?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
+    MED_PAG?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type pagosCreateManyInput = {
@@ -20954,6 +20974,7 @@ export namespace Prisma {
     RENDIDO?: number | null
     FECHA_CAJA?: string | null
     id?: number
+    MED_PAG?: string | null
   }
 
   export type pagosUpdateManyMutationInput = {
@@ -20978,6 +20999,7 @@ export namespace Prisma {
     DNI?: NullableIntFieldUpdateOperationsInput | number | null
     RENDIDO?: NullableIntFieldUpdateOperationsInput | number | null
     FECHA_CAJA?: NullableStringFieldUpdateOperationsInput | string | null
+    MED_PAG?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type pagosUncheckedUpdateManyInput = {
@@ -21003,6 +21025,7 @@ export namespace Prisma {
     RENDIDO?: NullableIntFieldUpdateOperationsInput | number | null
     FECHA_CAJA?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
+    MED_PAG?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type pago_bcoCreateInput = {
@@ -22373,6 +22396,7 @@ export namespace Prisma {
     RENDIDO?: SortOrder
     FECHA_CAJA?: SortOrder
     id?: SortOrder
+    MED_PAG?: SortOrder
   }
 
   export type pagosAvgOrderByAggregateInput = {
@@ -22412,6 +22436,7 @@ export namespace Prisma {
     RENDIDO?: SortOrder
     FECHA_CAJA?: SortOrder
     id?: SortOrder
+    MED_PAG?: SortOrder
   }
 
   export type pagosMinOrderByAggregateInput = {
@@ -22437,6 +22462,7 @@ export namespace Prisma {
     RENDIDO?: SortOrder
     FECHA_CAJA?: SortOrder
     id?: SortOrder
+    MED_PAG?: SortOrder
   }
 
   export type pagosSumOrderByAggregateInput = {

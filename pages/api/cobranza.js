@@ -69,6 +69,7 @@ export default async function handler(req, res) {
           SUCURSAL: req.body.SUCURSAL,
           EMPRESA: req.body.EMPRESA,
           RENDIDO: req.body.RENDIDO,
+          MED_PAG: req.body.MED_PAG,
         },
       });
       res.status(200).json(nuPago);

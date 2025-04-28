@@ -29,6 +29,7 @@ function socios(props) {
   const [anoSel, guardarAnoSel] = useState(0);
   const [recibo, guardarRecibo] = useState([]);
   const [puestos, guardarPuestos] = useState([]);
+  const [medPag, guardarMedPag] = useState("EFECTIVO");
 
   const { usu } = useWerchow();
 
@@ -472,6 +473,7 @@ function socios(props) {
               SUCURSAL: "",
               EMPRESA: "",
               RENDIDO: 0,
+              MED_PAG: medPag,
               f: "reg pago",
             };
 
@@ -502,7 +504,7 @@ function socios(props) {
                     let hist = {
                       CONTRATO: pago.CONTRATO,
                       OPERADOR: usu.usuario,
-                      ACCION: `Cobranza de cuota ${arr[i].MES}/${arr[i].ANO} por un monto de $${arr[i].IMPORTE}.`,
+                      ACCION: `Cobranza de cuota: ${arr[i].MES}/${arr[i].ANO}, monto: $${arr[i].IMPORTE}, medio de pago: ${medPag}.`,
                       FECHA: moment().format("DD/MM/YYYY HH:mm"),
                       f: "reg historia",
                     };
@@ -541,11 +543,15 @@ function socios(props) {
     let anoCurso = parseInt(moment().format("YYYY"));
     let diaCurso = parseInt(moment().format("DD"));
     if (e.target.checked === true) {
+      guardarMedPag("JUBILADO");
+
       for (let i = 0; i < nupagos.length; i++) {
         nupagos[i].IMPORTE = cuotaMensual;
         guardarNuPagos([nupagos[i]]);
       }
-    } else {
+    } else if (e.target.checked === false) {
+      guardarMedPag("EFECTIVO");
+
       for (let i = 0; i < nupagos.length; i++) {
         if (nupagos[i].ANO < anoCurso) {
           nupagos[i].IMPORTE = cuotaMensual * 1.2;
@@ -572,11 +578,15 @@ function socios(props) {
     let anoCurso = parseInt(moment().format("YYYY"));
     let diaCurso = parseInt(moment().format("DD"));
     if (e.target.checked === true) {
+      guardarMedPag("TARJETA");
+
       for (let i = 0; i < nupagos.length; i++) {
         nupagos[i].IMPORTE = nupagos[i].IMPORTE * 1.1;
         guardarNuPagos([nupagos[i]]);
       }
-    } else {
+    } else if (e.target.checked === false) {
+      guardarMedPag("EFECTIVO");
+
       for (let i = 0; i < nupagos.length; i++) {
         if (nupagos[i].ANO < anoCurso) {
           nupagos[i].IMPORTE = cuotaMensual * 1.2;
