@@ -13,7 +13,7 @@ export default async function handler(req, res) {
                 0 as 'SERIE',                                  
                 0 as 'NUMERO',
                 665 as 'CODIGO',
-                '0401010600' as 'CUENTA',
+                '0401050000' as 'CUENTA',
                 DATE_FORMAT(CURDATE(), "%Y-%m-%d" ) as 'FECHA',
                 DATE_FORMAT(CURDATE(), "%Y-%m-%d" ) as 'FEC_COMP',
                 DATE_FORMAT(NOW( ), "%H:%i" ) as 'HORA'

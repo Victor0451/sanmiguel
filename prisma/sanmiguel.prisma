@@ -274,7 +274,7 @@ model caja {
 model subcta {
   CODI  Int?
   DESC  String? @db.VarChar(35)
-  CUEN  String? @db.VarChar(14)
+  CUEN  Int?
   MOVIM String? @db.VarChar(14)
   id    Int     @id @default(autoincrement())
 }
@@ -312,4 +312,12 @@ model operador {
   gestion        Boolean?
   contabilidad   Boolean?
   cobranza       Boolean?
+}
+
+model subcta_old {
+  CODI  Int?
+  DESC  String? @db.VarChar(35)
+  CUEN  Int?
+  MOVIM String? @db.VarChar(14)
+  id    Int     @id @default(autoincrement())
 }

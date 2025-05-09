@@ -372,6 +372,14 @@ exports.Prisma.OperadorScalarFieldEnum = {
   cobranza: 'cobranza'
 };
 
+exports.Prisma.Subcta_oldScalarFieldEnum = {
+  CODI: 'CODI',
+  DESC: 'DESC',
+  CUEN: 'CUEN',
+  MOVIM: 'MOVIM',
+  id: 'id'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -398,7 +406,8 @@ exports.Prisma.ModelName = {
   caja: 'caja',
   subcta: 'subcta',
   maestro_cuentas: 'maestro_cuentas',
-  operador: 'operador'
+  operador: 'operador',
+  subcta_old: 'subcta_old'
 };
 
 /**
