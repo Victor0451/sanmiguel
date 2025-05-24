@@ -23,7 +23,7 @@ function editartitular(props) {
   let params = useRouter();
 
   if (params.query.contrato) {
-    jsCookie.set("contrato", params.query.contrato);
+    jsCookie.set("contrato", params.query.contrato, { expires: 1 });
   }
 
   const sexo = [

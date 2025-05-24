@@ -25,10 +25,10 @@ function ImpresionRecibo(props) {
 
   let router = useRouter();
   if (router.query.serie) {
-    jsCookie.set("serie", router.query.serie);
-    jsCookie.set("rec", router.query.rec);
-    jsCookie.set("contrato", router.query.contrato);
-    jsCookie.set("fecha", router.query.fecha);
+    jsCookie.set("serie", router.query.serie ,{expires:1});
+    jsCookie.set("rec", router.query.rec ,{expires:1});
+    jsCookie.set("contrato", router.query.contrato ,{expires:1});
+    jsCookie.set("fecha", router.query.fecha ,{expires:1});
   }
 
   const traerDatos = async () => {

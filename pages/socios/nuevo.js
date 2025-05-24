@@ -36,6 +36,7 @@ function nuevo(props) {
 
   const [errores, guardarErrores] = useState(null);
   const [alertas, guardarAlertas] = useState(null);
+  const [infoDNI, guardarInfoDNI] = useState(null);
   const [nFicha, guardarNFicha] = useState(0);
   const [grupos, guardarGrupos] = useState([]);
   const [zonas, guardarZonas] = useState([]);
@@ -53,6 +54,7 @@ function nuevo(props) {
   const [planSel, guardarPlanSel] = useState("");
   const [sexoSel, guardarSexoSel] = useState("");
   const [vigencia, guardarVigencia] = useState("");
+  const [chkDNI, guardarChkDNI] = useState(false);
 
   const { usu } = useWerchow();
 
@@ -293,6 +295,7 @@ function nuevo(props) {
       OPERADOR: usu.usuario,
       PLAN: planSel,
       SEXO: sexoSel,
+      ESTADO: true,
       f: "reg socio",
     };
 
@@ -462,6 +465,64 @@ function nuevo(props) {
     }
   };
 
+  const checkExistenciaDni = async () => {
+    let dni = dniRef.current.value;
+
+    if (dni === "") {
+      guardarErrores("Debes ingresar el DNI del titular");
+    } else {
+      await axios
+        .get("/api/socios", {
+          params: {
+            f: "maestro",
+            dni: dni,
+          },
+        })
+        .then((res) => {
+          const dat = JSON.parse(res.data);
+          if (dat.length !== 0) {
+            guardarChkDNI(false);
+            guardarInfoDNI(
+              `El DNI ingresado esta registrado como titular y pertenece a la ficha N° ${dat[0].CONTRATO} - ${dat[0].APELLIDOS},  ${dat[0].NOMBRES}.`
+            );
+          } else {
+            axios
+
+              .get("/api/socios", {
+                params: {
+                  f: "mae adh",
+                  dni: dni,
+                },
+              })
+              .then((res2) => {
+                const dat2 = JSON.parse(res2.data);
+                if (dat2.length !== 0) {
+                  guardarChkDNI(false);
+                  guardarInfoDNI(
+                    `El DNI ingresado esta registrado como adherente y pertenece a ${dat2[0].APELLIDOS},  ${dat2[0].NOMBRES} en la ficha N° ${dat2[0].CONTRATO}.`
+                  );
+                } else {
+                  guardarChkDNI(true);
+                  guardarInfoDNI(
+                    `El DNI ingresado no esta registrado en el sistema.`
+                  );
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+                toast.error(
+                  "Ocurrio un error al chequear el DNI en tabla adherentes"
+                );
+              });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Ocurrio un error al chequear el DNI en titulares");
+        });
+    }
+  };
+
   useSWR("/api/socios", traerDatos);
 
   if (isLoading === true) return <Skeleton />;
@@ -504,6 +565,9 @@ function nuevo(props) {
             checkvigencia={checkvigencia}
             vigencia={vigencia}
             sexo={sexo}
+            chkDNI={chkDNI}
+            checkExistenciaDni={checkExistenciaDni}
+            infoDNI={infoDNI}
           />
         </>
       )}

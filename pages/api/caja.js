@@ -67,7 +67,8 @@ export default async function handler(req, res) {
           FROM caja
           WHERE DETALLE = 'VALORES A DEPOSITAR'
           AND OPERADOR = ${req.query.operador}
-          GROUP BY FECHA, HORA, IMPORTE, OPERADOR     
+          GROUP BY FECHA, HORA, IMPORTE, OPERADOR   
+          ORDER BY FECHA DESC   
 `;
 
       res
@@ -83,7 +84,8 @@ export default async function handler(req, res) {
           FROM caja
           WHERE DETALLE = 'VALORES A DEPOSITAR'
         
-          GROUP BY FECHA, HORA, IMPORTE, OPERADOR     
+          GROUP BY FECHA, HORA, IMPORTE, OPERADOR    
+          ORDER BY FECHA DESC 
 `;
 
       res

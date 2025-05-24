@@ -2,10 +2,14 @@ import React, { useMemo } from "react";
 import FilterComponent from "../Layouts/FilterComponent";
 import DataTable from "react-data-table-component";
 import moment from "moment";
-import { PencilSquareIcon } from "@heroicons/react/24/solid";
+import {
+  PencilSquareIcon,
+  XCircleIcon,
+  CheckCircleIcon,
+} from "@heroicons/react/24/solid";
 import Link from "next/link";
 
-const ListadoAdherentes = ({ listado }) => {
+const ListadoAdherentes = ({ listado, bajaAdh }) => {
   let columns = [
     {
       name: "#",
@@ -73,20 +77,34 @@ const ListadoAdherentes = ({ listado }) => {
       grow: 0.1,
       cell: (row, index) => (
         <>
-          <Link
-            href={{
-              pathname: "/socios/editaradherente",
-              query: {
-                dni: row.NRO_DOC,
-              },
-            }}
-            target="__blank"
-          >
-            <PencilSquareIcon
-              color="orange"
-              className="butlist mt-px h-6 w-6"
-            />
-          </Link>
+          {row.BAJA ? (
+            <CheckCircleIcon color="green" className="butlist mt-px h-6 w-6" />
+          ) : (
+            <>
+              <Link
+                href={{
+                  pathname: "/socios/editaradherente",
+                  query: {
+                    dni: row.NRO_DOC,
+                  },
+                }}
+                target="__blank"
+              >
+                <PencilSquareIcon
+                  color="orange"
+                  className="butlist mt-px h-6 w-6"
+                />
+              </Link>
+
+              <XCircleIcon
+                color="red"
+                className="butlist mt-px h-6 w-6"
+                onClick={() =>
+                  bajaAdh(row.idadherent, `${row.APELLIDOS}, ${row.NOMBRES}`)
+                }
+              />
+            </>
+          )}
         </>
       ),
     },

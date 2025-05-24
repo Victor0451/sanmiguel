@@ -7,17 +7,17 @@ export default async function handler(req, res) {
       if (req.query.operador === "") {
         const historial = await SanMiguel.historia.findMany({
           orderBy: {
-            fecha: "desc",
+            FECHA: "desc",
           },
         });
         res.status(200).json(historial);
       } else {
         const historial = await SanMiguel.historia.findMany({
           where: {
-            operador: req.query.operador,
+            OPERADOR: req.query.operador,
           },
           orderBy: {
-            fecha: "desc",
+            FECHA: "desc",
           },
         });
         res.status(200).json(historial);

@@ -21,7 +21,7 @@ function editaradherente(props) {
   let params = useRouter();
 
   if (params.query.dni) {
-    jsCookie.set("dni", params.query.dni);
+    jsCookie.set("dni", params.query.dni, { expires: 1 });
   }
 
   const sexo = [

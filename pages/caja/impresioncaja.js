@@ -14,7 +14,7 @@ import jsCookie from "js-cookie";
 import FormImpCaja from "@/components/caja/FormImpCaja";
 
 function impresioncaja(props) {
-     let cajaRef = React.createRef();
+  let cajaRef = React.createRef();
   const [ingresos, guardarIngresos] = useState([]);
   const [egresos, guardarEgresos] = useState([]);
 
@@ -25,7 +25,7 @@ function impresioncaja(props) {
   let params = useRouter();
 
   if (params.query.fecha) {
-    jsCookie.set("fecha", params.query.fecha);
+    jsCookie.set("fecha", params.query.fecha, { expires: 1 });
   }
 
   const traerCaja = async () => {

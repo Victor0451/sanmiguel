@@ -134,6 +134,8 @@ export type maestroPayload<ExtArgs extends $Extensions.Args = $Extensions.Defaul
   name: "maestro"
   objects: {}
   scalars: $Extensions.GetResult<{
+    idmaestro: number
+    ESTADO: boolean | null
     SUCURSAL: string | null
     CONTRATO: number
     NRO_DOC: number | null
@@ -163,7 +165,6 @@ export type maestroPayload<ExtArgs extends $Extensions.Args = $Extensions.Defaul
     MOVIL: string | null
     EDAD_PROM: number | null
     MAIL: string | null
-    idmaestro: number
   }, ExtArgs["result"]["maestro"]>
   composites: {}
 }
@@ -7493,6 +7494,7 @@ export namespace Prisma {
   }
 
   export type MaestroAvgAggregateOutputType = {
+    idmaestro: number | null
     CONTRATO: number | null
     NRO_DOC: number | null
     NRO_CALLE: number | null
@@ -7504,10 +7506,10 @@ export namespace Prisma {
     EDAD: number | null
     COD_POST: number | null
     EDAD_PROM: number | null
-    idmaestro: number | null
   }
 
   export type MaestroSumAggregateOutputType = {
+    idmaestro: number | null
     CONTRATO: number | null
     NRO_DOC: number | null
     NRO_CALLE: number | null
@@ -7519,10 +7521,11 @@ export namespace Prisma {
     EDAD: number | null
     COD_POST: number | null
     EDAD_PROM: number | null
-    idmaestro: number | null
   }
 
   export type MaestroMinAggregateOutputType = {
+    idmaestro: number | null
+    ESTADO: boolean | null
     SUCURSAL: string | null
     CONTRATO: number | null
     NRO_DOC: number | null
@@ -7552,10 +7555,11 @@ export namespace Prisma {
     MOVIL: string | null
     EDAD_PROM: number | null
     MAIL: string | null
-    idmaestro: number | null
   }
 
   export type MaestroMaxAggregateOutputType = {
+    idmaestro: number | null
+    ESTADO: boolean | null
     SUCURSAL: string | null
     CONTRATO: number | null
     NRO_DOC: number | null
@@ -7585,10 +7589,11 @@ export namespace Prisma {
     MOVIL: string | null
     EDAD_PROM: number | null
     MAIL: string | null
-    idmaestro: number | null
   }
 
   export type MaestroCountAggregateOutputType = {
+    idmaestro: number
+    ESTADO: number
     SUCURSAL: number
     CONTRATO: number
     NRO_DOC: number
@@ -7618,12 +7623,12 @@ export namespace Prisma {
     MOVIL: number
     EDAD_PROM: number
     MAIL: number
-    idmaestro: number
     _all: number
   }
 
 
   export type MaestroAvgAggregateInputType = {
+    idmaestro?: true
     CONTRATO?: true
     NRO_DOC?: true
     NRO_CALLE?: true
@@ -7635,10 +7640,10 @@ export namespace Prisma {
     EDAD?: true
     COD_POST?: true
     EDAD_PROM?: true
-    idmaestro?: true
   }
 
   export type MaestroSumAggregateInputType = {
+    idmaestro?: true
     CONTRATO?: true
     NRO_DOC?: true
     NRO_CALLE?: true
@@ -7650,10 +7655,11 @@ export namespace Prisma {
     EDAD?: true
     COD_POST?: true
     EDAD_PROM?: true
-    idmaestro?: true
   }
 
   export type MaestroMinAggregateInputType = {
+    idmaestro?: true
+    ESTADO?: true
     SUCURSAL?: true
     CONTRATO?: true
     NRO_DOC?: true
@@ -7683,10 +7689,11 @@ export namespace Prisma {
     MOVIL?: true
     EDAD_PROM?: true
     MAIL?: true
-    idmaestro?: true
   }
 
   export type MaestroMaxAggregateInputType = {
+    idmaestro?: true
+    ESTADO?: true
     SUCURSAL?: true
     CONTRATO?: true
     NRO_DOC?: true
@@ -7716,10 +7723,11 @@ export namespace Prisma {
     MOVIL?: true
     EDAD_PROM?: true
     MAIL?: true
-    idmaestro?: true
   }
 
   export type MaestroCountAggregateInputType = {
+    idmaestro?: true
+    ESTADO?: true
     SUCURSAL?: true
     CONTRATO?: true
     NRO_DOC?: true
@@ -7749,7 +7757,6 @@ export namespace Prisma {
     MOVIL?: true
     EDAD_PROM?: true
     MAIL?: true
-    idmaestro?: true
     _all?: true
   }
 
@@ -7841,6 +7848,8 @@ export namespace Prisma {
 
 
   export type MaestroGroupByOutputType = {
+    idmaestro: number
+    ESTADO: boolean | null
     SUCURSAL: string | null
     CONTRATO: number
     NRO_DOC: number | null
@@ -7870,7 +7879,6 @@ export namespace Prisma {
     MOVIL: string | null
     EDAD_PROM: number | null
     MAIL: string | null
-    idmaestro: number
     _count: MaestroCountAggregateOutputType | null
     _avg: MaestroAvgAggregateOutputType | null
     _sum: MaestroSumAggregateOutputType | null
@@ -7893,6 +7901,8 @@ export namespace Prisma {
 
 
   export type maestroSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    idmaestro?: boolean
+    ESTADO?: boolean
     SUCURSAL?: boolean
     CONTRATO?: boolean
     NRO_DOC?: boolean
@@ -7922,10 +7932,11 @@ export namespace Prisma {
     MOVIL?: boolean
     EDAD_PROM?: boolean
     MAIL?: boolean
-    idmaestro?: boolean
   }, ExtArgs["result"]["maestro"]>
 
   export type maestroSelectScalar = {
+    idmaestro?: boolean
+    ESTADO?: boolean
     SUCURSAL?: boolean
     CONTRATO?: boolean
     NRO_DOC?: boolean
@@ -7955,7 +7966,6 @@ export namespace Prisma {
     MOVIL?: boolean
     EDAD_PROM?: boolean
     MAIL?: boolean
-    idmaestro?: boolean
   }
 
 
@@ -8046,8 +8056,8 @@ export namespace Prisma {
      * // Get first 10 Maestros
      * const maestros = await prisma.maestro.findMany({ take: 10 })
      * 
-     * // Only select the `SUCURSAL`
-     * const maestroWithSUCURSALOnly = await prisma.maestro.findMany({ select: { SUCURSAL: true } })
+     * // Only select the `idmaestro`
+     * const maestroWithIdmaestroOnly = await prisma.maestro.findMany({ select: { idmaestro: true } })
      * 
     **/
     findMany<T extends maestroFindManyArgs<ExtArgs>>(
@@ -8361,6 +8371,8 @@ export namespace Prisma {
    * Fields of the maestro model
    */ 
   interface maestroFieldRefs {
+    readonly idmaestro: FieldRef<"maestro", 'Int'>
+    readonly ESTADO: FieldRef<"maestro", 'Boolean'>
     readonly SUCURSAL: FieldRef<"maestro", 'String'>
     readonly CONTRATO: FieldRef<"maestro", 'Int'>
     readonly NRO_DOC: FieldRef<"maestro", 'Int'>
@@ -8390,7 +8402,6 @@ export namespace Prisma {
     readonly MOVIL: FieldRef<"maestro", 'String'>
     readonly EDAD_PROM: FieldRef<"maestro", 'Float'>
     readonly MAIL: FieldRef<"maestro", 'String'>
-    readonly idmaestro: FieldRef<"maestro", 'Int'>
   }
     
 
@@ -19196,6 +19207,8 @@ export namespace Prisma {
 
 
   export const MaestroScalarFieldEnum: {
+    idmaestro: 'idmaestro',
+    ESTADO: 'ESTADO',
     SUCURSAL: 'SUCURSAL',
     CONTRATO: 'CONTRATO',
     NRO_DOC: 'NRO_DOC',
@@ -19224,8 +19237,7 @@ export namespace Prisma {
     TELEFONO: 'TELEFONO',
     MOVIL: 'MOVIL',
     EDAD_PROM: 'EDAD_PROM',
-    MAIL: 'MAIL',
-    idmaestro: 'idmaestro'
+    MAIL: 'MAIL'
   };
 
   export type MaestroScalarFieldEnum = (typeof MaestroScalarFieldEnum)[keyof typeof MaestroScalarFieldEnum]
@@ -19845,6 +19857,8 @@ export namespace Prisma {
     AND?: maestroWhereInput | maestroWhereInput[]
     OR?: maestroWhereInput[]
     NOT?: maestroWhereInput | maestroWhereInput[]
+    idmaestro?: IntFilter<"maestro"> | number
+    ESTADO?: BoolNullableFilter<"maestro"> | boolean | null
     SUCURSAL?: StringNullableFilter<"maestro"> | string | null
     CONTRATO?: IntFilter<"maestro"> | number
     NRO_DOC?: IntNullableFilter<"maestro"> | number | null
@@ -19874,10 +19888,11 @@ export namespace Prisma {
     MOVIL?: StringNullableFilter<"maestro"> | string | null
     EDAD_PROM?: FloatNullableFilter<"maestro"> | number | null
     MAIL?: StringNullableFilter<"maestro"> | string | null
-    idmaestro?: IntFilter<"maestro"> | number
   }
 
   export type maestroOrderByWithRelationInput = {
+    idmaestro?: SortOrder
+    ESTADO?: SortOrderInput | SortOrder
     SUCURSAL?: SortOrderInput | SortOrder
     CONTRATO?: SortOrder
     NRO_DOC?: SortOrderInput | SortOrder
@@ -19907,7 +19922,6 @@ export namespace Prisma {
     MOVIL?: SortOrderInput | SortOrder
     EDAD_PROM?: SortOrderInput | SortOrder
     MAIL?: SortOrderInput | SortOrder
-    idmaestro?: SortOrder
   }
 
   export type maestroWhereUniqueInput = {
@@ -19915,6 +19929,8 @@ export namespace Prisma {
   }
 
   export type maestroOrderByWithAggregationInput = {
+    idmaestro?: SortOrder
+    ESTADO?: SortOrderInput | SortOrder
     SUCURSAL?: SortOrderInput | SortOrder
     CONTRATO?: SortOrder
     NRO_DOC?: SortOrderInput | SortOrder
@@ -19944,7 +19960,6 @@ export namespace Prisma {
     MOVIL?: SortOrderInput | SortOrder
     EDAD_PROM?: SortOrderInput | SortOrder
     MAIL?: SortOrderInput | SortOrder
-    idmaestro?: SortOrder
     _count?: maestroCountOrderByAggregateInput
     _avg?: maestroAvgOrderByAggregateInput
     _max?: maestroMaxOrderByAggregateInput
@@ -19956,6 +19971,8 @@ export namespace Prisma {
     AND?: maestroScalarWhereWithAggregatesInput | maestroScalarWhereWithAggregatesInput[]
     OR?: maestroScalarWhereWithAggregatesInput[]
     NOT?: maestroScalarWhereWithAggregatesInput | maestroScalarWhereWithAggregatesInput[]
+    idmaestro?: IntWithAggregatesFilter<"maestro"> | number
+    ESTADO?: BoolNullableWithAggregatesFilter<"maestro"> | boolean | null
     SUCURSAL?: StringNullableWithAggregatesFilter<"maestro"> | string | null
     CONTRATO?: IntWithAggregatesFilter<"maestro"> | number
     NRO_DOC?: IntNullableWithAggregatesFilter<"maestro"> | number | null
@@ -19985,7 +20002,6 @@ export namespace Prisma {
     MOVIL?: StringNullableWithAggregatesFilter<"maestro"> | string | null
     EDAD_PROM?: FloatNullableWithAggregatesFilter<"maestro"> | number | null
     MAIL?: StringNullableWithAggregatesFilter<"maestro"> | string | null
-    idmaestro?: IntWithAggregatesFilter<"maestro"> | number
   }
 
   export type obra_socWhereInput = {
@@ -21296,6 +21312,7 @@ export namespace Prisma {
   }
 
   export type maestroCreateInput = {
+    ESTADO?: boolean | null
     SUCURSAL?: string | null
     CONTRATO: number
     NRO_DOC?: number | null
@@ -21328,6 +21345,8 @@ export namespace Prisma {
   }
 
   export type maestroUncheckedCreateInput = {
+    idmaestro?: number
+    ESTADO?: boolean | null
     SUCURSAL?: string | null
     CONTRATO: number
     NRO_DOC?: number | null
@@ -21357,10 +21376,10 @@ export namespace Prisma {
     MOVIL?: string | null
     EDAD_PROM?: number | null
     MAIL?: string | null
-    idmaestro?: number
   }
 
   export type maestroUpdateInput = {
+    ESTADO?: NullableBoolFieldUpdateOperationsInput | boolean | null
     SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
     CONTRATO?: IntFieldUpdateOperationsInput | number
     NRO_DOC?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21393,6 +21412,8 @@ export namespace Prisma {
   }
 
   export type maestroUncheckedUpdateInput = {
+    idmaestro?: IntFieldUpdateOperationsInput | number
+    ESTADO?: NullableBoolFieldUpdateOperationsInput | boolean | null
     SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
     CONTRATO?: IntFieldUpdateOperationsInput | number
     NRO_DOC?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21422,10 +21443,11 @@ export namespace Prisma {
     MOVIL?: NullableStringFieldUpdateOperationsInput | string | null
     EDAD_PROM?: NullableFloatFieldUpdateOperationsInput | number | null
     MAIL?: NullableStringFieldUpdateOperationsInput | string | null
-    idmaestro?: IntFieldUpdateOperationsInput | number
   }
 
   export type maestroCreateManyInput = {
+    idmaestro?: number
+    ESTADO?: boolean | null
     SUCURSAL?: string | null
     CONTRATO: number
     NRO_DOC?: number | null
@@ -21455,10 +21477,10 @@ export namespace Prisma {
     MOVIL?: string | null
     EDAD_PROM?: number | null
     MAIL?: string | null
-    idmaestro?: number
   }
 
   export type maestroUpdateManyMutationInput = {
+    ESTADO?: NullableBoolFieldUpdateOperationsInput | boolean | null
     SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
     CONTRATO?: IntFieldUpdateOperationsInput | number
     NRO_DOC?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21491,6 +21513,8 @@ export namespace Prisma {
   }
 
   export type maestroUncheckedUpdateManyInput = {
+    idmaestro?: IntFieldUpdateOperationsInput | number
+    ESTADO?: NullableBoolFieldUpdateOperationsInput | boolean | null
     SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
     CONTRATO?: IntFieldUpdateOperationsInput | number
     NRO_DOC?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21520,7 +21544,6 @@ export namespace Prisma {
     MOVIL?: NullableStringFieldUpdateOperationsInput | string | null
     EDAD_PROM?: NullableFloatFieldUpdateOperationsInput | number | null
     MAIL?: NullableStringFieldUpdateOperationsInput | string | null
-    idmaestro?: IntFieldUpdateOperationsInput | number
   }
 
   export type obra_socCreateInput = {
@@ -23149,6 +23172,8 @@ export namespace Prisma {
   }
 
   export type maestroCountOrderByAggregateInput = {
+    idmaestro?: SortOrder
+    ESTADO?: SortOrder
     SUCURSAL?: SortOrder
     CONTRATO?: SortOrder
     NRO_DOC?: SortOrder
@@ -23178,10 +23203,10 @@ export namespace Prisma {
     MOVIL?: SortOrder
     EDAD_PROM?: SortOrder
     MAIL?: SortOrder
-    idmaestro?: SortOrder
   }
 
   export type maestroAvgOrderByAggregateInput = {
+    idmaestro?: SortOrder
     CONTRATO?: SortOrder
     NRO_DOC?: SortOrder
     NRO_CALLE?: SortOrder
@@ -23193,10 +23218,11 @@ export namespace Prisma {
     EDAD?: SortOrder
     COD_POST?: SortOrder
     EDAD_PROM?: SortOrder
-    idmaestro?: SortOrder
   }
 
   export type maestroMaxOrderByAggregateInput = {
+    idmaestro?: SortOrder
+    ESTADO?: SortOrder
     SUCURSAL?: SortOrder
     CONTRATO?: SortOrder
     NRO_DOC?: SortOrder
@@ -23226,10 +23252,11 @@ export namespace Prisma {
     MOVIL?: SortOrder
     EDAD_PROM?: SortOrder
     MAIL?: SortOrder
-    idmaestro?: SortOrder
   }
 
   export type maestroMinOrderByAggregateInput = {
+    idmaestro?: SortOrder
+    ESTADO?: SortOrder
     SUCURSAL?: SortOrder
     CONTRATO?: SortOrder
     NRO_DOC?: SortOrder
@@ -23259,10 +23286,10 @@ export namespace Prisma {
     MOVIL?: SortOrder
     EDAD_PROM?: SortOrder
     MAIL?: SortOrder
-    idmaestro?: SortOrder
   }
 
   export type maestroSumOrderByAggregateInput = {
+    idmaestro?: SortOrder
     CONTRATO?: SortOrder
     NRO_DOC?: SortOrder
     NRO_CALLE?: SortOrder
@@ -23274,7 +23301,6 @@ export namespace Prisma {
     EDAD?: SortOrder
     COD_POST?: SortOrder
     EDAD_PROM?: SortOrder
-    idmaestro?: SortOrder
   }
 
   export type obra_socCountOrderByAggregateInput = {

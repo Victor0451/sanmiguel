@@ -174,6 +174,8 @@ exports.Prisma.LocalidadScalarFieldEnum = {
 };
 
 exports.Prisma.MaestroScalarFieldEnum = {
+  idmaestro: 'idmaestro',
+  ESTADO: 'ESTADO',
   SUCURSAL: 'SUCURSAL',
   CONTRATO: 'CONTRATO',
   NRO_DOC: 'NRO_DOC',
@@ -202,8 +204,7 @@ exports.Prisma.MaestroScalarFieldEnum = {
   TELEFONO: 'TELEFONO',
   MOVIL: 'MOVIL',
   EDAD_PROM: 'EDAD_PROM',
-  MAIL: 'MAIL',
-  idmaestro: 'idmaestro'
+  MAIL: 'MAIL'
 };
 
 exports.Prisma.Obra_socScalarFieldEnum = {

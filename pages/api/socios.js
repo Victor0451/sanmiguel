@@ -1,4 +1,4 @@
-import { SanMiguel, SGI } from "../../libs/config";
+import { SanMiguel, SGI, Serv } from "../../libs/config";
 import moment from "moment";
 //import { PrismaClient as WerchowSepClient } from '../../../prisma/generated/werchowsep'
 
@@ -35,7 +35,9 @@ export default async function handler(req, res) {
                 m.ADHERENTES, 
                 TIMESTAMPDIFF(YEAR,m.NACIMIENTO,CURDATE()) "EDAD",  
                 m.SEXO,
-                m.ZONA                         
+                m.ZONA, 
+                m.ESTADO,
+                m.idmaestro
                 FROM maestro as m
                 INNER JOIN cuo_fija as c on c.CONTRATO = m.CONTRATO
                 INNER JOIN obra_soc as o on o.CODIGO = m.OBRA_SOC
@@ -81,7 +83,9 @@ export default async function handler(req, res) {
                 m.ADHERENTES, 
                 TIMESTAMPDIFF(YEAR,m.NACIMIENTO,CURDATE()) "EDAD",  
                 m.SEXO,
-                m.ZONA
+                m.ZONA,
+                m.ESTADO,
+                m.idmaestro
                                     
                 FROM maestro as m
                 INNER JOIN cuo_fija as c on c.CONTRATO = m.CONTRATO
@@ -113,94 +117,6 @@ export default async function handler(req, res) {
             typeof value === "bigint" ? value.toString() : value
           )
         );
-    } else if (req.query.f && req.query.f === "maestro baja") {
-      const mae = await SanMiguel.$queryRaw`
-            SELECT
-                m.CONTRATO, 
-                m.GRUPO, 
-                m.SUCURSAL, 
-                m.NRO_DOC, 
-                m.APELLIDOS,
-                m.NOMBRES, 
-                m.ALTA, 
-                m.VIGENCIA, 
-                m.DOM_LAB, 
-                m.PLAN,                 
-                m.CALLE, 
-                m.NRO_CALLE,
-                m.BARRIO, 
-                m.NACIMIENTO, 
-                m.TELEFONO, 
-                m.MOVIL, 
-                m.MAIL, 
-                c.IMPORTE, 
-                m.PRODUCTOR, 
-                m.LOCALIDAD, 
-                m.DOM_LAB ,   
-                m.DOMI_COBR,              
-                "T" as "perfil", 
-                o.NOMBRE "OBRA_SOC",
-                o.CODIGO "COD_OBRA", 
-                m.ADHERENTES, 
-                TIMESTAMPDIFF(YEAR,m.NACIMIENTO,CURDATE()) "EDAD",  
-                m.SEXO,
-                m.ZONA  
-                FROM bajas as m              
-                WHERE m.NRO_DOC = ${req.query.dni}
-
-    `;
-
-      res
-        .status(200)
-        .json(
-          JSON.stringify(mae, (key, value) =>
-            typeof value === "bigint" ? value.toString() : value
-          )
-        );
-    } else if (req.query.f && req.query.f === "maestro baja contrato") {
-      const mae = await SanMiguel.$queryRaw`
-            SELECT
-                m.CONTRATO, 
-                m.GRUPO, 
-                m.SUCURSAL, 
-                m.NRO_DOC, 
-                m.APELLIDOS,
-                m.NOMBRES, 
-                m.ALTA, 
-                m.VIGENCIA, 
-                m.DOM_LAB, 
-                m.PLAN,                 
-                m.CALLE, 
-                m.NRO_CALLE,
-                m.BARRIO, 
-                m.NACIMIENTO, 
-                m.TELEFONO, 
-                m.MOVIL, 
-                m.MAIL, 
-                c.IMPORTE, 
-                m.PRODUCTOR, 
-                m.LOCALIDAD, 
-                m.DOM_LAB ,   
-                m.DOMI_COBR,              
-                "T" as "perfil", 
-                o.NOMBRE "OBRA_SOC",
-                o.CODIGO "COD_OBRA", 
-                m.ADHERENTES, 
-                TIMESTAMPDIFF(YEAR,m.NACIMIENTO,CURDATE()) "EDAD",  
-                m.SEXO,
-                m.ZONA              
-                FROM bajas as m              
-                WHERE m.CONTRATO = ${req.query.ficha}
-
-    `;
-
-      res
-        .status(200)
-        .json(
-          JSON.stringify(mae, (key, value) =>
-            typeof value === "bigint" ? value.toString() : value
-          )
-        );
     } else if (req.query.f && req.query.f === "adh") {
       const adh = await SanMiguel.$queryRaw`
           SELECT
@@ -221,7 +137,8 @@ export default async function handler(req, res) {
                 TIMESTAMPDIFF(YEAR,a.NACIMIENTO,CURDATE()) "EDAD",                                
                 "A" as "perfil",
                 a.BAJA,
-                a.EDAD 'FALLE'
+                a.EDAD 'FALLE',
+                a.idadherent
                 FROM adherent as a
                 INNER JOIN maestro as m on a.CONTRATO = m.CONTRATO                  
                 INNER JOIN obra_soc as o on o.CODIGO = m.OBRA_SOC
@@ -261,7 +178,8 @@ export default async function handler(req, res) {
                     ELSE  null
                 END 'EMPRESA'    ,
                 "A" as "perfil",
-                a.EDAD 'FALLE'
+                a.EDAD 'FALLE',
+                a.idadherent
                 FROM adherent as a
                 INNER JOIN maestro as m on a.CONTRATO = m.CONTRATO                  
                 INNER JOIN obra_soc as o on o.CODIGO = m.OBRA_SOC
@@ -296,7 +214,8 @@ export default async function handler(req, res) {
                 a.PRODUCTOR,                 
                 TIMESTAMPDIFF(YEAR,a.NACIMIENTO,CURDATE()) "EDAD",       
                 "A" as "perfil",
-                a.EDAD 'FALLE'
+                a.EDAD 'FALLE',
+                a.idadherent
                 FROM adherent as a
                 INNER JOIN maestro as m on a.CONTRATO = m.CONTRATO                  
                 INNER JOIN obra_soc as o on o.CODIGO = m.OBRA_SOC
@@ -568,7 +487,7 @@ export default async function handler(req, res) {
       });
       res.status(200).json(nCert);
     } else if (req.query.f && req.query.f === "traer usos") {
-      const usos = await Serv.$queryRaw`
+      const listUsos = await Serv.$queryRaw`
          
          SELECT
           u.CONTRATO,
@@ -578,44 +497,21 @@ export default async function handler(req, res) {
           p.NOMBRE,
           u.SERVICIO,
           u.IMPORTE,
-          u.ANULADO,
-          'WEB' AS SISTEMA,
+          u.ANULADO,        
           u.ORDEN
         FROM
           USOS AS u
         INNER JOIN PRESTADO AS p ON p.COD_PRES = u.PRESTADO
         WHERE
           u.CONTRATO = ${parseInt(req.query.contrato)}
-        ORDER BY u.FECHA DESC
-              `;
-
-      const usosFa = await Serv.$queryRaw`
-         
-         SELECT
-          u.CONTRATO,
-          u.FECHA,
-          u.HORA,
-          u.NRO_DOC,
-          p.NOMBRE,
-          u.SERVICIO,
-          u.IMPORTE,
-          u.ANULADO,
-          'FOX' AS SISTEMA,
-          u.ORDEN
-        FROM
-          USOSFA AS u
-        INNER JOIN PRESTADO AS p ON p.COD_PRES = u.PRESTADO
-        WHERE
-          u.CONTRATO = ${parseInt(req.query.contrato)}
+        AND u.EMPRESA = 'SM'
         ORDER BY u.FECHA DESC
 `;
-
-      let historial = usos.concat(usosFa);
 
       res
         .status(200)
         .json(
-          JSON.stringify(historial, (key, value) =>
+          JSON.stringify(listUsos, (key, value) =>
             typeof value === "bigint" ? value.toString() : value
           )
         );
@@ -916,6 +812,7 @@ export default async function handler(req, res) {
           OBRA_SOC: parseInt(req.body.OBRA_SOC),
           PLAN: req.body.PLAN,
           SEXO: req.body.SEXO,
+          ESTADO: req.body.ESTADO,
         },
       });
 
@@ -1159,6 +1056,54 @@ export default async function handler(req, res) {
             )
           );
       }
+    } else if (req.body.f && req.body.f === "baja ficha") {
+      const bajaMae = await SanMiguel.$queryRaw`         
+
+        UPDATE maestro
+        SET ESTADO = 0            
+        WHERE CONTRATO =  ${parseInt(req.body.contrato)}    
+    
+        `;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(bajaMae, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
+
+      const bajaAdh = await SanMiguel.$queryRaw`         
+
+        UPDATE adherent
+        SET BAJA = CURDATE()            
+        WHERE CONTRATO =  ${parseInt(req.body.contrato)}    
+    
+        `;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(bajaAdh, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
+    } else if (req.body.f && req.body.f === "baja adhe") {
+      const bajaAdh = await SanMiguel.$queryRaw`         
+
+        UPDATE adherent
+        SET BAJA = CURDATE()            
+        WHERE idadherent =  ${parseInt(req.body.idadh)}    
+    
+        `;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(bajaAdh, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
     }
   }
 }

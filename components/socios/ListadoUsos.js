@@ -32,7 +32,7 @@ export default function ListadoUsos({ listado }) {
       selector: (row) =>
         `${moment(row.FECHA).utcOffset("+0300").format("DD/MM/YYYY")}`,
       sortable: true,
-      width: "100px",
+      width: "130px",
     },
 
     {
@@ -71,12 +71,7 @@ export default function ListadoUsos({ listado }) {
       sortable: true,
       width: "80px",
     },
-    {
-      name: "Sistema",
-      selector: (row) => `${row.SISTEMA}`,
-      sortable: true,
-      width: "80px",
-    },
+
     {
       name: "Estado",
       button: true,

@@ -50,6 +50,8 @@ function Legajo(props) {
   const [gl, guardarGastoLuto] = useState([]);
   const [fclose, guardarFClose] = useState(false);
   const [cuenta, guardarCuenta] = useState([]);
+  const [fbaj, guardarFbaj] = useState(false);
+  const [justiSel, guardarJustiSel] = useState("");
 
   const { usu } = useWerchow();
 
@@ -404,6 +406,7 @@ function Legajo(props) {
     guardarAlertas(null);
     guardarShow(false);
     guardarBaja(false);
+    guardarFbaj(false)
 
     if (dniRef.current.value === "") {
       guardarErrores("Debes ingresar un numero de DNI");
@@ -419,6 +422,13 @@ function Legajo(props) {
           let re = JSON.parse(res0.data);
           if (re.length > 0) {
             let ficha = JSON.parse(res0.data);
+
+            if (ficha[0].ESTADO === 0) {
+              guardarBaja(true);
+            } else {
+              guardarBaja(false);
+            }
+
             guardarFicha(ficha);
             guardarShow(true);
 
@@ -426,50 +436,10 @@ function Legajo(props) {
             traerInfo(ficha[0].CONTRATO);
             descriGrupo(ficha[0].GRUPO);
             traerPagos(ficha[0].CONTRATO, ficha[0].EMPRESA);
-            //traerUsos(ficha[0].CONTRATO);
+            traerUsos(ficha[0].CONTRATO);
             traerHistorial(ficha[0].CONTRATO);
             traerCuotas(ficha[0].CONTRATO);
             traerCuenta(ficha[0].CONTRATO);
-          } else if (re.length === 0) {
-            axios
-              .get("/api/socios", {
-                params: {
-                  f: "maestro baja",
-                  dni: dniRef.current.value,
-                },
-              })
-              .then((res1) => {
-                let re = JSON.parse(res1.data);
-
-                if (re.length > 0) {
-                  let ficha = JSON.parse(res1.data);
-
-                  guardarFicha(ficha);
-                  guardarShow(true);
-                  guardarBaja(true);
-
-                  traerAdhs("adh", ficha[0].CONTRATO);
-                  traerInfo(ficha[0].CONTRATO);
-                  descriGrupo(ficha[0].GRUPO);
-                  traerPagos(ficha[0].CONTRATO, ficha[0].EMPRESA);
-                  //traerUsos(ficha[0].CONTRATO);
-                  traerHistorial(ficha[0].CONTRATO);
-                  traerCuotas(ficha[0].CONTRATO);
-                } else {
-                  guardarAlertas(
-                    "El DNI ingresado no esta registrado o pertenece a un socio de Werchow"
-                  );
-                  toast.info(
-                    "El DNI ingresado no esta registrado o pertenece a un socio de Werchow"
-                  );
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-                toast.error(
-                  "Ocurrio un error al tarer los datos del socio en Mutual"
-                );
-              });
           }
         })
         .catch((error) => {
@@ -486,6 +456,7 @@ function Legajo(props) {
     guardarAlertas(null);
     guardarShow(false);
     guardarBaja(false);
+    guardarFbaj(false)
 
     let contrato;
 
@@ -509,6 +480,13 @@ function Legajo(props) {
           let re = JSON.parse(res0.data);
           if (re.length > 0) {
             let ficha = JSON.parse(res0.data);
+
+            if (ficha[0].ESTADO === 0) {
+              guardarBaja(true);
+            } else {
+              guardarBaja(false);
+            }
+
             guardarFicha(ficha);
             guardarShow(true);
 
@@ -516,50 +494,10 @@ function Legajo(props) {
             traerInfo(ficha[0].CONTRATO);
             descriGrupo(ficha[0].GRUPO);
             traerPagos(ficha[0].CONTRATO, ficha[0].EMPRESA);
-            //traerUsos(ficha[0].CONTRATO);
+            traerUsos(ficha[0].CONTRATO);
             traerHistorial(ficha[0].CONTRATO);
             traerCuotas(ficha[0].CONTRATO);
             traerCuenta(ficha[0].CONTRATO);
-          } else if (re.length === 0) {
-            axios
-              .get("/api/socios", {
-                params: {
-                  f: "maestro baja contrato",
-                  ficha: contrato,
-                },
-              })
-              .then((res1) => {
-                let re = JSON.parse(res1.data);
-
-                if (re.length > 0) {
-                  let ficha = JSON.parse(res1.data);
-
-                  guardarFicha(ficha);
-                  guardarShow(true);
-                  guardarBaja(true);
-
-                  traerAdhs("adh", ficha[0].CONTRATO);
-                  traerInfo(ficha[0].CONTRATO);
-                  descriGrupo(ficha[0].GRUPO);
-                  traerPagos(ficha[0].CONTRATO, ficha[0].EMPRESA);
-                  //traerUsos(ficha[0].CONTRATO);
-                  traerHistorial(ficha[0].CONTRATO);
-                  traerCuotas(ficha[0].CONTRATO);
-                } else {
-                  guardarAlertas(
-                    "El DNI ingresado no esta registrado o pertenece a un socio de Werchow"
-                  );
-                  toast.info(
-                    "El DNI ingresado no esta registrado o pertenece a un socio de Werchow"
-                  );
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-                toast.error(
-                  "Ocurrio un error al tarer los datos del socio en Mutual"
-                );
-              });
           }
         })
         .catch((error) => {
@@ -989,6 +927,122 @@ function Legajo(props) {
     }
   };
 
+  const activarModoBaja = (f) => {
+    if (f === "si") {
+      guardarFbaj(true);
+    } else if (f === "no") {
+      guardarFbaj(false);
+    }
+  };
+
+  const handleChange = async (f, value) => {
+    if (f === "justificacion") {
+      guardarJustiSel(value.target.value);
+    }
+  };
+
+  const bajaFicha = async () => {
+    let data = {
+      f: "baja ficha",
+      contrato: ficha[0].CONTRATO,
+    };
+
+    if (justiSel === "") {
+      toast.warning("Debes justificar el motivo de la baja");
+    } else {
+      await confirmAlert({
+        title: "ATENCION",
+        message: "¿Seguro que quieres dar de baja a esta ficha?",
+        buttons: [
+          {
+            label: "Si",
+            onClick: () => {
+              axios
+                .put(`/api/socios`, data)
+                .then((res) => {
+                  if (res.status === 200) {
+                    toast.success(
+                      "La ficha completa (titular y adherentes) esta dada de baja."
+                    );
+
+                    let hist = {
+                      CONTRATO: data.contrato,
+                      OPERADOR: usu.usuario,
+                      ACCION: `Baja de ficha, motivo: ${justiSel}.`,
+                      FECHA: moment().format("DD/MM/YYYY HH:mm"),
+                      f: "reg historia",
+                    };
+
+                    registrarHistoria(hist);
+                    tarerSocioContrato(ficha[0].CONTRATO);                   
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            },
+          },
+          {
+            label: "No",
+            onClick: () => {
+              toast.info("Accion cancelada, no se realizo la baja");
+            },
+          },
+        ],
+      });
+    }
+  };
+
+  const bajaAdh = async (id, adhe) => {
+    let data = {
+      f: "baja adhe",
+      idadh: id,
+      contrato: ficha[0].CONTRATO,
+    };
+
+    await confirmAlert({
+      title: "ATENCION",
+      message: "¿Seguro que quieres dar de baja al adherente seleccionado?",
+      buttons: [
+        {
+          label: "Si",
+          onClick: () => {
+            axios
+              .put(`/api/socios`, data)
+              .then((res) => {
+                if (res.status === 200) {
+                  toast.success("El adherente fue dado de baja.");
+
+                  let hist = {
+                    CONTRATO: data.contrato,
+                    OPERADOR: usu.usuario,
+                    ACCION: `Baja de adherente: ${adhe}.`,
+                    FECHA: moment().format("DD/MM/YYYY HH:mm"),
+                    f: "reg historia",
+                  };
+
+                  registrarHistoria(hist);
+
+                  traerHistorial(ficha[0].CONTRATO);
+                  traerCuotas(ficha[0].CONTRATO);
+                  traerAdhs("adh", ficha[0].CONTRATO);
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {
+            toast.info("Accion cancelada, no se realizo la baja");
+          },
+        },
+      ],
+    });
+  };
+
   // const gasLuto = async (plan, alta, cantadh) => {
   //   await axios
   //     .get(`/api/sepelio/servicios`, {
@@ -1065,6 +1119,11 @@ function Legajo(props) {
             mes0Ref={mes0Ref}
             ano0Ref={ano0Ref}
             regPag0={regPag0}
+            fbaj={fbaj}
+            activarModoBaja={activarModoBaja}
+            bajaFicha={bajaFicha}
+            handleChange={handleChange}
+            bajaAdh={bajaAdh}
           />
         </>
       )}

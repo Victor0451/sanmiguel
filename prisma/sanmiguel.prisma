@@ -80,6 +80,8 @@ model localidad {
 }
 
 model maestro {
+  idmaestro  Int       @id @default(autoincrement())
+  ESTADO     Boolean?
   SUCURSAL   String?   @db.VarChar(1)
   CONTRATO   Int
   NRO_DOC    Int?
@@ -109,7 +111,6 @@ model maestro {
   MOVIL      String?   @db.VarChar(100)
   EDAD_PROM  Float?
   MAIL       String?   @db.VarChar(100)
-  idmaestro  Int       @id @default(autoincrement())
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.

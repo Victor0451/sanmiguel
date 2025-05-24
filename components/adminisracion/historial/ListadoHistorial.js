@@ -9,21 +9,21 @@ const ListadoHistorial = ({ listado }) => {
   let columns = [
     {
       name: "Fecha",
-      selector: (row) => `${moment(row.fecha).format("DD/MM/YYYY HH:mm")}`,
+      selector: (row) => `${row.FECHA}`,
       sortable: true,
       width: "150px",
     },
 
     {
       name: "Operador",
-      selector: (row) => `${row.operador}`,
+      selector: (row) => `${row.OPERADOR}`,
       sortable: true,
       width: "100px",
     },
 
     {
       name: "Movimiento",
-      selector: (row) => `${row.accion}`,
+      selector: (row) => `${row.ACCION}`,
       sortable: true,
       width: "1200px",
     },
