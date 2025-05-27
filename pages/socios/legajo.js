@@ -21,7 +21,6 @@ import FormLegajoSocio from "@/components/socios/FormLegajoSocio";
 function Legajo(props) {
   let dniRef = React.createRef();
   let contratoRef = React.createRef();
-  let cuotasRef = React.createRef();
   let apellidoRef = React.createRef();
   let cuentaRef = React.createRef();
   let observacionRef = React.createRef();
@@ -34,13 +33,10 @@ function Legajo(props) {
   const [ficha, guardarFicha] = useState([]);
   const [adhs, guardarAdhs] = useState([]);
   const [show, guardarShow] = useState(false);
-  const [showAfi, guardarShowAfi] = useState(false);
   const [archivos, guardarArchivos] = useState([]);
   const [file, setFile] = useState(null);
   const [grupo, guardarGrupo] = useState("");
   const [allPagos, guardarAllPagos] = useState([]);
-  const [cuotas, guardarCuotas] = useState(null);
-  const [vigencia, guardarVigencia] = useState(null);
   const [usos, guardarUsos] = useState([]);
   const [historial, guardarHistorial] = useState([]);
   const [histCuotas, guardarHistCuotas] = useState([]);
@@ -406,7 +402,7 @@ function Legajo(props) {
     guardarAlertas(null);
     guardarShow(false);
     guardarBaja(false);
-    guardarFbaj(false)
+    guardarFbaj(false);
 
     if (dniRef.current.value === "") {
       guardarErrores("Debes ingresar un numero de DNI");
@@ -456,7 +452,7 @@ function Legajo(props) {
     guardarAlertas(null);
     guardarShow(false);
     guardarBaja(false);
-    guardarFbaj(false)
+    guardarFbaj(false);
 
     let contrato;
 
@@ -545,85 +541,6 @@ function Legajo(props) {
           );
         });
     }
-  };
-
-  const handleVigencia = () => {
-    guardarErrores(null);
-    let cuotas = cuotasRef.current.value;
-
-    if (cuotas === "") {
-      document.getElementById("btn").hidden = true;
-      guardarVigencia("");
-      guardarShowAfi(false);
-    } else if (cuotas !== "") {
-      if (cuotas === "1") {
-        guardarCuotas(cuotas);
-
-        let carencia = cuotas * 15;
-
-        let vigencia = moment().add(carencia, "days").format("DD/MM/YYYY");
-
-        document.getElementById("btn").hidden = false;
-
-        guardarVigencia(vigencia);
-
-        guardarShowAfi(true);
-      } else if (cuotas > "1") {
-        guardarCuotas(cuotas);
-
-        let carencia = cuotas * 30;
-
-        let vigencia = moment().add(carencia, "days").format("DD/MM/YYYY");
-
-        document.getElementById("btn").hidden = false;
-
-        guardarVigencia(vigencia);
-
-        guardarShowAfi(true);
-      }
-    }
-  };
-
-  const handleBlur = () => {
-    let cuotas = cuotasRef.current.value;
-
-    if (cuotas === "") {
-      const error = "Debes Ingresar La Cantidad De Cuotas Adeudadas";
-      guardarErrores(error);
-    }
-  };
-
-  const regAfi = async () => {
-    const rehab = {
-      contrato: ficha[0].CONTRATO,
-      apellido: ficha[0].APELLIDOS,
-      nombre: ficha[0].NOMBRES,
-      operador: usu.usuario,
-      idoperador: usu.id,
-      vigencia: moment(vigencia).format("YYYY-MM-DD"),
-      fecha: moment().format("YYYY-MM-DD"),
-      cuotas: cuotasRef.current.value,
-      dni: ficha[0].NRO_DOC,
-      empresa: ficha[0].EMPRESA,
-      f: "soli afi",
-    };
-
-    await axios
-      .post(`/api/socios`, rehab)
-      .then((res) => {
-        if (res.status === 200) {
-          toast.success(
-            "La rehabilitacion del socio fue registrada, puede imprimir la notificacion"
-          );
-
-          let accion = `Se emitio una notificacion de rehabilitacion de servicios ID: ${res.data.idrehab} al socio: ${rehab.contrato} - ${rehab.apellido}, ${rehab.nombre} perteneciente a: ${rehab.empresa}`;
-
-          registrarHistoria(accion, usu.usuario);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   const traerUsos = async (contrato) => {
@@ -974,7 +891,10 @@ function Legajo(props) {
                     };
 
                     registrarHistoria(hist);
-                    tarerSocioContrato(ficha[0].CONTRATO);                   
+                    tarerSocioContrato(ficha[0].CONTRATO);
+                    setTimeout(() => {
+                      traerAdhs("adh", ficha[0].CONTRATO);
+                    }, 500);
                   }
                 })
                 .catch((err) => {
@@ -993,11 +913,11 @@ function Legajo(props) {
     }
   };
 
-  const bajaAdh = async (id, adhe) => {
+  const bajaAdh = async (id, adhe, contra) => {
     let data = {
       f: "baja adhe",
       idadh: id,
-      contrato: ficha[0].CONTRATO,
+      contrato: contra,
     };
 
     await confirmAlert({
@@ -1025,7 +945,9 @@ function Legajo(props) {
 
                   traerHistorial(ficha[0].CONTRATO);
                   traerCuotas(ficha[0].CONTRATO);
-                  traerAdhs("adh", ficha[0].CONTRATO);
+                  setTimeout(() => {
+                    traerAdhs("adh", ficha[0].CONTRATO);
+                  }, 500);
                 }
               })
               .catch((err) => {
@@ -1037,6 +959,110 @@ function Legajo(props) {
           label: "No",
           onClick: () => {
             toast.info("Accion cancelada, no se realizo la baja");
+          },
+        },
+      ],
+    });
+  };
+
+  const reafiliarFicha = async () => {
+    let data = {
+      f: "reafiliar ficha",
+      contrato: ficha[0].CONTRATO,
+    };
+
+    await confirmAlert({
+      title: "ATENCION",
+      message: "¿Seguro que quieres reafiliar esta ficha?",
+      buttons: [
+        {
+          label: "Si",
+          onClick: () => {
+            axios
+              .put(`/api/socios`, data)
+              .then((res) => {
+                if (res.status === 200) {
+                  toast.success(
+                    "La ficha completa (titular y adherentes) fue reafiliada, chequea las vigencias."
+                  );
+
+                  let hist = {
+                    CONTRATO: data.contrato,
+                    OPERADOR: usu.usuario,
+                    ACCION: `Ficha reafiliada.`,
+                    FECHA: moment().format("DD/MM/YYYY HH:mm"),
+                    f: "reg historia",
+                  };
+
+                  registrarHistoria(hist);
+                  tarerSocioContrato(ficha[0].CONTRATO);
+
+                  setTimeout(() => {
+                    traerAdhs("adh", ficha[0].CONTRATO);
+                  }, 500);
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {
+            toast.info("Accion cancelada, no se reafilio la ficha");
+          },
+        },
+      ],
+    });
+  };
+
+  const reafilAdh = async (id, adhe, contra) => {
+    let data = {
+      f: "reafiliar adhe",
+      idadh: id,
+      contrato: contra,
+    };
+
+    await confirmAlert({
+      title: "ATENCION",
+      message: "¿Seguro que quieres reafiliar al adherente seleccionado?",
+      buttons: [
+        {
+          label: "Si",
+          onClick: () => {
+            axios
+              .put(`/api/socios`, data)
+              .then((res) => {
+                if (res.status === 200) {
+                  toast.success("El adherente fue reafiliado.");
+
+                  let hist = {
+                    CONTRATO: data.contrato,
+                    OPERADOR: usu.usuario,
+                    ACCION: `Adherente Reafiliado: ${adhe}.`,
+                    FECHA: moment().format("DD/MM/YYYY HH:mm"),
+                    f: "reg historia",
+                  };
+
+                  registrarHistoria(hist);
+
+                  traerHistorial(ficha[0].CONTRATO);
+                  traerCuotas(ficha[0].CONTRATO);
+                  setTimeout(() => {
+                    traerAdhs("adh", ficha[0].CONTRATO);
+                  }, 500);
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {
+            toast.info("Accion cancelada, no se reafilio al adherente");
           },
         },
       ],
@@ -1093,13 +1119,6 @@ function Legajo(props) {
             handleRecF={handleRecF}
             eliminarArchivos={eliminarArchivos}
             file={file}
-            cuotasRef={cuotasRef}
-            handleVigencia={handleVigencia}
-            handleBlur={handleBlur}
-            vigencia={vigencia}
-            cuotas={cuotas}
-            showAfi={showAfi}
-            regAfi={regAfi}
             usos={usos}
             historial={historial}
             histCuotas={histCuotas}
@@ -1124,6 +1143,8 @@ function Legajo(props) {
             bajaFicha={bajaFicha}
             handleChange={handleChange}
             bajaAdh={bajaAdh}
+            reafiliarFicha={reafiliarFicha}
+            reafilAdh={reafilAdh}
           />
         </>
       )}

@@ -1104,6 +1104,60 @@ export default async function handler(req, res) {
             typeof value === "bigint" ? value.toString() : value
           )
         );
+    } else if (req.body.f && req.body.f === "reafiliar ficha") {
+      const reafilFicha = await SanMiguel.$queryRaw`         
+
+        UPDATE maestro
+        SET ESTADO = 1,
+        ALTA = CURDATE(),  
+        VIGENCIA = TIMESTAMPADD(MONTH, 3, CURDATE())
+        WHERE CONTRATO =  ${parseInt(req.body.contrato)}    
+    
+        `;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(reafilFicha, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
+
+      const reafilAdh = await SanMiguel.$queryRaw`         
+
+        UPDATE adherent
+        SET BAJA = NULL,
+        ALTA = CURDATE(),
+        VIGENCIA = TIMESTAMPADD(MONTH, 3, CURDATE())          
+        WHERE CONTRATO =  ${parseInt(req.body.contrato)}    
+    
+        `;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(reafilAdh, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
+    } else if (req.body.f && req.body.f === "reafiliar adhe") {
+      const reafilAdh = await SanMiguel.$queryRaw`         
+
+        UPDATE adherent
+        SET BAJA = NULL,
+        ALTA = CURDATE(),
+        VIGENCIA = TIMESTAMPADD(MONTH, 3, CURDATE())          
+        WHERE idadherent =  ${parseInt(req.body.idadh)}    
+    
+        `;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(reafilAdh, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
     }
   }
 }

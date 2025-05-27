@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
-const ListadoAdherentes = ({ listado, bajaAdh }) => {
+const ListadoAdherentes = ({ listado, bajaAdh, reafilAdh }) => {
   let columns = [
     {
       name: "#",
@@ -78,7 +78,17 @@ const ListadoAdherentes = ({ listado, bajaAdh }) => {
       cell: (row, index) => (
         <>
           {row.BAJA ? (
-            <CheckCircleIcon color="green" className="butlist mt-px h-6 w-6" />
+            <CheckCircleIcon
+              color="green"
+              className="butlist mt-px h-6 w-6"
+              onClick={() => {
+                reafilAdh(
+                  row.idadherent,
+                  `${row.APELLIDOS}, ${row.NOMBRES}`,
+                  row.CONTRATO
+                );
+              }}
+            />
           ) : (
             <>
               <Link
@@ -100,7 +110,11 @@ const ListadoAdherentes = ({ listado, bajaAdh }) => {
                 color="red"
                 className="butlist mt-px h-6 w-6"
                 onClick={() =>
-                  bajaAdh(row.idadherent, `${row.APELLIDOS}, ${row.NOMBRES}`)
+                  bajaAdh(
+                    row.idadherent,
+                    `${row.APELLIDOS}, ${row.NOMBRES}`,
+                    row.CONTRATO
+                  )
                 }
               />
             </>

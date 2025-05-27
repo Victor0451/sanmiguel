@@ -56,13 +56,6 @@ const FormLegajoSocio = ({
   adhs,
   grupo,
   allPagos,
-  cuotasRef,
-  handleVigencia,
-  handleBlur,
-  vigencia,
-  cuotas,
-  showAfi,
-  regAfi,
   usos,
   historial,
   histCuotas,
@@ -86,7 +79,9 @@ const FormLegajoSocio = ({
   activarModoBaja,
   bajaFicha,
   handleChange,
-  bajaAdh
+  bajaAdh,
+  reafiliarFicha,
+  reafilAdh,
 }) => {
   return (
     <Card className="h-full w-full p-4 ">
@@ -428,7 +423,11 @@ const FormLegajoSocio = ({
 
                     {baja === true ? (
                       <div>
-                        <Button className="bg-green-900 " size="sm">
+                        <Button
+                          className="bg-green-900 "
+                          size="sm"
+                          onClick={reafiliarFicha}
+                        >
                           Reafiliar ficha
                         </Button>
                       </div>
@@ -529,9 +528,9 @@ const FormLegajoSocio = ({
                             size="md"
                             label="Fecha Nacimiento"
                             type="text"
-                            defaultValue={moment(ficha.NACIMIENTO).format(
-                              "DD/MM/YYYY"
-                            )}
+                            defaultValue={moment(ficha.NACIMIENTO)
+                              .utcOffset("+0300")
+                              .format("DD/MM/YYYY")}
                             readOnly
                           />
                         </div>
@@ -559,9 +558,9 @@ const FormLegajoSocio = ({
                             size="md"
                             label="Fecha Alta"
                             type="text"
-                            defaultValue={moment(ficha.ALTA).format(
-                              "DD/MM/YYYY"
-                            )}
+                            defaultValue={moment(ficha.ALTA)
+                              .utcOffset("+0300")
+                              .format("DD/MM/YYYY")}
                             readOnly
                           />
                         </div>
@@ -570,9 +569,9 @@ const FormLegajoSocio = ({
                             size="md"
                             label="Fecha Vigencia"
                             type="text"
-                            defaultValue={moment(ficha.VIGENCIA).format(
-                              "DD/MM/YYYY"
-                            )}
+                            defaultValue={moment(ficha.VIGENCIA)
+                              .utcOffset("+0300")
+                              .format("DD/MM/YYYY")}
                             readOnly
                           />
                         </div>
@@ -629,7 +628,11 @@ const FormLegajoSocio = ({
                           Adherentes
                         </Typography>
 
-                        <ListadoAdherentes listado={adhs} bajaAdh={bajaAdh}/>
+                        <ListadoAdherentes
+                          listado={adhs}
+                          bajaAdh={bajaAdh}
+                          reafilAdh={reafilAdh}
+                        />
                       </div>
                     )}
 
