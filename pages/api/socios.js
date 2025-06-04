@@ -23,8 +23,7 @@ export default async function handler(req, res) {
                 m.NACIMIENTO, 
                 m.TELEFONO, 
                 m.MOVIL, 
-                m.MAIL, 
-                c.IMPORTE, 
+                m.MAIL,                 
                 m.PRODUCTOR, 
                 m.LOCALIDAD, 
                 m.DOMI_COBR,
@@ -38,8 +37,7 @@ export default async function handler(req, res) {
                 m.ZONA, 
                 m.ESTADO,
                 m.idmaestro
-                FROM maestro as m
-                INNER JOIN cuo_fija as c on c.CONTRATO = m.CONTRATO
+                FROM maestro as m                
                 INNER JOIN obra_soc as o on o.CODIGO = m.OBRA_SOC
                 WHERE m.NRO_DOC = ${req.query.dni}
 
@@ -71,8 +69,7 @@ export default async function handler(req, res) {
                 m.NACIMIENTO, 
                 m.TELEFONO, 
                 m.MOVIL, 
-                m.MAIL, 
-                c.IMPORTE, 
+                m.MAIL,                 
                 m.PRODUCTOR, 
                 m.LOCALIDAD, 
                 m.DOM_LAB ,    
@@ -87,8 +84,7 @@ export default async function handler(req, res) {
                 m.ESTADO,
                 m.idmaestro
                                     
-                FROM maestro as m
-                INNER JOIN cuo_fija as c on c.CONTRATO = m.CONTRATO
+                FROM maestro as m                
                 INNER JOIN obra_soc as o on o.CODIGO = m.OBRA_SOC
                 WHERE m.CONTRATO = ${req.query.ficha}
 

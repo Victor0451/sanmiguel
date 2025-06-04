@@ -30,6 +30,7 @@ function Legajo(props) {
 
   const [errores, guardarErrores] = useState(null);
   const [alertas, guardarAlertas] = useState(null);
+  const [alerCuo, guardarAlerCuo] = useState(null);
   const [ficha, guardarFicha] = useState([]);
   const [adhs, guardarAdhs] = useState([]);
   const [show, guardarShow] = useState(false);
@@ -614,8 +615,11 @@ function Legajo(props) {
         },
       })
       .then((res) => {
-        if (res.data) {
+        if (res.data[0]) {
           guardarCuotaMensual(res.data[0].IMPORTE);
+        } else if (!res.data[0]) {
+          toast.warning("Esta ficha no tiene cuota mensual registrada. REGISTRA CUOTA URGENTE!!");
+          guardarAlerCuo("Esta ficha no tiene cuota mensual registrada. REGISTRA CUOTA URGENTE!!")
         }
       })
       .catch((error) => {
@@ -643,23 +647,6 @@ function Legajo(props) {
         toast.error(
           "Ocurrio un error al traer el N° de Tarjeta/Cuenta Bancaria"
         );
-      });
-
-    await axios
-      .get(`/api/socios`, {
-        params: {
-          contrato: contrato,
-          f: "traer cuota mensual",
-        },
-      })
-      .then((res) => {
-        if (res.data) {
-          guardarCuotaMensual(res.data[0].IMPORTE);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Ocurrio un error al traer la cuota mensual");
       });
   };
 
@@ -1145,6 +1132,7 @@ function Legajo(props) {
             bajaAdh={bajaAdh}
             reafiliarFicha={reafiliarFicha}
             reafilAdh={reafilAdh}
+            alerCuo={alerCuo}
           />
         </>
       )}

@@ -82,6 +82,7 @@ const FormLegajoSocio = ({
   bajaAdh,
   reafiliarFicha,
   reafilAdh,
+  alerCuo,
 }) => {
   return (
     <Card className="h-full w-full p-4 ">
@@ -503,8 +504,8 @@ const FormLegajoSocio = ({
                         Informacion del Socio
                       </Typography>
 
-                      <div className="grid md:grid-cols-4 md:gap-6 mt-6">
-                        <div className="relative w-full mb-6 group">
+                      <div className="flex flex-wrap -mx-3 mb-6">
+                        <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                           <Input
                             size="md"
                             label="Medio Pago"
@@ -514,7 +515,7 @@ const FormLegajoSocio = ({
                           />
                         </div>
 
-                        <div className="relative w-full mb-6 group">
+                        <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                           <Input
                             size="md"
                             label="DNI"
@@ -523,7 +524,7 @@ const FormLegajoSocio = ({
                             readOnly
                           />
                         </div>
-                        <div className="relative w-full mb-6 group">
+                        <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                           <Input
                             size="md"
                             label="Fecha Nacimiento"
@@ -535,7 +536,7 @@ const FormLegajoSocio = ({
                           />
                         </div>
 
-                        <div className="relative w-full mb-6 group">
+                        <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                           <Input
                             size="md"
                             label="Plan"
@@ -544,7 +545,7 @@ const FormLegajoSocio = ({
                             readOnly
                           />
                         </div>
-                        <div className="relative w-full mb-6 group">
+                        <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                           <Input
                             size="md"
                             label="Obra Social"
@@ -553,7 +554,7 @@ const FormLegajoSocio = ({
                             readOnly
                           />
                         </div>
-                        <div className="relative w-full mb-6 group">
+                        <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                           <Input
                             size="md"
                             label="Fecha Alta"
@@ -564,7 +565,7 @@ const FormLegajoSocio = ({
                             readOnly
                           />
                         </div>
-                        <div className="relative w-full mb-6 group">
+                        <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                           <Input
                             size="md"
                             label="Fecha Vigencia"
@@ -575,7 +576,7 @@ const FormLegajoSocio = ({
                             readOnly
                           />
                         </div>
-                        <div className="relative w-full mb-6 group">
+                        <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                           <Input
                             size="md"
                             label="Telefono"
@@ -584,7 +585,7 @@ const FormLegajoSocio = ({
                             readOnly
                           />
                         </div>
-                        <div className="relative w-full mb-6 group">
+                        <div className="w-full md:w-1/3 px-3 mt-6 mb-6 md:mb-0">
                           <Input
                             size="md"
                             label="Movil"
@@ -594,7 +595,7 @@ const FormLegajoSocio = ({
                           />
                         </div>
 
-                        <div className="relative w-full mb-6 group">
+                        <div className="w-full md:w-1/4 px-3 mt-6 mb-6 md:mb-0">
                           <Input
                             size="md"
                             label="Cuota Mensual"
@@ -602,6 +603,21 @@ const FormLegajoSocio = ({
                             value={`$${cuotaMensual}`}
                             readOnly
                           />
+                        </div>
+                        <div className="w-full md:w-3/4 px-3 mt-6 mb-6 md:mb-0">
+                          {alerCuo ? (
+                            <Alert
+                              color="orange"
+                              icon={
+                                <InformationCircleIcon
+                                  strokeWidth={2}
+                                  className="h-6 w-6"
+                                />
+                              }
+                            >
+                              {alerCuo}
+                            </Alert>
+                          ) : null}
                         </div>
                       </div>
                     </div>
