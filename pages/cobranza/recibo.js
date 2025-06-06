@@ -136,8 +136,6 @@ function socios(props) {
     guardarAlertas(null);
     guardarShow(false);
 
-    traerUltimoRecibo(usu.seriew, usu.puestow);
-
     if (dniRef.current.value === "") {
       guardarErrores("Debes ingresar un numero de DNI");
     } else {
@@ -206,8 +204,6 @@ function socios(props) {
   };
 
   const tarerSocioContrato = async () => {
-    traerUltimoRecibo(usu.seriew, usu.puestow);
-
     let contrato = contratoRef.current.value;
 
     if (contrato === "") {
@@ -400,49 +396,49 @@ function socios(props) {
     guardarNuPagos([...nupagos]);
   };
 
-  const traerUltimoRecibo = async () => {
-    await setInterval(() => {
-      if (puestos.serie_sm) {
-        axios
-          .get(`/api/cobranza`, {
-            params: {
-              serie: puestos.serie_sm,
-              f: "ultimo recibo",
-            },
-          })
-          .then((res) => {
-            if (res.data) {
-              console.log(res.data.id);
-              guardarRecibo(res.data.id);
-            }
-          })
-          .catch((error) => {
-            toast.error("Ocurrio un error al traer el recibo", "ATENCION");
-            console.log(error);
-          });
-      }
-    }, 1000);
+  const traerUltimoRecibo = async (ser) => {
+    await axios
+      .get(`/api/cobranza`, {
+        params: {
+          serie: ser,
+          f: "ultimo recibo",
+        },
+      })
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data.id);
+          guardarRecibo(res.data.id);
+        }
+      })
+      .catch((error) => {
+        toast.error("Ocurrio un error al traer el recibo", "ATENCION");
+        console.log(error);
+      });
   };
 
   const traerPuestos = async () => {
-    if (usu.usuario) {
-      await axios
-        .get(`/api/cobranza`, {
-          params: {
-            operador: usu.usuario,
-            f: "traer puestos",
-          },
-        })
-        .then((res) => {
-          if (res.data) {
-            guardarPuestos(res.data[0]);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error("Ocurrio un error al traer la cuota mensual");
-        });
-    }
+    await axios
+      .get(`/api/cobranza`, {
+        params: {
+          operador: usu.usuario,
+          f: "traer puestos",
+        },
+      })
+      .then((res) => {
+        if (res.data) {
+          let dat = res.data[0];
+
+          guardarPuestos(dat);
+
+          setInterval(() => {
+            traerUltimoRecibo(dat.serie_sm, dat.puesto_sm);
+          }, 500);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Ocurrio un error al traer la cuota mensual");
+      });
   };
 
   const registrarPagos = async (arr) => {
