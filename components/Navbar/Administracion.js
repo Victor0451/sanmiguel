@@ -47,6 +47,25 @@ export const Administracion = () => {
           className="hidden  grid-cols-4 gap-3 overflow-visible lg:grid"
         >
           <ul className="col-span-4 flex w-full flex-col gap-1">
+            <Menu placement="right-start">
+              <MenuHandler>
+                <MenuItem className="hidden items-center gap-2 lg:flex lg:rounded-full">
+                  <Typography color="black">Contabilidad</Typography>
+                  <ChevronDownIcon
+                    strokeWidth={2}
+                    className={`h-3 w-3 transition-transform `}
+                  />
+                </MenuItem>
+              </MenuHandler>
+              <MenuList>
+                <Link href={"/contabilidad/cuentas"}>
+                  <MenuItem>
+                    <Typography color="black">Plan de Cuentas</Typography>
+                  </MenuItem>
+                </Link>
+              </MenuList>
+            </Menu>
+
             <Link href={"/administracion/historial/panel"}>
               <MenuItem>
                 <Typography color="black">Historial del Sistema</Typography>

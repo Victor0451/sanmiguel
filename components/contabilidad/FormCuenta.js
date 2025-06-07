@@ -30,6 +30,7 @@ const FormCuenta = ({
   cuentas,
   handleChange,
   regCuenta,
+  elimCuenta,
   errores,
 }) => {
   const [open, setOpen] = React.useState(0);
@@ -49,7 +50,7 @@ const FormCuenta = ({
             <AccordionHeader onClick={() => handleOpen(1)}>
               Registrar Nueva Cuenta
             </AccordionHeader>
-            <AccordionBody>
+            <AccordionBody className="p-4">
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/4 px-3 mt-6 mb-6 md:mb-0">
                   <Input
@@ -71,7 +72,7 @@ const FormCuenta = ({
                   <Select
                     label="Movimiento"
                     onChange={(value) => {
-                      handleChange("movim", value.value);
+                      handleChange("movim", value);
                     }}
                   >
                     <Option value="I">Ingreso</Option>
@@ -80,6 +81,7 @@ const FormCuenta = ({
                   </Select>
                 </div>
               </div>
+              <br />
 
               {errores ? (
                 <Alert
@@ -134,7 +136,9 @@ const FormCuenta = ({
         </div>
 
         <div className="w-full  p-4 border-2 rounded-xl mt-5">
-          <ListadoCuentas listado={cuentas} />
+          <ListadoCuentas listado={cuentas} 
+          elimCuenta={elimCuenta}
+          />
         </div>
       </CardBody>
     </Card>

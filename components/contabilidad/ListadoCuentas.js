@@ -14,8 +14,9 @@ import {
   Textarea,
   Checkbox,
 } from "@material-tailwind/react";
+import { TrashIcon } from "@heroicons/react/24/solid";
 
-const ListadoCuentas = ({ listado }) => {
+const ListadoCuentas = ({ listado, elimCuenta }) => {
   let columns = [
     {
       name: "#",
@@ -33,13 +34,27 @@ const ListadoCuentas = ({ listado }) => {
       name: "Descripcion",
       selector: (row) => `${row.DESC}`,
       sortable: true,
-      grow: 0.3,
+      grow: 0.5,
     },
     {
       name: "Movimiento",
       selector: (row) => `${row.MOVIM}`,
       sortable: true,
       grow: 0.1,
+    },
+    {
+      name: "Acciones",
+      button: true,
+      grow: 0.1,
+      cell: (row, index) => (
+        <>
+          <TrashIcon
+            color="red"
+            className="butlist mt-px h-6 w-6"
+            onClick={() => elimCuenta(row.id)}
+          />
+        </>
+      ),
     },
   ];
 

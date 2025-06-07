@@ -24,5 +24,15 @@ export default async function handler(req, res) {
 
       res.status(200).json(regCuen);
     }
+  } else if (req.method === "DELETE") {
+    if (req.query.f && req.query.f === "eliminar cuenta") {
+      const delCuenta = await SanMiguel.subcta.delete({
+        where: {
+          id: parseInt(req.query.id),
+        },
+      });
+
+      res.status(200).json(delCuenta);
+    }
   }
 }

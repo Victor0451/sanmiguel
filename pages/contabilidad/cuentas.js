@@ -9,6 +9,7 @@ import useSWR from "swr";
 import { confirmAlert } from "react-confirm-alert";
 import moment, { months } from "moment";
 import FormCuenta from "@/components/contabilidad/FormCuenta";
+import { registrarHistoria } from "../../libs/funciones";
 
 function Cuentas(props) {
   let nroCuentaRef = React.createRef();
@@ -55,15 +56,12 @@ function Cuentas(props) {
     let data = {
       CODI: 0,
       DESC: descCuentaRef.current.value,
-      CUEN: nroCuentaRef.current.value,
+      CUEN: parseInt(nroCuentaRef.current.value),
       MOVIM: movimSel,
       f: "reg cuenta",
     };
 
-    console.log(data);
-
-
-    if ((data.CUEN = "")) {
+    if (data.CUEN === "") {
       guardarErrores("Tienes que ingresar el numero de cuenta a registrar");
     } else if (data.DESC === "") {
       guardarErrores("Tienes que ingresar el nombre de la cuenta a registrar");
@@ -72,23 +70,79 @@ function Cuentas(props) {
         "Tienes que ingresar el tipo de movimiento de la cuenta a registrar"
       );
     } else {
+      await axios
+        .post("/api/contabilidad", data)
+        .then((res) => {
+          if (res.status === 200) {
+            toast.success("La cuenta se registro correctamente");
+            let hist = {
+              CONTRATO: 0,
+              OPERADOR: usu.usuario,
+              ACCION: `Registro de nueva cuenta, al plan de cuentas de San Miguel ---> Nro Cuenta: ${data.CUEN} - Cuenta: ${data.DESC}.`,
+              FECHA: moment().format("DD/MM/YYYY HH:mm"),
+              f: "reg historia",
+            };
 
-    //   await axios
-    //     .post("/api/contabilidad", data)
-    //     .then((res) => {
-    //       if (res.status === 200) {
-    //         toast.success("La cuenta se registro correctamente");
-
-    //         setTimeout(() => {
-    //           traerCuenta();
-    //         }, 200);
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //       toast.error("Ocurrio un error al registrar la cuenta");
-    //     });
+            registrarHistoria(hist);
+            setTimeout(() => {
+              traerCuenta();
+            }, 200);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Ocurrio un error al registrar la cuenta");
+        });
     }
+  };
+
+  const elimCuenta = async (id) => {
+    await confirmAlert({
+      title: "ATENCION",
+      message: "¿Seguro quieres eliminar esta cuenta?",
+      buttons: [
+        {
+          label: "Si",
+          onClick: () => {
+            axios
+              .delete("/api/contabilidad", {
+                params: {
+                  id: id,
+                  f: "eliminar cuenta",
+                },
+              })
+              .then((res) => {
+                if (res.status === 200) {
+                  console.log(res.data);
+                  toast.success("La cuenta se elimino correctamente");
+                  let hist = {
+                    CONTRATO: 0,
+                    OPERADOR: usu.usuario,
+                    ACCION: `Cuenta eliminada en el plan de cuentas de San Miguel: ---> Nro Cuenta: ${res.data.CUEN} - Cuenta: ${res.data.DESC}.`,
+                    FECHA: moment().format("DD/MM/YYYY HH:mm"),
+                    f: "reg historia",
+                  };
+
+                  registrarHistoria(hist);
+                  setTimeout(() => {
+                    traerCuenta();
+                  }, 200);
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+                toast.error("Ocurrio un error al eliminar la cuenta");
+              });
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {
+            toast.info("La cuenta seleccionada no fue eliminada");
+          },
+        },
+      ],
+    });
   };
 
   useSWR("/api/socios", traerCuenta);
@@ -107,6 +161,7 @@ function Cuentas(props) {
             cuentas={cuentas}
             handleChange={handleChange}
             regCuenta={regCuenta}
+            elimCuenta={elimCuenta}
             errores={errores}
           />
         </>
