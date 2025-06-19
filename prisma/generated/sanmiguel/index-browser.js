@@ -381,6 +381,24 @@ exports.Prisma.Subcta_oldScalarFieldEnum = {
   id: 'id'
 };
 
+exports.Prisma.SoScalarFieldEnum = {
+  CONTRATO: 'CONTRATO',
+  SOCIO: 'SOCIO',
+  ALTA: 'ALTA',
+  GRUPO: 'GRUPO',
+  ADHERENTES: 'ADHERENTES',
+  PLAN: 'PLAN',
+  ZONA: 'ZONA',
+  EDAD: 'EDAD',
+  CUOTA: 'CUOTA',
+  EMPRESA: 'EMPRESA',
+  SUCURSAL: 'SUCURSAL',
+  CUOTAS: 'CUOTAS',
+  PAGOS: 'PAGOS',
+  DEUDA: 'DEUDA',
+  id: 'id'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -408,7 +426,8 @@ exports.Prisma.ModelName = {
   subcta: 'subcta',
   maestro_cuentas: 'maestro_cuentas',
   operador: 'operador',
-  subcta_old: 'subcta_old'
+  subcta_old: 'subcta_old',
+  so: 'so'
 };
 
 /**

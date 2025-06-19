@@ -75,6 +75,32 @@ export const Administracion = () => {
             <Menu placement="right-start">
               <MenuHandler>
                 <MenuItem className="hidden items-center gap-2 lg:flex lg:rounded-full">
+                  <Typography color="black">Informes</Typography>
+                  <ChevronDownIcon
+                    strokeWidth={2}
+                    className={`h-3 w-3 transition-transform `}
+                  />
+                </MenuItem>
+              </MenuHandler>
+              <MenuList>
+                <Link href={"/cobranza/efectividad"}>
+                  <MenuItem>
+                    <Typography color="black">
+                      Efectividad de Cobranza
+                    </Typography>
+                  </MenuItem>
+                </Link>
+                <Link href={"/ventas/informeventas"}>
+                  <MenuItem>
+                    <Typography color="black">Informe de Ventas</Typography>
+                  </MenuItem>
+                </Link>
+              </MenuList>
+            </Menu>
+
+            <Menu placement="right-start">
+              <MenuHandler>
+                <MenuItem className="hidden items-center gap-2 lg:flex lg:rounded-full">
                   <Typography color="black">Noticias</Typography>
                   <ChevronDownIcon
                     strokeWidth={2}

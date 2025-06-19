@@ -1,4 +1,5 @@
-import { SanMiguel, SGI, Camp } from "../../libs/config";
+import { SanMiguel, SGI, SMArchivo } from "../../libs/config";
+import moment from "moment";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
@@ -45,6 +46,81 @@ export default async function handler(req, res) {
     } else if (req.query.f && req.query.f === "listado recibos admin") {
       const listRec = await SanMiguel.pagos.findMany({});
       res.status(200).json(listRec);
+    } else if (req.query.f && req.query.f === "check so") {
+      let tab = `${req.query.tab}`;
+
+      const checkSO = await SMArchivo.$queryRawUnsafe(`
+       SHOW TABLES LIKE '${tab}'
+`);
+      res.status(200).json(checkSO);
+    } else if (req.query.f && req.query.f === "ofi emi") {
+      let tab = `${req.query.tab}`;
+
+      const ofiEmi = await SMArchivo.$queryRawUnsafe(`
+          SELECT 'Oficina' as 'zona', 'Monterrico' as 'descr', COUNT(*) as 'fichas', SUM(CUOTA) as 'total' 
+          FROM ${tab} 
+          WHERE GRUPO = 1000 
+          AND DEUDA = 1   
+`);
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(ofiEmi, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
+    } else if (req.query.f && req.query.f === "ofi cob") {
+      const ofiEmi = await SanMiguel.$queryRaw`
+          SELECT 'Oficina' as 'zona', COUNT(*) as 'fichascob', SUM(CUOTA) as 'cobrado'           
+          FROM so as s
+          INNER JOIN pagos as p on p.CONTRATO = s.CONTRATO
+          WHERE s.GRUPO = 1000
+          AND p.MES = ${parseInt(req.query.mes)}
+          AND p.ANO = ${parseInt(req.query.ano)}
+          AND p.MOVIM = 'P'
+          AND p.DIA_PAG BETWEEN ${moment(req.query.mes, "MM")
+            .startOf("month")
+            .format("YYYY-MM-DD")}
+          AND ${moment(req.query.mes, "MM").endOf("month").format("YYYY-MM-DD")}
+          
+`;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(ofiEmi, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
+    } else if (req.query.f && req.query.f === "ofi adel") {
+      const ofiEmi = await SanMiguel.$queryRaw`
+          SELECT 'Oficina' as 'zona', 
+          (CASE
+          WHEN SUM(IMPORTE) IS NULL
+          THEN 0
+          WHEN SUM(IMPORTE) IS NOT NULL
+          THEN SUM(IMPORTE)
+          END
+          ) as 'adelantado'           
+          FROM  pagos as p 
+          WHERE p.MES > ${parseInt(req.query.mes)}
+          AND p.ANO >= ${parseInt(req.query.ano)}
+          AND p.MOVIM = 'P'
+          AND p.DIA_PAG BETWEEN ${moment(req.query.mes, "MM")
+            .startOf("month")
+            .format("YYYY-MM-DD")}
+          AND ${moment(req.query.mes, "MM").endOf("month").format("YYYY-MM-DD")}
+          
+`;
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(ofiEmi, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
     }
   } else if (req.method === "POST") {
     if (req.body.f && req.body.f === "reg pago") {

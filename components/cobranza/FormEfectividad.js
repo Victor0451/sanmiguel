@@ -15,30 +15,27 @@ import { IconSolid } from "../../libs/funciones";
 import Select from "react-select";
 import { meses, anos } from "../../array/array";
 import TablaEfectividad from "./TablaEfectividad";
-
+import ReactToPrint from "react-to-print";
 import Opciones from "./Opciones";
 
 const FormEfectividad = ({
   handleChange,
-  traerInfo,
   errores,
-  ctjt,
-  cCob,
-  cOf,
-  cbanco,
-  cbancoP,
-  cpolicia,
-  cprestamos,
   porcent,
   totales,
-  totArr,
-  actFunctions,
-  creaFunctions,
+  buscarEfect,
+  cOf,
+  noData,
+  efecRef,
+  mesSel,
+  anoSel,
 }) => {
   return (
     <Card className="h-full w-full p-4 mt-5 border-2 ">
       <CardBody className="rounded-none">
-        <Typography variant="h2">WERCHOW - Efectividad de Cobranza</Typography>
+        <Typography variant="h2">
+          San Miguel - Efectividad de Cobranza
+        </Typography>
 
         <Alert className="mt-5 mb-5" color="blue" icon={<IconSolid />}>
           Tabla resumen de la cobranza mensual para evaluar la efectividad.
@@ -72,21 +69,24 @@ const FormEfectividad = ({
                 }}
               />
             </div>
-            <div className="w-full md:w-1/6 px-3 mt-6 mb-6 md:mb-0">
-              <Button onClick={traerInfo}>Buscar</Button>
-            </div>
 
             <div className="w-full md:w-1/6 px-3 mt-6 mb-6 md:mb-0">
-              <Opciones
-                actFunctions={actFunctions}
-                creaFunctions={creaFunctions}
-              />
+              <Button onClick={buscarEfect}>Buscar</Button>
             </div>
 
-            {cCob.length > 0 ? (
-              <div className="w-full md:w-1/6 px-3 mt-6 mb-6 md:mb-0">
-                <Button color="green">Imprimir</Button>
-              </div>
+            {noData === 2 ? (
+              <>
+                <div className="w-full md:w-1/6 px-3 mt-6 mb-6 md:mb-0">
+                  <Opciones />
+                </div>
+
+                <div className="w-full md:w-1/6 px-3 mt-6 mb-6 md:mb-0">
+                  <ReactToPrint
+                    trigger={() => <Button color="green">Imprimir</Button>}
+                    content={() => efecRef}
+                  />
+                </div>
+              </>
             ) : null}
 
             {errores ? (
@@ -97,34 +97,33 @@ const FormEfectividad = ({
           </div>
         </div>
 
-        {cCob.length > 0 ? (
+        {noData === 2 ? (
           <>
             <hr className="border-2 mt-5 mb-5" />
 
-            <div className="border-2 rounded-xl p-4">
-              <Typography variant="h4" className="mb-4">
-                Efectividad De Cobranza
-              </Typography>
+            <div ref={(el) => (efecRef = el)}>
+              <div className="border-2 rounded-xl p-4">
+                <Typography variant="h4" className="mb-4">
+                  Efectividad De Cobranza San Miguel - {mesSel}/{anoSel}
+                </Typography>
 
-              <TablaEfectividad
-                cCob={cCob}
-                cOf={cOf}
-                ctjt={ctjt}
-                cbanco={cbanco}
-                cbancoP={cbancoP}
-                cpolicia={cpolicia}
-                cprestamos={cprestamos}
-                totArr={totArr}
-                porcent={porcent}
-                totales={totales}
-              />
+                <TablaEfectividad
+                  cOf={cOf}
+                  totales={totales}
+                  porcent={porcent}
+                />
+
+                <Typography variant="small" className="mt-5 flex justify-end">
+                  Fecha de emisión del informe: {moment().format("DD/MM/YYYY")}
+                </Typography>
+              </div>
             </div>
           </>
-        ) : (
+        ) : noData === 1 ? (
           <Alert color="orange" icon={<IconSolid />} className="mt-5 mb-5">
             No hay datos registrados para el periodo seleccionado
           </Alert>
-        )}
+        ) : null}
       </CardBody>
     </Card>
   );

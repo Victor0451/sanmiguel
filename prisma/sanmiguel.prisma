@@ -322,3 +322,21 @@ model subcta_old {
   MOVIM String? @db.VarChar(14)
   id    Int     @id @default(autoincrement())
 }
+
+model so {
+  CONTRATO   String? @db.VarChar(255)
+  SOCIO      String? @db.VarChar(255)
+  ALTA       String? @db.VarChar(255)
+  GRUPO      String? @db.VarChar(255)
+  ADHERENTES String? @db.VarChar(255)
+  PLAN       String? @db.VarChar(255)
+  ZONA       String? @db.VarChar(255)
+  EDAD       String? @db.VarChar(255)
+  CUOTA      String? @db.VarChar(255)
+  EMPRESA    String? @db.VarChar(255)
+  SUCURSAL   String? @db.VarChar(255)
+  CUOTAS     String? @db.VarChar(255)
+  PAGOS      String? @db.VarChar(255)
+  DEUDA      String? @db.VarChar(255)
+  id         Int     @id @default(autoincrement())
+}

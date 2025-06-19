@@ -448,6 +448,34 @@ export type subcta_oldPayload<ExtArgs extends $Extensions.Args = $Extensions.Def
  * 
  */
 export type subcta_old = runtime.Types.DefaultSelection<subcta_oldPayload>
+export type soPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "so"
+  objects: {}
+  scalars: $Extensions.GetResult<{
+    CONTRATO: string | null
+    SOCIO: string | null
+    ALTA: string | null
+    GRUPO: string | null
+    ADHERENTES: string | null
+    PLAN: string | null
+    ZONA: string | null
+    EDAD: string | null
+    CUOTA: string | null
+    EMPRESA: string | null
+    SUCURSAL: string | null
+    CUOTAS: string | null
+    PAGOS: string | null
+    DEUDA: string | null
+    id: number
+  }, ExtArgs["result"]["so"]>
+  composites: {}
+}
+
+/**
+ * Model so
+ * 
+ */
+export type so = runtime.Types.DefaultSelection<soPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -733,6 +761,16 @@ export class PrismaClient<
     * ```
     */
   get subcta_old(): Prisma.subcta_oldDelegate<GlobalReject, ExtArgs>;
+
+  /**
+   * `prisma.so`: Exposes CRUD operations for the **so** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Sos
+    * const sos = await prisma.so.findMany()
+    * ```
+    */
+  get so(): Prisma.soDelegate<GlobalReject, ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1231,7 +1269,8 @@ export namespace Prisma {
     subcta: 'subcta',
     maestro_cuentas: 'maestro_cuentas',
     operador: 'operador',
-    subcta_old: 'subcta_old'
+    subcta_old: 'subcta_old',
+    so: 'so'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1248,7 +1287,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'adherent' | 'cuo_fija' | 'grupos' | 'historia' | 'localidad' | 'maestro' | 'obra_soc' | 'bajas' | 'gestioncaso' | 'pagos' | 'pago_bco' | 'caja' | 'subcta' | 'maestro_cuentas' | 'operador' | 'subcta_old'
+      modelProps: 'adherent' | 'cuo_fija' | 'grupos' | 'historia' | 'localidad' | 'maestro' | 'obra_soc' | 'bajas' | 'gestioncaso' | 'pagos' | 'pago_bco' | 'caja' | 'subcta' | 'maestro_cuentas' | 'operador' | 'subcta_old' | 'so'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -2305,6 +2344,72 @@ export namespace Prisma {
           count: {
             args: Prisma.subcta_oldCountArgs<ExtArgs>,
             result: $Utils.Optional<Subcta_oldCountAggregateOutputType> | number
+          }
+        }
+      }
+      so: {
+        payload: soPayload<ExtArgs>
+        fields: Prisma.soFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.soFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<soPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.soFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<soPayload>
+          }
+          findFirst: {
+            args: Prisma.soFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<soPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.soFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<soPayload>
+          }
+          findMany: {
+            args: Prisma.soFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<soPayload>[]
+          }
+          create: {
+            args: Prisma.soCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<soPayload>
+          }
+          createMany: {
+            args: Prisma.soCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.soDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<soPayload>
+          }
+          update: {
+            args: Prisma.soUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<soPayload>
+          }
+          deleteMany: {
+            args: Prisma.soDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.soUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.soUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<soPayload>
+          }
+          aggregate: {
+            args: Prisma.SoAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateSo>
+          }
+          groupBy: {
+            args: Prisma.soGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<SoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.soCountArgs<ExtArgs>,
+            result: $Utils.Optional<SoCountAggregateOutputType> | number
           }
         }
       }
@@ -19110,6 +19215,1033 @@ export namespace Prisma {
 
 
   /**
+   * Model so
+   */
+
+
+  export type AggregateSo = {
+    _count: SoCountAggregateOutputType | null
+    _avg: SoAvgAggregateOutputType | null
+    _sum: SoSumAggregateOutputType | null
+    _min: SoMinAggregateOutputType | null
+    _max: SoMaxAggregateOutputType | null
+  }
+
+  export type SoAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type SoSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type SoMinAggregateOutputType = {
+    CONTRATO: string | null
+    SOCIO: string | null
+    ALTA: string | null
+    GRUPO: string | null
+    ADHERENTES: string | null
+    PLAN: string | null
+    ZONA: string | null
+    EDAD: string | null
+    CUOTA: string | null
+    EMPRESA: string | null
+    SUCURSAL: string | null
+    CUOTAS: string | null
+    PAGOS: string | null
+    DEUDA: string | null
+    id: number | null
+  }
+
+  export type SoMaxAggregateOutputType = {
+    CONTRATO: string | null
+    SOCIO: string | null
+    ALTA: string | null
+    GRUPO: string | null
+    ADHERENTES: string | null
+    PLAN: string | null
+    ZONA: string | null
+    EDAD: string | null
+    CUOTA: string | null
+    EMPRESA: string | null
+    SUCURSAL: string | null
+    CUOTAS: string | null
+    PAGOS: string | null
+    DEUDA: string | null
+    id: number | null
+  }
+
+  export type SoCountAggregateOutputType = {
+    CONTRATO: number
+    SOCIO: number
+    ALTA: number
+    GRUPO: number
+    ADHERENTES: number
+    PLAN: number
+    ZONA: number
+    EDAD: number
+    CUOTA: number
+    EMPRESA: number
+    SUCURSAL: number
+    CUOTAS: number
+    PAGOS: number
+    DEUDA: number
+    id: number
+    _all: number
+  }
+
+
+  export type SoAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type SoSumAggregateInputType = {
+    id?: true
+  }
+
+  export type SoMinAggregateInputType = {
+    CONTRATO?: true
+    SOCIO?: true
+    ALTA?: true
+    GRUPO?: true
+    ADHERENTES?: true
+    PLAN?: true
+    ZONA?: true
+    EDAD?: true
+    CUOTA?: true
+    EMPRESA?: true
+    SUCURSAL?: true
+    CUOTAS?: true
+    PAGOS?: true
+    DEUDA?: true
+    id?: true
+  }
+
+  export type SoMaxAggregateInputType = {
+    CONTRATO?: true
+    SOCIO?: true
+    ALTA?: true
+    GRUPO?: true
+    ADHERENTES?: true
+    PLAN?: true
+    ZONA?: true
+    EDAD?: true
+    CUOTA?: true
+    EMPRESA?: true
+    SUCURSAL?: true
+    CUOTAS?: true
+    PAGOS?: true
+    DEUDA?: true
+    id?: true
+  }
+
+  export type SoCountAggregateInputType = {
+    CONTRATO?: true
+    SOCIO?: true
+    ALTA?: true
+    GRUPO?: true
+    ADHERENTES?: true
+    PLAN?: true
+    ZONA?: true
+    EDAD?: true
+    CUOTA?: true
+    EMPRESA?: true
+    SUCURSAL?: true
+    CUOTAS?: true
+    PAGOS?: true
+    DEUDA?: true
+    id?: true
+    _all?: true
+  }
+
+  export type SoAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which so to aggregate.
+     */
+    where?: soWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sos to fetch.
+     */
+    orderBy?: soOrderByWithRelationInput | soOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: soWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned sos
+    **/
+    _count?: true | SoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SoMaxAggregateInputType
+  }
+
+  export type GetSoAggregateType<T extends SoAggregateArgs> = {
+        [P in keyof T & keyof AggregateSo]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSo[P]>
+      : GetScalarType<T[P], AggregateSo[P]>
+  }
+
+
+
+
+  export type soGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: soWhereInput
+    orderBy?: soOrderByWithAggregationInput | soOrderByWithAggregationInput[]
+    by: SoScalarFieldEnum[] | SoScalarFieldEnum
+    having?: soScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SoCountAggregateInputType | true
+    _avg?: SoAvgAggregateInputType
+    _sum?: SoSumAggregateInputType
+    _min?: SoMinAggregateInputType
+    _max?: SoMaxAggregateInputType
+  }
+
+
+  export type SoGroupByOutputType = {
+    CONTRATO: string | null
+    SOCIO: string | null
+    ALTA: string | null
+    GRUPO: string | null
+    ADHERENTES: string | null
+    PLAN: string | null
+    ZONA: string | null
+    EDAD: string | null
+    CUOTA: string | null
+    EMPRESA: string | null
+    SUCURSAL: string | null
+    CUOTAS: string | null
+    PAGOS: string | null
+    DEUDA: string | null
+    id: number
+    _count: SoCountAggregateOutputType | null
+    _avg: SoAvgAggregateOutputType | null
+    _sum: SoSumAggregateOutputType | null
+    _min: SoMinAggregateOutputType | null
+    _max: SoMaxAggregateOutputType | null
+  }
+
+  type GetSoGroupByPayload<T extends soGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SoGroupByOutputType[P]>
+            : GetScalarType<T[P], SoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type soSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    CONTRATO?: boolean
+    SOCIO?: boolean
+    ALTA?: boolean
+    GRUPO?: boolean
+    ADHERENTES?: boolean
+    PLAN?: boolean
+    ZONA?: boolean
+    EDAD?: boolean
+    CUOTA?: boolean
+    EMPRESA?: boolean
+    SUCURSAL?: boolean
+    CUOTAS?: boolean
+    PAGOS?: boolean
+    DEUDA?: boolean
+    id?: boolean
+  }, ExtArgs["result"]["so"]>
+
+  export type soSelectScalar = {
+    CONTRATO?: boolean
+    SOCIO?: boolean
+    ALTA?: boolean
+    GRUPO?: boolean
+    ADHERENTES?: boolean
+    PLAN?: boolean
+    ZONA?: boolean
+    EDAD?: boolean
+    CUOTA?: boolean
+    EMPRESA?: boolean
+    SUCURSAL?: boolean
+    CUOTAS?: boolean
+    PAGOS?: boolean
+    DEUDA?: boolean
+    id?: boolean
+  }
+
+
+  type soGetPayload<S extends boolean | null | undefined | soArgs> = $Types.GetResult<soPayload, S>
+
+  type soCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
+    Omit<soFindManyArgs, 'select' | 'include'> & {
+      select?: SoCountAggregateInputType | true
+    }
+
+  export interface soDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['so'], meta: { name: 'so' } }
+    /**
+     * Find zero or one So that matches the filter.
+     * @param {soFindUniqueArgs} args - Arguments to find a So
+     * @example
+     * // Get one So
+     * const so = await prisma.so.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends soFindUniqueArgs<ExtArgs>, LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, soFindUniqueArgs<ExtArgs>>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'so'> extends True ? Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'findUnique', never>, never, ExtArgs> : Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'findUnique', never> | null, null, ExtArgs>
+
+    /**
+     * Find one So that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {soFindUniqueOrThrowArgs} args - Arguments to find a So
+     * @example
+     * // Get one So
+     * const so = await prisma.so.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends soFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, soFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'findUniqueOrThrow', never>, never, ExtArgs>
+
+    /**
+     * Find the first So that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {soFindFirstArgs} args - Arguments to find a So
+     * @example
+     * // Get one So
+     * const so = await prisma.so.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends soFindFirstArgs<ExtArgs>, LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, soFindFirstArgs<ExtArgs>>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'so'> extends True ? Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'findFirst', never>, never, ExtArgs> : Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'findFirst', never> | null, null, ExtArgs>
+
+    /**
+     * Find the first So that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {soFindFirstOrThrowArgs} args - Arguments to find a So
+     * @example
+     * // Get one So
+     * const so = await prisma.so.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends soFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, soFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'findFirstOrThrow', never>, never, ExtArgs>
+
+    /**
+     * Find zero or more Sos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {soFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Sos
+     * const sos = await prisma.so.findMany()
+     * 
+     * // Get first 10 Sos
+     * const sos = await prisma.so.findMany({ take: 10 })
+     * 
+     * // Only select the `CONTRATO`
+     * const soWithCONTRATOOnly = await prisma.so.findMany({ select: { CONTRATO: true } })
+     * 
+    **/
+    findMany<T extends soFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, soFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<soPayload<ExtArgs>, T, 'findMany', never>>
+
+    /**
+     * Create a So.
+     * @param {soCreateArgs} args - Arguments to create a So.
+     * @example
+     * // Create one So
+     * const So = await prisma.so.create({
+     *   data: {
+     *     // ... data to create a So
+     *   }
+     * })
+     * 
+    **/
+    create<T extends soCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, soCreateArgs<ExtArgs>>
+    ): Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'create', never>, never, ExtArgs>
+
+    /**
+     * Create many Sos.
+     *     @param {soCreateManyArgs} args - Arguments to create many Sos.
+     *     @example
+     *     // Create many Sos
+     *     const so = await prisma.so.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends soCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, soCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a So.
+     * @param {soDeleteArgs} args - Arguments to delete one So.
+     * @example
+     * // Delete one So
+     * const So = await prisma.so.delete({
+     *   where: {
+     *     // ... filter to delete one So
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends soDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, soDeleteArgs<ExtArgs>>
+    ): Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'delete', never>, never, ExtArgs>
+
+    /**
+     * Update one So.
+     * @param {soUpdateArgs} args - Arguments to update one So.
+     * @example
+     * // Update one So
+     * const so = await prisma.so.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends soUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, soUpdateArgs<ExtArgs>>
+    ): Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'update', never>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Sos.
+     * @param {soDeleteManyArgs} args - Arguments to filter Sos to delete.
+     * @example
+     * // Delete a few Sos
+     * const { count } = await prisma.so.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends soDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, soDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {soUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Sos
+     * const so = await prisma.so.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends soUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, soUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one So.
+     * @param {soUpsertArgs} args - Arguments to update or create a So.
+     * @example
+     * // Update or create a So
+     * const so = await prisma.so.upsert({
+     *   create: {
+     *     // ... data to create a So
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the So we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends soUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, soUpsertArgs<ExtArgs>>
+    ): Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'upsert', never>, never, ExtArgs>
+
+    /**
+     * Count the number of Sos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {soCountArgs} args - Arguments to filter Sos to count.
+     * @example
+     * // Count the number of Sos
+     * const count = await prisma.so.count({
+     *   where: {
+     *     // ... the filter for the Sos we want to count
+     *   }
+     * })
+    **/
+    count<T extends soCountArgs>(
+      args?: Subset<T, soCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a So.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SoAggregateArgs>(args: Subset<T, SoAggregateArgs>): Prisma.PrismaPromise<GetSoAggregateType<T>>
+
+    /**
+     * Group by So.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {soGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends soGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: soGroupByArgs['orderBy'] }
+        : { orderBy?: soGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, soGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the so model
+   */
+  readonly fields: soFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for so.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__soClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  /**
+   * Fields of the so model
+   */ 
+  interface soFieldRefs {
+    readonly CONTRATO: FieldRef<"so", 'String'>
+    readonly SOCIO: FieldRef<"so", 'String'>
+    readonly ALTA: FieldRef<"so", 'String'>
+    readonly GRUPO: FieldRef<"so", 'String'>
+    readonly ADHERENTES: FieldRef<"so", 'String'>
+    readonly PLAN: FieldRef<"so", 'String'>
+    readonly ZONA: FieldRef<"so", 'String'>
+    readonly EDAD: FieldRef<"so", 'String'>
+    readonly CUOTA: FieldRef<"so", 'String'>
+    readonly EMPRESA: FieldRef<"so", 'String'>
+    readonly SUCURSAL: FieldRef<"so", 'String'>
+    readonly CUOTAS: FieldRef<"so", 'String'>
+    readonly PAGOS: FieldRef<"so", 'String'>
+    readonly DEUDA: FieldRef<"so", 'String'>
+    readonly id: FieldRef<"so", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * so base type for findUnique actions
+   */
+  export type soFindUniqueArgsBase<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the so
+     */
+    select?: soSelect<ExtArgs> | null
+    /**
+     * Filter, which so to fetch.
+     */
+    where: soWhereUniqueInput
+  }
+
+  /**
+   * so findUnique
+   */
+  export interface soFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends soFindUniqueArgsBase<ExtArgs> {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * so findUniqueOrThrow
+   */
+  export type soFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the so
+     */
+    select?: soSelect<ExtArgs> | null
+    /**
+     * Filter, which so to fetch.
+     */
+    where: soWhereUniqueInput
+  }
+
+
+  /**
+   * so base type for findFirst actions
+   */
+  export type soFindFirstArgsBase<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the so
+     */
+    select?: soSelect<ExtArgs> | null
+    /**
+     * Filter, which so to fetch.
+     */
+    where?: soWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sos to fetch.
+     */
+    orderBy?: soOrderByWithRelationInput | soOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for sos.
+     */
+    cursor?: soWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of sos.
+     */
+    distinct?: SoScalarFieldEnum | SoScalarFieldEnum[]
+  }
+
+  /**
+   * so findFirst
+   */
+  export interface soFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends soFindFirstArgsBase<ExtArgs> {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * so findFirstOrThrow
+   */
+  export type soFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the so
+     */
+    select?: soSelect<ExtArgs> | null
+    /**
+     * Filter, which so to fetch.
+     */
+    where?: soWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sos to fetch.
+     */
+    orderBy?: soOrderByWithRelationInput | soOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for sos.
+     */
+    cursor?: soWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of sos.
+     */
+    distinct?: SoScalarFieldEnum | SoScalarFieldEnum[]
+  }
+
+
+  /**
+   * so findMany
+   */
+  export type soFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the so
+     */
+    select?: soSelect<ExtArgs> | null
+    /**
+     * Filter, which sos to fetch.
+     */
+    where?: soWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sos to fetch.
+     */
+    orderBy?: soOrderByWithRelationInput | soOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing sos.
+     */
+    cursor?: soWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sos.
+     */
+    skip?: number
+    distinct?: SoScalarFieldEnum | SoScalarFieldEnum[]
+  }
+
+
+  /**
+   * so create
+   */
+  export type soCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the so
+     */
+    select?: soSelect<ExtArgs> | null
+    /**
+     * The data needed to create a so.
+     */
+    data?: XOR<soCreateInput, soUncheckedCreateInput>
+  }
+
+
+  /**
+   * so createMany
+   */
+  export type soCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many sos.
+     */
+    data: soCreateManyInput | soCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * so update
+   */
+  export type soUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the so
+     */
+    select?: soSelect<ExtArgs> | null
+    /**
+     * The data needed to update a so.
+     */
+    data: XOR<soUpdateInput, soUncheckedUpdateInput>
+    /**
+     * Choose, which so to update.
+     */
+    where: soWhereUniqueInput
+  }
+
+
+  /**
+   * so updateMany
+   */
+  export type soUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update sos.
+     */
+    data: XOR<soUpdateManyMutationInput, soUncheckedUpdateManyInput>
+    /**
+     * Filter which sos to update
+     */
+    where?: soWhereInput
+  }
+
+
+  /**
+   * so upsert
+   */
+  export type soUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the so
+     */
+    select?: soSelect<ExtArgs> | null
+    /**
+     * The filter to search for the so to update in case it exists.
+     */
+    where: soWhereUniqueInput
+    /**
+     * In case the so found by the `where` argument doesn't exist, create a new so with this data.
+     */
+    create: XOR<soCreateInput, soUncheckedCreateInput>
+    /**
+     * In case the so was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<soUpdateInput, soUncheckedUpdateInput>
+  }
+
+
+  /**
+   * so delete
+   */
+  export type soDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the so
+     */
+    select?: soSelect<ExtArgs> | null
+    /**
+     * Filter which so to delete.
+     */
+    where: soWhereUniqueInput
+  }
+
+
+  /**
+   * so deleteMany
+   */
+  export type soDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which sos to delete
+     */
+    where?: soWhereInput
+  }
+
+
+  /**
+   * so without action
+   */
+  export type soArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the so
+     */
+    select?: soSelect<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -19445,6 +20577,27 @@ export namespace Prisma {
   };
 
   export type Subcta_oldScalarFieldEnum = (typeof Subcta_oldScalarFieldEnum)[keyof typeof Subcta_oldScalarFieldEnum]
+
+
+  export const SoScalarFieldEnum: {
+    CONTRATO: 'CONTRATO',
+    SOCIO: 'SOCIO',
+    ALTA: 'ALTA',
+    GRUPO: 'GRUPO',
+    ADHERENTES: 'ADHERENTES',
+    PLAN: 'PLAN',
+    ZONA: 'ZONA',
+    EDAD: 'EDAD',
+    CUOTA: 'CUOTA',
+    EMPRESA: 'EMPRESA',
+    SUCURSAL: 'SUCURSAL',
+    CUOTAS: 'CUOTAS',
+    PAGOS: 'PAGOS',
+    DEUDA: 'DEUDA',
+    id: 'id'
+  };
+
+  export type SoScalarFieldEnum = (typeof SoScalarFieldEnum)[keyof typeof SoScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -20848,6 +22001,93 @@ export namespace Prisma {
     CUEN?: IntNullableWithAggregatesFilter<"subcta_old"> | number | null
     MOVIM?: StringNullableWithAggregatesFilter<"subcta_old"> | string | null
     id?: IntWithAggregatesFilter<"subcta_old"> | number
+  }
+
+  export type soWhereInput = {
+    AND?: soWhereInput | soWhereInput[]
+    OR?: soWhereInput[]
+    NOT?: soWhereInput | soWhereInput[]
+    CONTRATO?: StringNullableFilter<"so"> | string | null
+    SOCIO?: StringNullableFilter<"so"> | string | null
+    ALTA?: StringNullableFilter<"so"> | string | null
+    GRUPO?: StringNullableFilter<"so"> | string | null
+    ADHERENTES?: StringNullableFilter<"so"> | string | null
+    PLAN?: StringNullableFilter<"so"> | string | null
+    ZONA?: StringNullableFilter<"so"> | string | null
+    EDAD?: StringNullableFilter<"so"> | string | null
+    CUOTA?: StringNullableFilter<"so"> | string | null
+    EMPRESA?: StringNullableFilter<"so"> | string | null
+    SUCURSAL?: StringNullableFilter<"so"> | string | null
+    CUOTAS?: StringNullableFilter<"so"> | string | null
+    PAGOS?: StringNullableFilter<"so"> | string | null
+    DEUDA?: StringNullableFilter<"so"> | string | null
+    id?: IntFilter<"so"> | number
+  }
+
+  export type soOrderByWithRelationInput = {
+    CONTRATO?: SortOrderInput | SortOrder
+    SOCIO?: SortOrderInput | SortOrder
+    ALTA?: SortOrderInput | SortOrder
+    GRUPO?: SortOrderInput | SortOrder
+    ADHERENTES?: SortOrderInput | SortOrder
+    PLAN?: SortOrderInput | SortOrder
+    ZONA?: SortOrderInput | SortOrder
+    EDAD?: SortOrderInput | SortOrder
+    CUOTA?: SortOrderInput | SortOrder
+    EMPRESA?: SortOrderInput | SortOrder
+    SUCURSAL?: SortOrderInput | SortOrder
+    CUOTAS?: SortOrderInput | SortOrder
+    PAGOS?: SortOrderInput | SortOrder
+    DEUDA?: SortOrderInput | SortOrder
+    id?: SortOrder
+  }
+
+  export type soWhereUniqueInput = {
+    id?: number
+  }
+
+  export type soOrderByWithAggregationInput = {
+    CONTRATO?: SortOrderInput | SortOrder
+    SOCIO?: SortOrderInput | SortOrder
+    ALTA?: SortOrderInput | SortOrder
+    GRUPO?: SortOrderInput | SortOrder
+    ADHERENTES?: SortOrderInput | SortOrder
+    PLAN?: SortOrderInput | SortOrder
+    ZONA?: SortOrderInput | SortOrder
+    EDAD?: SortOrderInput | SortOrder
+    CUOTA?: SortOrderInput | SortOrder
+    EMPRESA?: SortOrderInput | SortOrder
+    SUCURSAL?: SortOrderInput | SortOrder
+    CUOTAS?: SortOrderInput | SortOrder
+    PAGOS?: SortOrderInput | SortOrder
+    DEUDA?: SortOrderInput | SortOrder
+    id?: SortOrder
+    _count?: soCountOrderByAggregateInput
+    _avg?: soAvgOrderByAggregateInput
+    _max?: soMaxOrderByAggregateInput
+    _min?: soMinOrderByAggregateInput
+    _sum?: soSumOrderByAggregateInput
+  }
+
+  export type soScalarWhereWithAggregatesInput = {
+    AND?: soScalarWhereWithAggregatesInput | soScalarWhereWithAggregatesInput[]
+    OR?: soScalarWhereWithAggregatesInput[]
+    NOT?: soScalarWhereWithAggregatesInput | soScalarWhereWithAggregatesInput[]
+    CONTRATO?: StringNullableWithAggregatesFilter<"so"> | string | null
+    SOCIO?: StringNullableWithAggregatesFilter<"so"> | string | null
+    ALTA?: StringNullableWithAggregatesFilter<"so"> | string | null
+    GRUPO?: StringNullableWithAggregatesFilter<"so"> | string | null
+    ADHERENTES?: StringNullableWithAggregatesFilter<"so"> | string | null
+    PLAN?: StringNullableWithAggregatesFilter<"so"> | string | null
+    ZONA?: StringNullableWithAggregatesFilter<"so"> | string | null
+    EDAD?: StringNullableWithAggregatesFilter<"so"> | string | null
+    CUOTA?: StringNullableWithAggregatesFilter<"so"> | string | null
+    EMPRESA?: StringNullableWithAggregatesFilter<"so"> | string | null
+    SUCURSAL?: StringNullableWithAggregatesFilter<"so"> | string | null
+    CUOTAS?: StringNullableWithAggregatesFilter<"so"> | string | null
+    PAGOS?: StringNullableWithAggregatesFilter<"so"> | string | null
+    DEUDA?: StringNullableWithAggregatesFilter<"so"> | string | null
+    id?: IntWithAggregatesFilter<"so"> | number
   }
 
   export type adherentCreateInput = {
@@ -22734,6 +23974,129 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
   }
 
+  export type soCreateInput = {
+    CONTRATO?: string | null
+    SOCIO?: string | null
+    ALTA?: string | null
+    GRUPO?: string | null
+    ADHERENTES?: string | null
+    PLAN?: string | null
+    ZONA?: string | null
+    EDAD?: string | null
+    CUOTA?: string | null
+    EMPRESA?: string | null
+    SUCURSAL?: string | null
+    CUOTAS?: string | null
+    PAGOS?: string | null
+    DEUDA?: string | null
+  }
+
+  export type soUncheckedCreateInput = {
+    CONTRATO?: string | null
+    SOCIO?: string | null
+    ALTA?: string | null
+    GRUPO?: string | null
+    ADHERENTES?: string | null
+    PLAN?: string | null
+    ZONA?: string | null
+    EDAD?: string | null
+    CUOTA?: string | null
+    EMPRESA?: string | null
+    SUCURSAL?: string | null
+    CUOTAS?: string | null
+    PAGOS?: string | null
+    DEUDA?: string | null
+    id?: number
+  }
+
+  export type soUpdateInput = {
+    CONTRATO?: NullableStringFieldUpdateOperationsInput | string | null
+    SOCIO?: NullableStringFieldUpdateOperationsInput | string | null
+    ALTA?: NullableStringFieldUpdateOperationsInput | string | null
+    GRUPO?: NullableStringFieldUpdateOperationsInput | string | null
+    ADHERENTES?: NullableStringFieldUpdateOperationsInput | string | null
+    PLAN?: NullableStringFieldUpdateOperationsInput | string | null
+    ZONA?: NullableStringFieldUpdateOperationsInput | string | null
+    EDAD?: NullableStringFieldUpdateOperationsInput | string | null
+    CUOTA?: NullableStringFieldUpdateOperationsInput | string | null
+    EMPRESA?: NullableStringFieldUpdateOperationsInput | string | null
+    SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
+    CUOTAS?: NullableStringFieldUpdateOperationsInput | string | null
+    PAGOS?: NullableStringFieldUpdateOperationsInput | string | null
+    DEUDA?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type soUncheckedUpdateInput = {
+    CONTRATO?: NullableStringFieldUpdateOperationsInput | string | null
+    SOCIO?: NullableStringFieldUpdateOperationsInput | string | null
+    ALTA?: NullableStringFieldUpdateOperationsInput | string | null
+    GRUPO?: NullableStringFieldUpdateOperationsInput | string | null
+    ADHERENTES?: NullableStringFieldUpdateOperationsInput | string | null
+    PLAN?: NullableStringFieldUpdateOperationsInput | string | null
+    ZONA?: NullableStringFieldUpdateOperationsInput | string | null
+    EDAD?: NullableStringFieldUpdateOperationsInput | string | null
+    CUOTA?: NullableStringFieldUpdateOperationsInput | string | null
+    EMPRESA?: NullableStringFieldUpdateOperationsInput | string | null
+    SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
+    CUOTAS?: NullableStringFieldUpdateOperationsInput | string | null
+    PAGOS?: NullableStringFieldUpdateOperationsInput | string | null
+    DEUDA?: NullableStringFieldUpdateOperationsInput | string | null
+    id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type soCreateManyInput = {
+    CONTRATO?: string | null
+    SOCIO?: string | null
+    ALTA?: string | null
+    GRUPO?: string | null
+    ADHERENTES?: string | null
+    PLAN?: string | null
+    ZONA?: string | null
+    EDAD?: string | null
+    CUOTA?: string | null
+    EMPRESA?: string | null
+    SUCURSAL?: string | null
+    CUOTAS?: string | null
+    PAGOS?: string | null
+    DEUDA?: string | null
+    id?: number
+  }
+
+  export type soUpdateManyMutationInput = {
+    CONTRATO?: NullableStringFieldUpdateOperationsInput | string | null
+    SOCIO?: NullableStringFieldUpdateOperationsInput | string | null
+    ALTA?: NullableStringFieldUpdateOperationsInput | string | null
+    GRUPO?: NullableStringFieldUpdateOperationsInput | string | null
+    ADHERENTES?: NullableStringFieldUpdateOperationsInput | string | null
+    PLAN?: NullableStringFieldUpdateOperationsInput | string | null
+    ZONA?: NullableStringFieldUpdateOperationsInput | string | null
+    EDAD?: NullableStringFieldUpdateOperationsInput | string | null
+    CUOTA?: NullableStringFieldUpdateOperationsInput | string | null
+    EMPRESA?: NullableStringFieldUpdateOperationsInput | string | null
+    SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
+    CUOTAS?: NullableStringFieldUpdateOperationsInput | string | null
+    PAGOS?: NullableStringFieldUpdateOperationsInput | string | null
+    DEUDA?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type soUncheckedUpdateManyInput = {
+    CONTRATO?: NullableStringFieldUpdateOperationsInput | string | null
+    SOCIO?: NullableStringFieldUpdateOperationsInput | string | null
+    ALTA?: NullableStringFieldUpdateOperationsInput | string | null
+    GRUPO?: NullableStringFieldUpdateOperationsInput | string | null
+    ADHERENTES?: NullableStringFieldUpdateOperationsInput | string | null
+    PLAN?: NullableStringFieldUpdateOperationsInput | string | null
+    ZONA?: NullableStringFieldUpdateOperationsInput | string | null
+    EDAD?: NullableStringFieldUpdateOperationsInput | string | null
+    CUOTA?: NullableStringFieldUpdateOperationsInput | string | null
+    EMPRESA?: NullableStringFieldUpdateOperationsInput | string | null
+    SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
+    CUOTAS?: NullableStringFieldUpdateOperationsInput | string | null
+    PAGOS?: NullableStringFieldUpdateOperationsInput | string | null
+    DEUDA?: NullableStringFieldUpdateOperationsInput | string | null
+    id?: IntFieldUpdateOperationsInput | number
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -24052,6 +25415,68 @@ export namespace Prisma {
   export type subcta_oldSumOrderByAggregateInput = {
     CODI?: SortOrder
     CUEN?: SortOrder
+    id?: SortOrder
+  }
+
+  export type soCountOrderByAggregateInput = {
+    CONTRATO?: SortOrder
+    SOCIO?: SortOrder
+    ALTA?: SortOrder
+    GRUPO?: SortOrder
+    ADHERENTES?: SortOrder
+    PLAN?: SortOrder
+    ZONA?: SortOrder
+    EDAD?: SortOrder
+    CUOTA?: SortOrder
+    EMPRESA?: SortOrder
+    SUCURSAL?: SortOrder
+    CUOTAS?: SortOrder
+    PAGOS?: SortOrder
+    DEUDA?: SortOrder
+    id?: SortOrder
+  }
+
+  export type soAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type soMaxOrderByAggregateInput = {
+    CONTRATO?: SortOrder
+    SOCIO?: SortOrder
+    ALTA?: SortOrder
+    GRUPO?: SortOrder
+    ADHERENTES?: SortOrder
+    PLAN?: SortOrder
+    ZONA?: SortOrder
+    EDAD?: SortOrder
+    CUOTA?: SortOrder
+    EMPRESA?: SortOrder
+    SUCURSAL?: SortOrder
+    CUOTAS?: SortOrder
+    PAGOS?: SortOrder
+    DEUDA?: SortOrder
+    id?: SortOrder
+  }
+
+  export type soMinOrderByAggregateInput = {
+    CONTRATO?: SortOrder
+    SOCIO?: SortOrder
+    ALTA?: SortOrder
+    GRUPO?: SortOrder
+    ADHERENTES?: SortOrder
+    PLAN?: SortOrder
+    ZONA?: SortOrder
+    EDAD?: SortOrder
+    CUOTA?: SortOrder
+    EMPRESA?: SortOrder
+    SUCURSAL?: SortOrder
+    CUOTAS?: SortOrder
+    PAGOS?: SortOrder
+    DEUDA?: SortOrder
+    id?: SortOrder
+  }
+
+  export type soSumOrderByAggregateInput = {
     id?: SortOrder
   }
 

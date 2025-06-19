@@ -7,21 +7,17 @@ import { toast } from "react-toastify";
 import { Redirect } from "@/components/auth/Redirect";
 import useSWR from "swr";
 import { confirmAlert } from "react-confirm-alert";
-import moment, { months } from "moment";
 import { registrarHistoria, regHistorialSocio } from "@/libs/funciones";
 import FormEfectividad from "@/components/cobranza/FormEfectividad";
 
 function efectividad(props) {
+  let efecRef = React.createRef();
+
   const [errores, guardarErrores] = useState(null);
   const [mesSel, guardarMesSel] = useState("");
   const [anoSel, guardarAnoSel] = useState("");
-  const [cCob, guardarCCob] = useState([]);
-  const [cOf, guardarCOf] = useState([]);
-  const [cbanco, guardarCbanco] = useState([]);
-  const [cbancoP, guardarCbancoP] = useState([]);
-  const [cpolicia, guardarCpolicia] = useState([]);
-  const [ctjt, guardarCtjt] = useState([]);
-  const [cprestamos, guardarCPrestamos] = useState([]);
+  const [cOf, guardarCof] = useState([]);
+  const [noData, guardarNoData] = useState(0);
 
   const { usu } = useWerchow();
 
@@ -32,162 +28,6 @@ function efectividad(props) {
       guardarMesSel(value);
     } else if (f === "ano") {
       guardarAnoSel(value);
-    }
-  };
-
-  const traerInfo = async () => {
-    if (mesSel === "") {
-      guardarErrores("Debes seleccionar el mes a analizar");
-    } else if (anoSel === "") {
-      guardarErrores("Debes seleccionar el año a analizar");
-    } else {
-      await axios
-        .get(`/api/efectividad`, {
-          params: {
-            mes: mesSel,
-            ano: anoSel,
-            f: "traer cCob",
-          },
-        })
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            let list = JSON.parse(res.data);
-            guardarCCob(list);
-          } else {
-            toast.info("Aun no se genero la cartera c1000 en este mes");
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error("Ocurrio un error al generar c1000");
-        });
-
-      await axios
-        .get(`/api/efectividad`, {
-          params: {
-            mes: mesSel,
-            ano: anoSel,
-            f: "traer cOf",
-          },
-        })
-        .then((res) => {
-          if (res.data) {
-            let list = JSON.parse(res.data);
-            guardarCOf(list);
-          } else {
-            toast.info("Aun no se genero la cartera c1000 en este mes");
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error("Ocurrio un error al generar c1000");
-        });
-
-      await axios
-        .get(`/api/efectividad`, {
-          params: {
-            mes: mesSel,
-            ano: anoSel,
-            f: "traer ctjt",
-          },
-        })
-        .then((res) => {
-          if (res.data) {
-            let list = JSON.parse(res.data);
-            guardarCtjt(list);
-          } else {
-            toast.info("Aun no se genero la cartera ctjt en este mes");
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error("Ocurrio un error al generar ctjt");
-        });
-
-      await axios
-        .get(`/api/efectividad`, {
-          params: {
-            mes: mesSel,
-            ano: anoSel,
-            f: "traer cbanco",
-          },
-        })
-        .then((res) => {
-          if (res.data) {
-            let list = JSON.parse(res.data);
-            guardarCbanco(list);
-          } else {
-            toast.info("Aun no se genero la cartera cbanco en este mes");
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error("Ocurrio un error al generar cbanco");
-        });
-
-      await axios
-        .get(`/api/efectividad`, {
-          params: {
-            mes: mesSel,
-            ano: anoSel,
-            f: "traer cbanco pasivo",
-          },
-        })
-        .then((res) => {
-          if (res.data) {
-            let list = JSON.parse(res.data);
-            guardarCbancoP(list);
-          } else {
-            toast.info("Aun no se genero la cartera cbanco en este mes");
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error("Ocurrio un error al generar cbanco");
-        });
-
-      await axios
-        .get(`/api/efectividad`, {
-          params: {
-            mes: mesSel,
-            ano: anoSel,
-            f: "traer cpolicia",
-          },
-        })
-        .then((res) => {
-          if (res.data) {
-            let list = JSON.parse(res.data);
-            guardarCpolicia(list);
-          } else {
-            toast.info("Aun no se genero la cartera cpolicia en este mes");
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error("Ocurrio un error al generar cpolicia");
-        });
-
-      await axios
-        .get(`/api/efectividad`, {
-          params: {
-            mes: mesSel,
-            ano: anoSel,
-            f: "traer cprestamos",
-          },
-        })
-        .then((res) => {
-          if (res.data) {
-            let list = JSON.parse(res.data);
-            guardarCPrestamos(list);
-          } else {
-            toast.info("Aun no se genero la cartera cprestamos en este mes");
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error("Ocurrio un error al generar cprestamos");
-        });
     }
   };
 
@@ -237,78 +77,114 @@ function efectividad(props) {
     }
   };
 
-  const creaFunctions = async (f, tabla) => {
+  const getEmiSO = async (tableName) => {
+    let dat1 = [];
+    let dat2 = [];
+    let dat3 = [];
+
     await axios
-      .get("/api/efectividad", {
+      .get("/api/cobranza", {
         params: {
-          f: f,
-          mes: moment().format("MM"),
-          ano: moment().format("YYYY"),
+          tab: tableName,
+          f: "ofi emi",
         },
       })
       .then((res) => {
-        let li = JSON.parse(res.data);
-        if (li.length > 0) {
-          toast.warning(
-            `Ya se creo la tabla ${tabla} para el periodo ${moment().format(
-              "MM"
-            )}/${moment().format("YYYY")}`
-          );
-        } else {
+        if (res.data) {
+          let d1 = JSON.parse(res.data);
+          dat1 = d1;
         }
       })
       .catch((error) => {
         console.log(error);
-        toast.error(`Ocurrio un error al verificar los registros de ${tabla}`);
+        toast.error("Ocurrio un error al calcular la cartera emitida");
+      });
+
+    await axios
+      .get("/api/cobranza", {
+        params: {
+          mes: mesSel,
+          ano: anoSel,
+          f: "ofi cob",
+        },
+      })
+      .then((res) => {
+        if (res.data) {
+          let d2 = JSON.parse(res.data);
+          dat2 = d2;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Ocurrio un error al calcular la cartera cobrada");
+      });
+
+    await axios
+      .get("/api/cobranza", {
+        params: {
+          mes: mesSel,
+          ano: anoSel,
+          f: "ofi adel",
+        },
+      })
+      .then((res) => {
+        if (res.data) {
+          let d3 = JSON.parse(res.data);
+          dat3 = d3;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Ocurrio un error al calcular la cartera cobrada");
+      });
+
+    if (dat1[0]) {
+      let cOf = [
+        {
+          zona: dat1[0].zona,
+          descr: dat1[0].descr,
+          fichas: dat1[0].fichas,
+          total: dat1[0].total,
+          fichascob: dat2[0].fichascob,
+          cobrado: dat2[0].cobrado,
+          adelantado: dat3[0].adelantado,
+        },
+      ];
+
+      guardarCof(cOf);
+    }
+  };
+
+  const buscarEfect = async () => {
+    guardarNoData(0);
+
+    let mesEnv;
+
+    if (mesSel < 10) {
+      mesEnv = `0${mesSel}`;
+    }
+
+    let tableName = `so${mesEnv}${anoSel}`;
+
+    await axios
+      .get("/api/cobranza", {
+        params: {
+          tab: tableName,
+          f: "check so",
+        },
+      })
+      .then((res) => {
+        if (res.data.length === 0) {
+          toast.warning(
+            `No hay datos generados para la efectividad de ${mesEnv}/${anoSel}`
+          );
+          guardarNoData(1);
+        } else {
+          guardarNoData(2);
+          getEmiSO(tableName);
+        }
       });
   };
-
-  const actFunctions = async (f, tabla) => {
-    await confirmAlert({
-      title: "ATENCION",
-      message: `¿Seguro quieres actualizar ${tabla}?`,
-      buttons: [
-        {
-          label: "Si",
-          onClick: () => {
-            toast.info(
-              `Actualizando ${tabla}, esto puede demorar unos segundos...`
-            );
-
-            const data = {
-              f: f,
-              mes: moment().format("MM"),
-              ano: moment().format("YYYY"),
-            };
-
-            axios
-              .put("/api/efectividad", data)
-              .then((res) => {
-                if (res.status === 200) {
-                  toast.success(`${tabla} actualizado con exito`);
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-                toast.error(`Ocurrio un error al actualizar ${tabla}`);
-              });
-          },
-        },
-        {
-          label: "No",
-          onClick: () => {
-            toast.info(`Los registros de ${tabla}, no fueron actualizados`);
-          },
-        },
-      ],
-    });
-  };
-
-  let totArr = cCob.concat(
-    cOf.concat(
-      cbanco.concat(cbancoP.concat(cpolicia.concat(ctjt.concat(cprestamos))))
-    )
-  );
 
   if (isLoading === true) return <Skeleton />;
 
@@ -320,20 +196,15 @@ function efectividad(props) {
         <>
           <FormEfectividad
             handleChange={handleChange}
-            traerInfo={traerInfo}
             errores={errores}
-            cCob={cCob}
-            cOf={cOf}
-            ctjt={ctjt}
-            cbanco={cbanco}
-            cbancoP={cbancoP}
-            cpolicia={cpolicia}
-            cprestamos={cprestamos}
             porcent={porcent}
             totales={totates}
-            totArr={totArr}
-            actFunctions={actFunctions}
-            creaFunctions={creaFunctions}
+            buscarEfect={buscarEfect}
+            cOf={cOf}
+            noData={noData}
+            efecRef={efecRef}
+            mesSel={mesSel}
+            anoSel={anoSel}
           />
         </>
       )}
