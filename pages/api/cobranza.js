@@ -60,7 +60,7 @@ export default async function handler(req, res) {
           SELECT 'Oficina' as 'zona', 'Monterrico' as 'descr', COUNT(*) as 'fichas', SUM(CUOTA) as 'total' 
           FROM ${tab} 
           WHERE GRUPO = 1000 
-          AND DEUDA = 1   
+          AND DEUDA in (0,1)   
 `);
 
       res
@@ -76,6 +76,7 @@ export default async function handler(req, res) {
           FROM so as s
           INNER JOIN pagos as p on p.CONTRATO = s.CONTRATO
           WHERE s.GRUPO = 1000
+          AND s.DEUDA in (0,1)
           AND p.MES = ${parseInt(req.query.mes)}
           AND p.ANO = ${parseInt(req.query.ano)}
           AND p.MOVIM = 'P'
