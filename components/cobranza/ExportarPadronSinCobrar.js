@@ -3,39 +3,36 @@ import { downloadExcel } from "react-export-table-to-excel";
 import { Button } from "@material-tailwind/react";
 import moment from "moment";
 
-export default function ExportarInformeVentas({
-  listado,
-  desde,
-  hasta,
-  cuota,
-}) {
+export default function ExportarPadronSinCobrar({ listado, cuota }) {
   let header = [];
   let body = [];
   let name = "";
 
-  name = `Informe de Ventas Periodo ${moment(desde).format(
+  name = `Padron Sin Cobrar Cuota: ${cuota} - ${moment().format(
     "DD-MM-YYYY"
-  )} al ${moment(hasta).format("DD-MM-YYYY")}. Cuota ${cuota}.xls`;
+  )} .xls`;
 
   header = [
     "Contrato",
     "Socio",
     "Alta",
-    "Cod. Productor",
-    "Nombre",
+    "Plan",
+    "Grupo",
+    "Zona",
     "Cuota",
-    "¿Pago?",
+    "Deuda",
   ];
 
   listado.forEach((i) => {
     body.push({
       CONTRATO: i.CONTRATO,
       SOCIO: i.SOCIO,
-      ALTA: moment(i.ALTA).format("DD/MM/YYYY"),
-      PRODUCTOR: i.PRODUCTOR,
-      DESCRIP: i.DESCRIP,
-      IMPORTE: i.IMPORTE,
-      PAGO: i.PAGO,
+      ALTA: i.ALTA,
+      PLAN: i.PLAN,
+      GRUPO: i.GRUPO,
+      ZONA: i.ZONA,
+      CUOTA: i.CUOTA,
+      DEUDA: parseInt(i.DEUDA) + 1,
     });
   });
 
@@ -53,7 +50,7 @@ export default function ExportarInformeVentas({
 
   return (
     <Button color="green" onClick={descargarExcel}>
-      Exportar excel
+      Exporta excel
     </Button>
   );
 }

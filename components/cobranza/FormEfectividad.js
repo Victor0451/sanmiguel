@@ -17,6 +17,7 @@ import { meses, anos } from "../../array/array";
 import TablaEfectividad from "./TablaEfectividad";
 import ReactToPrint from "react-to-print";
 import Opciones from "./Opciones";
+import ModalPadronSinPagar from "./ModalPadronSinPagar";
 
 const FormEfectividad = ({
   handleChange,
@@ -29,6 +30,9 @@ const FormEfectividad = ({
   efecRef,
   mesSel,
   anoSel,
+  generarPadronSinPago,
+  sinPago,
+  cuota
 }) => {
   return (
     <Card className="h-full w-full p-4 mt-5 border-2 ">
@@ -77,7 +81,11 @@ const FormEfectividad = ({
             {noData === 2 ? (
               <>
                 <div className="w-full md:w-1/6 px-3 mt-6 mb-6 md:mb-0">
-                  <Opciones />
+                  <ModalPadronSinPagar
+                    generarPadronSinPago={generarPadronSinPago}
+                    listado={sinPago}
+                    cuota={cuota}
+                  />
                 </div>
 
                 <div className="w-full md:w-1/6 px-3 mt-6 mb-6 md:mb-0">

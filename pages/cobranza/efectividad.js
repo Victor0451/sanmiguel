@@ -18,6 +18,8 @@ function efectividad(props) {
   const [anoSel, guardarAnoSel] = useState("");
   const [cOf, guardarCof] = useState([]);
   const [noData, guardarNoData] = useState(0);
+  const [sinPago, guardarPSinPago] = useState([]);
+  const [cuota, guardarCuota] = useState("");
 
   const { usu } = useWerchow();
 
@@ -182,7 +184,40 @@ function efectividad(props) {
         } else {
           guardarNoData(2);
           getEmiSO(tableName);
+          guardarCuota(`${mesEnv}/${anoSel}`);
         }
+      });
+  };
+
+  const generarPadronSinPago = async () => {
+    let mesEnv;
+
+    if (mesSel < 10) {
+      mesEnv = `0${mesSel}`;
+    }
+
+    let tableName = `so${mesEnv}${anoSel}`;
+
+    await axios
+      .get("/api/cobranza", {
+        params: {
+          tab: tableName,
+          f: "socios sin abonar",
+          mes: mesSel,
+          ano: anoSel,
+        },
+      })
+      .then((res) => {
+        if (res.data) {
+          let dat = JSON.parse(res.data);
+          guardarPSinPago(dat);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(
+          `Ocurrio un error al generar el padron que aun no pago lel mes ${mesEnv}/${anoSel}`
+        );
       });
   };
 
@@ -205,6 +240,9 @@ function efectividad(props) {
             efecRef={efecRef}
             mesSel={mesSel}
             anoSel={anoSel}
+            generarPadronSinPago={generarPadronSinPago}
+            sinPago={sinPago}
+            cuota={cuota}
           />
         </>
       )}

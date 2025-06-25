@@ -122,6 +122,38 @@ export default async function handler(req, res) {
             typeof value === "bigint" ? value.toString() : value
           )
         );
+    } else if (req.query.f && req.query.f === "socios sin abonar") {
+      let tab = `${req.query.tab}`;
+
+      const ofiEmi = await SMArchivo.$queryRawUnsafe(`
+              SELECT
+                  *
+              FROM
+                  ${tab} AS s
+              WHERE
+                  s.GRUPO = 1000
+              AND s.DEUDA IN (0, 1)
+              AND NOT EXISTS (
+                  SELECT
+                    *
+                  FROM
+                    sanmiguel.pagos AS p
+                  WHERE
+                    s.CONTRATO = p.CONTRATO
+                  AND p.MES = ${parseInt(req.query.mes)}
+                  AND p.ANO = ${parseInt(req.query.ano)}
+                  AND p.MOVIM = 'P'
+                )
+          
+`);
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(ofiEmi, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
     }
   } else if (req.method === "POST") {
     if (req.body.f && req.body.f === "reg pago") {
