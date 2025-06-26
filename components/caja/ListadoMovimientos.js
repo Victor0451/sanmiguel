@@ -4,7 +4,12 @@ import DataTable from "react-data-table-component";
 import moment from "moment";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
-const ListadoMovimientos = ({ listado, eliminarImpuPrecargado, movim, imp }) => {
+const ListadoMovimientos = ({
+  listado,
+  eliminarImpuPrecargado,
+  movim,
+  imp,
+}) => {
   let columns = [
     {
       name: "#",
@@ -16,7 +21,7 @@ const ListadoMovimientos = ({ listado, eliminarImpuPrecargado, movim, imp }) => 
     {
       name: "Detalle",
       button: true,
-      width: "100px",
+      width: "200px",
       cell: (row, index) => <>{row.DETALLE}</>,
     },
 
@@ -24,14 +29,14 @@ const ListadoMovimientos = ({ listado, eliminarImpuPrecargado, movim, imp }) => 
       name: "Serie",
       selector: (row) => `${row.SERIE}`,
       sortable: true,
-      width: "100px",
+      width: "80px",
     },
 
     {
       name: "Factura",
       selector: (row) => `${row.NUMERO}`,
       sortable: true,
-      width: "100px",
+      width: "80px",
     },
 
     {
@@ -45,25 +50,14 @@ const ListadoMovimientos = ({ listado, eliminarImpuPrecargado, movim, imp }) => 
       name: "Fecha",
       button: true,
       grow: 0.1,
-      cell: (row, index) => (
-        <>
-          {imp ? null : (
-            <>
-              {!row.DIA_PAGO ? (
-                <>{moment(row.DIA_PAG).format("DD/MM/YYYY")}</>
-              ) : (
-                <>{moment(row.DIA_PAGO).format("DD/MM/YYYY")}</>
-              )}
-            </>
-          )}
-        </>
-      ),
+      cell: (row, index) => <>{moment(row.FECHA).format("DD/MM/YYYY")}</>,
     },
 
     {
       name: "X",
       button: true,
       width: "35px",
+      omit: imp,
       cell: (row, index) => (
         <>
           <TrashIcon

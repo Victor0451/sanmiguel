@@ -242,10 +242,10 @@ function nuevo(props) {
     }
   };
 
-  const regCuota = async (socio, cuota) => {
+  const regCuota = async (contrato, cuota) => {
     let data = {
       f: "reg cuota",
-      CONTRATO: socio.CONTRATO,
+      CONTRATO: contrato,
       IMPORTE: cuota,
       CUO_ANT: 0,
       DESDE: moment().format("YYYY-MM-DD"),
@@ -353,7 +353,7 @@ function nuevo(props) {
                   if (res.status === 200) {
                     toast.success("La ficha fue registrada exitosamente");
 
-                    regCuota(data, cuotaRef.current.value);
+                    regCuota(data.CONTRATO, cuotaRef.current.value);
 
                     let hist = {
                       CONTRATO: data.CONTRATO,

@@ -78,6 +78,7 @@ const FormCierre = ({
                   listado={ingresos.concat(produc)}
                   eliminarImpuPrecargado={eliminarImpuPrecargado}
                   movim={"I"}
+                  imp={false}
                 />
               </div>
 
@@ -129,6 +130,7 @@ const FormCierre = ({
                   listado={egresos}
                   eliminarImpuPrecargado={eliminarImpuPrecargado}
                   movim={"E"}
+                  imp={false}
                 />
               </div>
               <div className=" w-full md:w-full px-3 mt-6  md:mb-0">

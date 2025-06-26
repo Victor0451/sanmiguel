@@ -43,7 +43,7 @@ const FormImpCaja = ({ ingresos, egresos, totales, fecha, cajaRef }) => {
                   <ListadoMovimientos
                     listado={ingresos}
                     movim={"I"}
-                    imp={"t"}
+                    imp={true}
                   />
                 </div>
 
@@ -73,7 +73,11 @@ const FormImpCaja = ({ ingresos, egresos, totales, fecha, cajaRef }) => {
                 </div>
 
                 <div className=" w-full md:w-full px-3 mt-6  md:mb-0">
-                  <ListadoMovimientos listado={egresos} movim={"E"} imp={"t"} />
+                  <ListadoMovimientos
+                    listado={egresos}
+                    movim={"E"}
+                    imp={true}
+                  />
                 </div>
                 <div className=" w-full md:w-full px-3 mt-6  md:mb-0">
                   <Alert
