@@ -750,6 +750,11 @@ export default async function handler(req, res) {
           )
         );
     }
+    if (req.query.f && req.query.f === "gasto luto") {
+      const gastoLuto = await SanMiguel.gasto_luto.findMany();
+
+      res.status(200).json(gastoLuto);
+    }
   } else if (req.method === "POST") {
     if (req.body.f && req.body.f === "soli afi") {
       const regSoli = await SGI.rehabilitaciones.create({

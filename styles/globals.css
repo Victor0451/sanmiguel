@@ -22,19 +22,10 @@ body {
 }
 
 .werchowlogo {
-  width: 75px;
-  height: 65px;
+  width: 165px;
+  height: 105px;
 }
 
-.mutuallogo {
-  width: 150px !important;
-  height: 50px !important;
-}
-
-.clublogo {
-  width: 150px !important;
-  height: 80px !important;
-}
 
 .butlist:hover {
   opacity: 0.6;

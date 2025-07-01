@@ -96,16 +96,8 @@ const FormLegajoSocio = ({
                 {ficha.NOMBRES}
               </Typography>
             </div>
-            <div className="w-full md:w-2/12 px-3 mt-6 mb-6 md:mb-0">
-              {ficha.EMPRESA === "WERCHOW" ? (
-                <>
-                  <img className="werchowlogo" src="/img/logo.png" />
-                </>
-              ) : ficha.EMPRESA === "MUTUAL" ? (
-                <>
-                  <img className="mutuallogo" src="/img/logom.jpg" />
-                </>
-              ) : null}
+            <div className="w-full md:w-2/12 px-3  mb-6 md:mb-0">
+              <img className="werchowlogo" src="/img/logo.png" />
             </div>
           </div>
         ) : (

@@ -73,11 +73,11 @@ const TablaEfectividad = ({ cOf, totales, porcent }) => {
                   </td>
                   <td className="border-t-0  align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>${" "}
-                    {a.cobrado}
+                    {!a.cobrado ? <>0</> : a.cobrado}
                   </td>
                   <td className="border-t-0  align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>${" "}
-                    {a.adelantado}
+                    {!a.adelantado ? <>0</> : a.adelantado}
                   </td>
                   <td className="border-t-0  align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>{" "}

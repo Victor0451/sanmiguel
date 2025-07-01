@@ -165,6 +165,7 @@ export type maestroPayload<ExtArgs extends $Extensions.Args = $Extensions.Defaul
     MOVIL: string | null
     EDAD_PROM: number | null
     MAIL: string | null
+    ESTADO_VENTA: number | null
   }, ExtArgs["result"]["maestro"]>
   composites: {}
 }
@@ -448,34 +449,22 @@ export type subcta_oldPayload<ExtArgs extends $Extensions.Args = $Extensions.Def
  * 
  */
 export type subcta_old = runtime.Types.DefaultSelection<subcta_oldPayload>
-export type soPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-  name: "so"
+export type gasto_lutoPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "gasto_luto"
   objects: {}
   scalars: $Extensions.GetResult<{
-    CONTRATO: string | null
-    SOCIO: string | null
-    ALTA: string | null
-    GRUPO: string | null
-    ADHERENTES: string | null
-    PLAN: string | null
-    ZONA: string | null
-    EDAD: string | null
-    CUOTA: string | null
-    EMPRESA: string | null
-    SUCURSAL: string | null
-    CUOTAS: string | null
-    PAGOS: string | null
-    DEUDA: string | null
-    id: number
-  }, ExtArgs["result"]["so"]>
+    idgastoluto: number
+    gasto1: number | null
+    gasto2: number | null
+  }, ExtArgs["result"]["gasto_luto"]>
   composites: {}
 }
 
 /**
- * Model so
+ * Model gasto_luto
  * 
  */
-export type so = runtime.Types.DefaultSelection<soPayload>
+export type gasto_luto = runtime.Types.DefaultSelection<gasto_lutoPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -763,14 +752,14 @@ export class PrismaClient<
   get subcta_old(): Prisma.subcta_oldDelegate<GlobalReject, ExtArgs>;
 
   /**
-   * `prisma.so`: Exposes CRUD operations for the **so** model.
+   * `prisma.gasto_luto`: Exposes CRUD operations for the **gasto_luto** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Sos
-    * const sos = await prisma.so.findMany()
+    * // Fetch zero or more Gasto_lutos
+    * const gasto_lutos = await prisma.gasto_luto.findMany()
     * ```
     */
-  get so(): Prisma.soDelegate<GlobalReject, ExtArgs>;
+  get gasto_luto(): Prisma.gasto_lutoDelegate<GlobalReject, ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1270,7 +1259,7 @@ export namespace Prisma {
     maestro_cuentas: 'maestro_cuentas',
     operador: 'operador',
     subcta_old: 'subcta_old',
-    so: 'so'
+    gasto_luto: 'gasto_luto'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1287,7 +1276,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'adherent' | 'cuo_fija' | 'grupos' | 'historia' | 'localidad' | 'maestro' | 'obra_soc' | 'bajas' | 'gestioncaso' | 'pagos' | 'pago_bco' | 'caja' | 'subcta' | 'maestro_cuentas' | 'operador' | 'subcta_old' | 'so'
+      modelProps: 'adherent' | 'cuo_fija' | 'grupos' | 'historia' | 'localidad' | 'maestro' | 'obra_soc' | 'bajas' | 'gestioncaso' | 'pagos' | 'pago_bco' | 'caja' | 'subcta' | 'maestro_cuentas' | 'operador' | 'subcta_old' | 'gasto_luto'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -2347,69 +2336,69 @@ export namespace Prisma {
           }
         }
       }
-      so: {
-        payload: soPayload<ExtArgs>
-        fields: Prisma.soFieldRefs
+      gasto_luto: {
+        payload: gasto_lutoPayload<ExtArgs>
+        fields: Prisma.gasto_lutoFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.soFindUniqueArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<soPayload> | null
+            args: Prisma.gasto_lutoFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<gasto_lutoPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.soFindUniqueOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<soPayload>
+            args: Prisma.gasto_lutoFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<gasto_lutoPayload>
           }
           findFirst: {
-            args: Prisma.soFindFirstArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<soPayload> | null
+            args: Prisma.gasto_lutoFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<gasto_lutoPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.soFindFirstOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<soPayload>
+            args: Prisma.gasto_lutoFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<gasto_lutoPayload>
           }
           findMany: {
-            args: Prisma.soFindManyArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<soPayload>[]
+            args: Prisma.gasto_lutoFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<gasto_lutoPayload>[]
           }
           create: {
-            args: Prisma.soCreateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<soPayload>
+            args: Prisma.gasto_lutoCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<gasto_lutoPayload>
           }
           createMany: {
-            args: Prisma.soCreateManyArgs<ExtArgs>,
+            args: Prisma.gasto_lutoCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
           delete: {
-            args: Prisma.soDeleteArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<soPayload>
+            args: Prisma.gasto_lutoDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<gasto_lutoPayload>
           }
           update: {
-            args: Prisma.soUpdateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<soPayload>
+            args: Prisma.gasto_lutoUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<gasto_lutoPayload>
           }
           deleteMany: {
-            args: Prisma.soDeleteManyArgs<ExtArgs>,
+            args: Prisma.gasto_lutoDeleteManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
           updateMany: {
-            args: Prisma.soUpdateManyArgs<ExtArgs>,
+            args: Prisma.gasto_lutoUpdateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
           upsert: {
-            args: Prisma.soUpsertArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<soPayload>
+            args: Prisma.gasto_lutoUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<gasto_lutoPayload>
           }
           aggregate: {
-            args: Prisma.SoAggregateArgs<ExtArgs>,
-            result: $Utils.Optional<AggregateSo>
+            args: Prisma.Gasto_lutoAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateGasto_luto>
           }
           groupBy: {
-            args: Prisma.soGroupByArgs<ExtArgs>,
-            result: $Utils.Optional<SoGroupByOutputType>[]
+            args: Prisma.gasto_lutoGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<Gasto_lutoGroupByOutputType>[]
           }
           count: {
-            args: Prisma.soCountArgs<ExtArgs>,
-            result: $Utils.Optional<SoCountAggregateOutputType> | number
+            args: Prisma.gasto_lutoCountArgs<ExtArgs>,
+            result: $Utils.Optional<Gasto_lutoCountAggregateOutputType> | number
           }
         }
       }
@@ -7611,6 +7600,7 @@ export namespace Prisma {
     EDAD: number | null
     COD_POST: number | null
     EDAD_PROM: number | null
+    ESTADO_VENTA: number | null
   }
 
   export type MaestroSumAggregateOutputType = {
@@ -7626,6 +7616,7 @@ export namespace Prisma {
     EDAD: number | null
     COD_POST: number | null
     EDAD_PROM: number | null
+    ESTADO_VENTA: number | null
   }
 
   export type MaestroMinAggregateOutputType = {
@@ -7660,6 +7651,7 @@ export namespace Prisma {
     MOVIL: string | null
     EDAD_PROM: number | null
     MAIL: string | null
+    ESTADO_VENTA: number | null
   }
 
   export type MaestroMaxAggregateOutputType = {
@@ -7694,6 +7686,7 @@ export namespace Prisma {
     MOVIL: string | null
     EDAD_PROM: number | null
     MAIL: string | null
+    ESTADO_VENTA: number | null
   }
 
   export type MaestroCountAggregateOutputType = {
@@ -7728,6 +7721,7 @@ export namespace Prisma {
     MOVIL: number
     EDAD_PROM: number
     MAIL: number
+    ESTADO_VENTA: number
     _all: number
   }
 
@@ -7745,6 +7739,7 @@ export namespace Prisma {
     EDAD?: true
     COD_POST?: true
     EDAD_PROM?: true
+    ESTADO_VENTA?: true
   }
 
   export type MaestroSumAggregateInputType = {
@@ -7760,6 +7755,7 @@ export namespace Prisma {
     EDAD?: true
     COD_POST?: true
     EDAD_PROM?: true
+    ESTADO_VENTA?: true
   }
 
   export type MaestroMinAggregateInputType = {
@@ -7794,6 +7790,7 @@ export namespace Prisma {
     MOVIL?: true
     EDAD_PROM?: true
     MAIL?: true
+    ESTADO_VENTA?: true
   }
 
   export type MaestroMaxAggregateInputType = {
@@ -7828,6 +7825,7 @@ export namespace Prisma {
     MOVIL?: true
     EDAD_PROM?: true
     MAIL?: true
+    ESTADO_VENTA?: true
   }
 
   export type MaestroCountAggregateInputType = {
@@ -7862,6 +7860,7 @@ export namespace Prisma {
     MOVIL?: true
     EDAD_PROM?: true
     MAIL?: true
+    ESTADO_VENTA?: true
     _all?: true
   }
 
@@ -7984,6 +7983,7 @@ export namespace Prisma {
     MOVIL: string | null
     EDAD_PROM: number | null
     MAIL: string | null
+    ESTADO_VENTA: number | null
     _count: MaestroCountAggregateOutputType | null
     _avg: MaestroAvgAggregateOutputType | null
     _sum: MaestroSumAggregateOutputType | null
@@ -8037,6 +8037,7 @@ export namespace Prisma {
     MOVIL?: boolean
     EDAD_PROM?: boolean
     MAIL?: boolean
+    ESTADO_VENTA?: boolean
   }, ExtArgs["result"]["maestro"]>
 
   export type maestroSelectScalar = {
@@ -8071,6 +8072,7 @@ export namespace Prisma {
     MOVIL?: boolean
     EDAD_PROM?: boolean
     MAIL?: boolean
+    ESTADO_VENTA?: boolean
   }
 
 
@@ -8507,6 +8509,7 @@ export namespace Prisma {
     readonly MOVIL: FieldRef<"maestro", 'String'>
     readonly EDAD_PROM: FieldRef<"maestro", 'Float'>
     readonly MAIL: FieldRef<"maestro", 'String'>
+    readonly ESTADO_VENTA: FieldRef<"maestro", 'Int'>
   }
     
 
@@ -19215,455 +19218,355 @@ export namespace Prisma {
 
 
   /**
-   * Model so
+   * Model gasto_luto
    */
 
 
-  export type AggregateSo = {
-    _count: SoCountAggregateOutputType | null
-    _avg: SoAvgAggregateOutputType | null
-    _sum: SoSumAggregateOutputType | null
-    _min: SoMinAggregateOutputType | null
-    _max: SoMaxAggregateOutputType | null
+  export type AggregateGasto_luto = {
+    _count: Gasto_lutoCountAggregateOutputType | null
+    _avg: Gasto_lutoAvgAggregateOutputType | null
+    _sum: Gasto_lutoSumAggregateOutputType | null
+    _min: Gasto_lutoMinAggregateOutputType | null
+    _max: Gasto_lutoMaxAggregateOutputType | null
   }
 
-  export type SoAvgAggregateOutputType = {
-    id: number | null
+  export type Gasto_lutoAvgAggregateOutputType = {
+    idgastoluto: number | null
+    gasto1: number | null
+    gasto2: number | null
   }
 
-  export type SoSumAggregateOutputType = {
-    id: number | null
+  export type Gasto_lutoSumAggregateOutputType = {
+    idgastoluto: number | null
+    gasto1: number | null
+    gasto2: number | null
   }
 
-  export type SoMinAggregateOutputType = {
-    CONTRATO: string | null
-    SOCIO: string | null
-    ALTA: string | null
-    GRUPO: string | null
-    ADHERENTES: string | null
-    PLAN: string | null
-    ZONA: string | null
-    EDAD: string | null
-    CUOTA: string | null
-    EMPRESA: string | null
-    SUCURSAL: string | null
-    CUOTAS: string | null
-    PAGOS: string | null
-    DEUDA: string | null
-    id: number | null
+  export type Gasto_lutoMinAggregateOutputType = {
+    idgastoluto: number | null
+    gasto1: number | null
+    gasto2: number | null
   }
 
-  export type SoMaxAggregateOutputType = {
-    CONTRATO: string | null
-    SOCIO: string | null
-    ALTA: string | null
-    GRUPO: string | null
-    ADHERENTES: string | null
-    PLAN: string | null
-    ZONA: string | null
-    EDAD: string | null
-    CUOTA: string | null
-    EMPRESA: string | null
-    SUCURSAL: string | null
-    CUOTAS: string | null
-    PAGOS: string | null
-    DEUDA: string | null
-    id: number | null
+  export type Gasto_lutoMaxAggregateOutputType = {
+    idgastoluto: number | null
+    gasto1: number | null
+    gasto2: number | null
   }
 
-  export type SoCountAggregateOutputType = {
-    CONTRATO: number
-    SOCIO: number
-    ALTA: number
-    GRUPO: number
-    ADHERENTES: number
-    PLAN: number
-    ZONA: number
-    EDAD: number
-    CUOTA: number
-    EMPRESA: number
-    SUCURSAL: number
-    CUOTAS: number
-    PAGOS: number
-    DEUDA: number
-    id: number
+  export type Gasto_lutoCountAggregateOutputType = {
+    idgastoluto: number
+    gasto1: number
+    gasto2: number
     _all: number
   }
 
 
-  export type SoAvgAggregateInputType = {
-    id?: true
+  export type Gasto_lutoAvgAggregateInputType = {
+    idgastoluto?: true
+    gasto1?: true
+    gasto2?: true
   }
 
-  export type SoSumAggregateInputType = {
-    id?: true
+  export type Gasto_lutoSumAggregateInputType = {
+    idgastoluto?: true
+    gasto1?: true
+    gasto2?: true
   }
 
-  export type SoMinAggregateInputType = {
-    CONTRATO?: true
-    SOCIO?: true
-    ALTA?: true
-    GRUPO?: true
-    ADHERENTES?: true
-    PLAN?: true
-    ZONA?: true
-    EDAD?: true
-    CUOTA?: true
-    EMPRESA?: true
-    SUCURSAL?: true
-    CUOTAS?: true
-    PAGOS?: true
-    DEUDA?: true
-    id?: true
+  export type Gasto_lutoMinAggregateInputType = {
+    idgastoluto?: true
+    gasto1?: true
+    gasto2?: true
   }
 
-  export type SoMaxAggregateInputType = {
-    CONTRATO?: true
-    SOCIO?: true
-    ALTA?: true
-    GRUPO?: true
-    ADHERENTES?: true
-    PLAN?: true
-    ZONA?: true
-    EDAD?: true
-    CUOTA?: true
-    EMPRESA?: true
-    SUCURSAL?: true
-    CUOTAS?: true
-    PAGOS?: true
-    DEUDA?: true
-    id?: true
+  export type Gasto_lutoMaxAggregateInputType = {
+    idgastoluto?: true
+    gasto1?: true
+    gasto2?: true
   }
 
-  export type SoCountAggregateInputType = {
-    CONTRATO?: true
-    SOCIO?: true
-    ALTA?: true
-    GRUPO?: true
-    ADHERENTES?: true
-    PLAN?: true
-    ZONA?: true
-    EDAD?: true
-    CUOTA?: true
-    EMPRESA?: true
-    SUCURSAL?: true
-    CUOTAS?: true
-    PAGOS?: true
-    DEUDA?: true
-    id?: true
+  export type Gasto_lutoCountAggregateInputType = {
+    idgastoluto?: true
+    gasto1?: true
+    gasto2?: true
     _all?: true
   }
 
-  export type SoAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type Gasto_lutoAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Filter which so to aggregate.
+     * Filter which gasto_luto to aggregate.
      */
-    where?: soWhereInput
+    where?: gasto_lutoWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of sos to fetch.
+     * Determine the order of gasto_lutos to fetch.
      */
-    orderBy?: soOrderByWithRelationInput | soOrderByWithRelationInput[]
+    orderBy?: gasto_lutoOrderByWithRelationInput | gasto_lutoOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: soWhereUniqueInput
+    cursor?: gasto_lutoWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` sos from the position of the cursor.
+     * Take `±n` gasto_lutos from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` sos.
+     * Skip the first `n` gasto_lutos.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned sos
+     * Count returned gasto_lutos
     **/
-    _count?: true | SoCountAggregateInputType
+    _count?: true | Gasto_lutoCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: SoAvgAggregateInputType
+    _avg?: Gasto_lutoAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: SoSumAggregateInputType
+    _sum?: Gasto_lutoSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: SoMinAggregateInputType
+    _min?: Gasto_lutoMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: SoMaxAggregateInputType
+    _max?: Gasto_lutoMaxAggregateInputType
   }
 
-  export type GetSoAggregateType<T extends SoAggregateArgs> = {
-        [P in keyof T & keyof AggregateSo]: P extends '_count' | 'count'
+  export type GetGasto_lutoAggregateType<T extends Gasto_lutoAggregateArgs> = {
+        [P in keyof T & keyof AggregateGasto_luto]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateSo[P]>
-      : GetScalarType<T[P], AggregateSo[P]>
+        : GetScalarType<T[P], AggregateGasto_luto[P]>
+      : GetScalarType<T[P], AggregateGasto_luto[P]>
   }
 
 
 
 
-  export type soGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    where?: soWhereInput
-    orderBy?: soOrderByWithAggregationInput | soOrderByWithAggregationInput[]
-    by: SoScalarFieldEnum[] | SoScalarFieldEnum
-    having?: soScalarWhereWithAggregatesInput
+  export type gasto_lutoGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: gasto_lutoWhereInput
+    orderBy?: gasto_lutoOrderByWithAggregationInput | gasto_lutoOrderByWithAggregationInput[]
+    by: Gasto_lutoScalarFieldEnum[] | Gasto_lutoScalarFieldEnum
+    having?: gasto_lutoScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: SoCountAggregateInputType | true
-    _avg?: SoAvgAggregateInputType
-    _sum?: SoSumAggregateInputType
-    _min?: SoMinAggregateInputType
-    _max?: SoMaxAggregateInputType
+    _count?: Gasto_lutoCountAggregateInputType | true
+    _avg?: Gasto_lutoAvgAggregateInputType
+    _sum?: Gasto_lutoSumAggregateInputType
+    _min?: Gasto_lutoMinAggregateInputType
+    _max?: Gasto_lutoMaxAggregateInputType
   }
 
 
-  export type SoGroupByOutputType = {
-    CONTRATO: string | null
-    SOCIO: string | null
-    ALTA: string | null
-    GRUPO: string | null
-    ADHERENTES: string | null
-    PLAN: string | null
-    ZONA: string | null
-    EDAD: string | null
-    CUOTA: string | null
-    EMPRESA: string | null
-    SUCURSAL: string | null
-    CUOTAS: string | null
-    PAGOS: string | null
-    DEUDA: string | null
-    id: number
-    _count: SoCountAggregateOutputType | null
-    _avg: SoAvgAggregateOutputType | null
-    _sum: SoSumAggregateOutputType | null
-    _min: SoMinAggregateOutputType | null
-    _max: SoMaxAggregateOutputType | null
+  export type Gasto_lutoGroupByOutputType = {
+    idgastoluto: number
+    gasto1: number | null
+    gasto2: number | null
+    _count: Gasto_lutoCountAggregateOutputType | null
+    _avg: Gasto_lutoAvgAggregateOutputType | null
+    _sum: Gasto_lutoSumAggregateOutputType | null
+    _min: Gasto_lutoMinAggregateOutputType | null
+    _max: Gasto_lutoMaxAggregateOutputType | null
   }
 
-  type GetSoGroupByPayload<T extends soGroupByArgs> = Prisma.PrismaPromise<
+  type GetGasto_lutoGroupByPayload<T extends gasto_lutoGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<SoGroupByOutputType, T['by']> &
+      PickEnumerable<Gasto_lutoGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof SoGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof Gasto_lutoGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], SoGroupByOutputType[P]>
-            : GetScalarType<T[P], SoGroupByOutputType[P]>
+              : GetScalarType<T[P], Gasto_lutoGroupByOutputType[P]>
+            : GetScalarType<T[P], Gasto_lutoGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type soSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    CONTRATO?: boolean
-    SOCIO?: boolean
-    ALTA?: boolean
-    GRUPO?: boolean
-    ADHERENTES?: boolean
-    PLAN?: boolean
-    ZONA?: boolean
-    EDAD?: boolean
-    CUOTA?: boolean
-    EMPRESA?: boolean
-    SUCURSAL?: boolean
-    CUOTAS?: boolean
-    PAGOS?: boolean
-    DEUDA?: boolean
-    id?: boolean
-  }, ExtArgs["result"]["so"]>
+  export type gasto_lutoSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    idgastoluto?: boolean
+    gasto1?: boolean
+    gasto2?: boolean
+  }, ExtArgs["result"]["gasto_luto"]>
 
-  export type soSelectScalar = {
-    CONTRATO?: boolean
-    SOCIO?: boolean
-    ALTA?: boolean
-    GRUPO?: boolean
-    ADHERENTES?: boolean
-    PLAN?: boolean
-    ZONA?: boolean
-    EDAD?: boolean
-    CUOTA?: boolean
-    EMPRESA?: boolean
-    SUCURSAL?: boolean
-    CUOTAS?: boolean
-    PAGOS?: boolean
-    DEUDA?: boolean
-    id?: boolean
+  export type gasto_lutoSelectScalar = {
+    idgastoluto?: boolean
+    gasto1?: boolean
+    gasto2?: boolean
   }
 
 
-  type soGetPayload<S extends boolean | null | undefined | soArgs> = $Types.GetResult<soPayload, S>
+  type gasto_lutoGetPayload<S extends boolean | null | undefined | gasto_lutoArgs> = $Types.GetResult<gasto_lutoPayload, S>
 
-  type soCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
-    Omit<soFindManyArgs, 'select' | 'include'> & {
-      select?: SoCountAggregateInputType | true
+  type gasto_lutoCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
+    Omit<gasto_lutoFindManyArgs, 'select' | 'include'> & {
+      select?: Gasto_lutoCountAggregateInputType | true
     }
 
-  export interface soDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['so'], meta: { name: 'so' } }
+  export interface gasto_lutoDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['gasto_luto'], meta: { name: 'gasto_luto' } }
     /**
-     * Find zero or one So that matches the filter.
-     * @param {soFindUniqueArgs} args - Arguments to find a So
+     * Find zero or one Gasto_luto that matches the filter.
+     * @param {gasto_lutoFindUniqueArgs} args - Arguments to find a Gasto_luto
      * @example
-     * // Get one So
-     * const so = await prisma.so.findUnique({
+     * // Get one Gasto_luto
+     * const gasto_luto = await prisma.gasto_luto.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends soFindUniqueArgs<ExtArgs>, LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, soFindUniqueArgs<ExtArgs>>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'so'> extends True ? Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'findUnique', never>, never, ExtArgs> : Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'findUnique', never> | null, null, ExtArgs>
+    findUnique<T extends gasto_lutoFindUniqueArgs<ExtArgs>, LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, gasto_lutoFindUniqueArgs<ExtArgs>>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'gasto_luto'> extends True ? Prisma__gasto_lutoClient<$Types.GetResult<gasto_lutoPayload<ExtArgs>, T, 'findUnique', never>, never, ExtArgs> : Prisma__gasto_lutoClient<$Types.GetResult<gasto_lutoPayload<ExtArgs>, T, 'findUnique', never> | null, null, ExtArgs>
 
     /**
-     * Find one So that matches the filter or throw an error  with `error.code='P2025'` 
+     * Find one Gasto_luto that matches the filter or throw an error  with `error.code='P2025'` 
      *     if no matches were found.
-     * @param {soFindUniqueOrThrowArgs} args - Arguments to find a So
+     * @param {gasto_lutoFindUniqueOrThrowArgs} args - Arguments to find a Gasto_luto
      * @example
-     * // Get one So
-     * const so = await prisma.so.findUniqueOrThrow({
+     * // Get one Gasto_luto
+     * const gasto_luto = await prisma.gasto_luto.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends soFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, soFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'findUniqueOrThrow', never>, never, ExtArgs>
+    findUniqueOrThrow<T extends gasto_lutoFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, gasto_lutoFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__gasto_lutoClient<$Types.GetResult<gasto_lutoPayload<ExtArgs>, T, 'findUniqueOrThrow', never>, never, ExtArgs>
 
     /**
-     * Find the first So that matches the filter.
+     * Find the first Gasto_luto that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {soFindFirstArgs} args - Arguments to find a So
+     * @param {gasto_lutoFindFirstArgs} args - Arguments to find a Gasto_luto
      * @example
-     * // Get one So
-     * const so = await prisma.so.findFirst({
+     * // Get one Gasto_luto
+     * const gasto_luto = await prisma.gasto_luto.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends soFindFirstArgs<ExtArgs>, LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, soFindFirstArgs<ExtArgs>>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'so'> extends True ? Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'findFirst', never>, never, ExtArgs> : Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'findFirst', never> | null, null, ExtArgs>
+    findFirst<T extends gasto_lutoFindFirstArgs<ExtArgs>, LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, gasto_lutoFindFirstArgs<ExtArgs>>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'gasto_luto'> extends True ? Prisma__gasto_lutoClient<$Types.GetResult<gasto_lutoPayload<ExtArgs>, T, 'findFirst', never>, never, ExtArgs> : Prisma__gasto_lutoClient<$Types.GetResult<gasto_lutoPayload<ExtArgs>, T, 'findFirst', never> | null, null, ExtArgs>
 
     /**
-     * Find the first So that matches the filter or
+     * Find the first Gasto_luto that matches the filter or
      * throw `NotFoundError` if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {soFindFirstOrThrowArgs} args - Arguments to find a So
+     * @param {gasto_lutoFindFirstOrThrowArgs} args - Arguments to find a Gasto_luto
      * @example
-     * // Get one So
-     * const so = await prisma.so.findFirstOrThrow({
+     * // Get one Gasto_luto
+     * const gasto_luto = await prisma.gasto_luto.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirstOrThrow<T extends soFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, soFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'findFirstOrThrow', never>, never, ExtArgs>
+    findFirstOrThrow<T extends gasto_lutoFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, gasto_lutoFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__gasto_lutoClient<$Types.GetResult<gasto_lutoPayload<ExtArgs>, T, 'findFirstOrThrow', never>, never, ExtArgs>
 
     /**
-     * Find zero or more Sos that matches the filter.
+     * Find zero or more Gasto_lutos that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {soFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {gasto_lutoFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Sos
-     * const sos = await prisma.so.findMany()
+     * // Get all Gasto_lutos
+     * const gasto_lutos = await prisma.gasto_luto.findMany()
      * 
-     * // Get first 10 Sos
-     * const sos = await prisma.so.findMany({ take: 10 })
+     * // Get first 10 Gasto_lutos
+     * const gasto_lutos = await prisma.gasto_luto.findMany({ take: 10 })
      * 
-     * // Only select the `CONTRATO`
-     * const soWithCONTRATOOnly = await prisma.so.findMany({ select: { CONTRATO: true } })
+     * // Only select the `idgastoluto`
+     * const gasto_lutoWithIdgastolutoOnly = await prisma.gasto_luto.findMany({ select: { idgastoluto: true } })
      * 
     **/
-    findMany<T extends soFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, soFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Types.GetResult<soPayload<ExtArgs>, T, 'findMany', never>>
+    findMany<T extends gasto_lutoFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, gasto_lutoFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<gasto_lutoPayload<ExtArgs>, T, 'findMany', never>>
 
     /**
-     * Create a So.
-     * @param {soCreateArgs} args - Arguments to create a So.
+     * Create a Gasto_luto.
+     * @param {gasto_lutoCreateArgs} args - Arguments to create a Gasto_luto.
      * @example
-     * // Create one So
-     * const So = await prisma.so.create({
+     * // Create one Gasto_luto
+     * const Gasto_luto = await prisma.gasto_luto.create({
      *   data: {
-     *     // ... data to create a So
+     *     // ... data to create a Gasto_luto
      *   }
      * })
      * 
     **/
-    create<T extends soCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, soCreateArgs<ExtArgs>>
-    ): Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'create', never>, never, ExtArgs>
+    create<T extends gasto_lutoCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, gasto_lutoCreateArgs<ExtArgs>>
+    ): Prisma__gasto_lutoClient<$Types.GetResult<gasto_lutoPayload<ExtArgs>, T, 'create', never>, never, ExtArgs>
 
     /**
-     * Create many Sos.
-     *     @param {soCreateManyArgs} args - Arguments to create many Sos.
+     * Create many Gasto_lutos.
+     *     @param {gasto_lutoCreateManyArgs} args - Arguments to create many Gasto_lutos.
      *     @example
-     *     // Create many Sos
-     *     const so = await prisma.so.createMany({
+     *     // Create many Gasto_lutos
+     *     const gasto_luto = await prisma.gasto_luto.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends soCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, soCreateManyArgs<ExtArgs>>
+    createMany<T extends gasto_lutoCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, gasto_lutoCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Delete a So.
-     * @param {soDeleteArgs} args - Arguments to delete one So.
+     * Delete a Gasto_luto.
+     * @param {gasto_lutoDeleteArgs} args - Arguments to delete one Gasto_luto.
      * @example
-     * // Delete one So
-     * const So = await prisma.so.delete({
+     * // Delete one Gasto_luto
+     * const Gasto_luto = await prisma.gasto_luto.delete({
      *   where: {
-     *     // ... filter to delete one So
+     *     // ... filter to delete one Gasto_luto
      *   }
      * })
      * 
     **/
-    delete<T extends soDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, soDeleteArgs<ExtArgs>>
-    ): Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'delete', never>, never, ExtArgs>
+    delete<T extends gasto_lutoDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, gasto_lutoDeleteArgs<ExtArgs>>
+    ): Prisma__gasto_lutoClient<$Types.GetResult<gasto_lutoPayload<ExtArgs>, T, 'delete', never>, never, ExtArgs>
 
     /**
-     * Update one So.
-     * @param {soUpdateArgs} args - Arguments to update one So.
+     * Update one Gasto_luto.
+     * @param {gasto_lutoUpdateArgs} args - Arguments to update one Gasto_luto.
      * @example
-     * // Update one So
-     * const so = await prisma.so.update({
+     * // Update one Gasto_luto
+     * const gasto_luto = await prisma.gasto_luto.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -19673,34 +19576,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends soUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, soUpdateArgs<ExtArgs>>
-    ): Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'update', never>, never, ExtArgs>
+    update<T extends gasto_lutoUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, gasto_lutoUpdateArgs<ExtArgs>>
+    ): Prisma__gasto_lutoClient<$Types.GetResult<gasto_lutoPayload<ExtArgs>, T, 'update', never>, never, ExtArgs>
 
     /**
-     * Delete zero or more Sos.
-     * @param {soDeleteManyArgs} args - Arguments to filter Sos to delete.
+     * Delete zero or more Gasto_lutos.
+     * @param {gasto_lutoDeleteManyArgs} args - Arguments to filter Gasto_lutos to delete.
      * @example
-     * // Delete a few Sos
-     * const { count } = await prisma.so.deleteMany({
+     * // Delete a few Gasto_lutos
+     * const { count } = await prisma.gasto_luto.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends soDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, soDeleteManyArgs<ExtArgs>>
+    deleteMany<T extends gasto_lutoDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, gasto_lutoDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Sos.
+     * Update zero or more Gasto_lutos.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {soUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {gasto_lutoUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Sos
-     * const so = await prisma.so.updateMany({
+     * // Update many Gasto_lutos
+     * const gasto_luto = await prisma.gasto_luto.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -19710,59 +19613,59 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends soUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, soUpdateManyArgs<ExtArgs>>
+    updateMany<T extends gasto_lutoUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, gasto_lutoUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one So.
-     * @param {soUpsertArgs} args - Arguments to update or create a So.
+     * Create or update one Gasto_luto.
+     * @param {gasto_lutoUpsertArgs} args - Arguments to update or create a Gasto_luto.
      * @example
-     * // Update or create a So
-     * const so = await prisma.so.upsert({
+     * // Update or create a Gasto_luto
+     * const gasto_luto = await prisma.gasto_luto.upsert({
      *   create: {
-     *     // ... data to create a So
+     *     // ... data to create a Gasto_luto
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the So we want to update
+     *     // ... the filter for the Gasto_luto we want to update
      *   }
      * })
     **/
-    upsert<T extends soUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, soUpsertArgs<ExtArgs>>
-    ): Prisma__soClient<$Types.GetResult<soPayload<ExtArgs>, T, 'upsert', never>, never, ExtArgs>
+    upsert<T extends gasto_lutoUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, gasto_lutoUpsertArgs<ExtArgs>>
+    ): Prisma__gasto_lutoClient<$Types.GetResult<gasto_lutoPayload<ExtArgs>, T, 'upsert', never>, never, ExtArgs>
 
     /**
-     * Count the number of Sos.
+     * Count the number of Gasto_lutos.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {soCountArgs} args - Arguments to filter Sos to count.
+     * @param {gasto_lutoCountArgs} args - Arguments to filter Gasto_lutos to count.
      * @example
-     * // Count the number of Sos
-     * const count = await prisma.so.count({
+     * // Count the number of Gasto_lutos
+     * const count = await prisma.gasto_luto.count({
      *   where: {
-     *     // ... the filter for the Sos we want to count
+     *     // ... the filter for the Gasto_lutos we want to count
      *   }
      * })
     **/
-    count<T extends soCountArgs>(
-      args?: Subset<T, soCountArgs>,
+    count<T extends gasto_lutoCountArgs>(
+      args?: Subset<T, gasto_lutoCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], SoCountAggregateOutputType>
+          : GetScalarType<T['select'], Gasto_lutoCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a So.
+     * Allows you to perform aggregations operations on a Gasto_luto.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {Gasto_lutoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -19782,13 +19685,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends SoAggregateArgs>(args: Subset<T, SoAggregateArgs>): Prisma.PrismaPromise<GetSoAggregateType<T>>
+    aggregate<T extends Gasto_lutoAggregateArgs>(args: Subset<T, Gasto_lutoAggregateArgs>): Prisma.PrismaPromise<GetGasto_lutoAggregateType<T>>
 
     /**
-     * Group by So.
+     * Group by Gasto_luto.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {soGroupByArgs} args - Group by arguments.
+     * @param {gasto_lutoGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -19803,14 +19706,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends soGroupByArgs,
+      T extends gasto_lutoGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: soGroupByArgs['orderBy'] }
-        : { orderBy?: soGroupByArgs['orderBy'] },
+        ? { orderBy: gasto_lutoGroupByArgs['orderBy'] }
+        : { orderBy?: gasto_lutoGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -19859,20 +19762,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, soGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, gasto_lutoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGasto_lutoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the so model
+   * Fields of the gasto_luto model
    */
-  readonly fields: soFieldRefs;
+  readonly fields: gasto_lutoFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for so.
+   * The delegate class that acts as a "Promise-like" for gasto_luto.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__soClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
+  export class Prisma__gasto_lutoClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -19914,47 +19817,35 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the so model
+   * Fields of the gasto_luto model
    */ 
-  interface soFieldRefs {
-    readonly CONTRATO: FieldRef<"so", 'String'>
-    readonly SOCIO: FieldRef<"so", 'String'>
-    readonly ALTA: FieldRef<"so", 'String'>
-    readonly GRUPO: FieldRef<"so", 'String'>
-    readonly ADHERENTES: FieldRef<"so", 'String'>
-    readonly PLAN: FieldRef<"so", 'String'>
-    readonly ZONA: FieldRef<"so", 'String'>
-    readonly EDAD: FieldRef<"so", 'String'>
-    readonly CUOTA: FieldRef<"so", 'String'>
-    readonly EMPRESA: FieldRef<"so", 'String'>
-    readonly SUCURSAL: FieldRef<"so", 'String'>
-    readonly CUOTAS: FieldRef<"so", 'String'>
-    readonly PAGOS: FieldRef<"so", 'String'>
-    readonly DEUDA: FieldRef<"so", 'String'>
-    readonly id: FieldRef<"so", 'Int'>
+  interface gasto_lutoFieldRefs {
+    readonly idgastoluto: FieldRef<"gasto_luto", 'Int'>
+    readonly gasto1: FieldRef<"gasto_luto", 'Int'>
+    readonly gasto2: FieldRef<"gasto_luto", 'Int'>
   }
     
 
   // Custom InputTypes
 
   /**
-   * so base type for findUnique actions
+   * gasto_luto base type for findUnique actions
    */
-  export type soFindUniqueArgsBase<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type gasto_lutoFindUniqueArgsBase<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the so
+     * Select specific fields to fetch from the gasto_luto
      */
-    select?: soSelect<ExtArgs> | null
+    select?: gasto_lutoSelect<ExtArgs> | null
     /**
-     * Filter, which so to fetch.
+     * Filter, which gasto_luto to fetch.
      */
-    where: soWhereUniqueInput
+    where: gasto_lutoWhereUniqueInput
   }
 
   /**
-   * so findUnique
+   * gasto_luto findUnique
    */
-  export interface soFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends soFindUniqueArgsBase<ExtArgs> {
+  export interface gasto_lutoFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends gasto_lutoFindUniqueArgsBase<ExtArgs> {
    /**
     * Throw an Error if query returns no results
     * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
@@ -19964,68 +19855,68 @@ export namespace Prisma {
       
 
   /**
-   * so findUniqueOrThrow
+   * gasto_luto findUniqueOrThrow
    */
-  export type soFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type gasto_lutoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the so
+     * Select specific fields to fetch from the gasto_luto
      */
-    select?: soSelect<ExtArgs> | null
+    select?: gasto_lutoSelect<ExtArgs> | null
     /**
-     * Filter, which so to fetch.
+     * Filter, which gasto_luto to fetch.
      */
-    where: soWhereUniqueInput
+    where: gasto_lutoWhereUniqueInput
   }
 
 
   /**
-   * so base type for findFirst actions
+   * gasto_luto base type for findFirst actions
    */
-  export type soFindFirstArgsBase<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type gasto_lutoFindFirstArgsBase<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the so
+     * Select specific fields to fetch from the gasto_luto
      */
-    select?: soSelect<ExtArgs> | null
+    select?: gasto_lutoSelect<ExtArgs> | null
     /**
-     * Filter, which so to fetch.
+     * Filter, which gasto_luto to fetch.
      */
-    where?: soWhereInput
+    where?: gasto_lutoWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of sos to fetch.
+     * Determine the order of gasto_lutos to fetch.
      */
-    orderBy?: soOrderByWithRelationInput | soOrderByWithRelationInput[]
+    orderBy?: gasto_lutoOrderByWithRelationInput | gasto_lutoOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for sos.
+     * Sets the position for searching for gasto_lutos.
      */
-    cursor?: soWhereUniqueInput
+    cursor?: gasto_lutoWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` sos from the position of the cursor.
+     * Take `±n` gasto_lutos from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` sos.
+     * Skip the first `n` gasto_lutos.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of sos.
+     * Filter by unique combinations of gasto_lutos.
      */
-    distinct?: SoScalarFieldEnum | SoScalarFieldEnum[]
+    distinct?: Gasto_lutoScalarFieldEnum | Gasto_lutoScalarFieldEnum[]
   }
 
   /**
-   * so findFirst
+   * gasto_luto findFirst
    */
-  export interface soFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends soFindFirstArgsBase<ExtArgs> {
+  export interface gasto_lutoFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends gasto_lutoFindFirstArgsBase<ExtArgs> {
    /**
     * Throw an Error if query returns no results
     * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
@@ -20035,208 +19926,208 @@ export namespace Prisma {
       
 
   /**
-   * so findFirstOrThrow
+   * gasto_luto findFirstOrThrow
    */
-  export type soFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type gasto_lutoFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the so
+     * Select specific fields to fetch from the gasto_luto
      */
-    select?: soSelect<ExtArgs> | null
+    select?: gasto_lutoSelect<ExtArgs> | null
     /**
-     * Filter, which so to fetch.
+     * Filter, which gasto_luto to fetch.
      */
-    where?: soWhereInput
+    where?: gasto_lutoWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of sos to fetch.
+     * Determine the order of gasto_lutos to fetch.
      */
-    orderBy?: soOrderByWithRelationInput | soOrderByWithRelationInput[]
+    orderBy?: gasto_lutoOrderByWithRelationInput | gasto_lutoOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for sos.
+     * Sets the position for searching for gasto_lutos.
      */
-    cursor?: soWhereUniqueInput
+    cursor?: gasto_lutoWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` sos from the position of the cursor.
+     * Take `±n` gasto_lutos from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` sos.
+     * Skip the first `n` gasto_lutos.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of sos.
+     * Filter by unique combinations of gasto_lutos.
      */
-    distinct?: SoScalarFieldEnum | SoScalarFieldEnum[]
+    distinct?: Gasto_lutoScalarFieldEnum | Gasto_lutoScalarFieldEnum[]
   }
 
 
   /**
-   * so findMany
+   * gasto_luto findMany
    */
-  export type soFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type gasto_lutoFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the so
+     * Select specific fields to fetch from the gasto_luto
      */
-    select?: soSelect<ExtArgs> | null
+    select?: gasto_lutoSelect<ExtArgs> | null
     /**
-     * Filter, which sos to fetch.
+     * Filter, which gasto_lutos to fetch.
      */
-    where?: soWhereInput
+    where?: gasto_lutoWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of sos to fetch.
+     * Determine the order of gasto_lutos to fetch.
      */
-    orderBy?: soOrderByWithRelationInput | soOrderByWithRelationInput[]
+    orderBy?: gasto_lutoOrderByWithRelationInput | gasto_lutoOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing sos.
+     * Sets the position for listing gasto_lutos.
      */
-    cursor?: soWhereUniqueInput
+    cursor?: gasto_lutoWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` sos from the position of the cursor.
+     * Take `±n` gasto_lutos from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` sos.
+     * Skip the first `n` gasto_lutos.
      */
     skip?: number
-    distinct?: SoScalarFieldEnum | SoScalarFieldEnum[]
+    distinct?: Gasto_lutoScalarFieldEnum | Gasto_lutoScalarFieldEnum[]
   }
 
 
   /**
-   * so create
+   * gasto_luto create
    */
-  export type soCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type gasto_lutoCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the so
+     * Select specific fields to fetch from the gasto_luto
      */
-    select?: soSelect<ExtArgs> | null
+    select?: gasto_lutoSelect<ExtArgs> | null
     /**
-     * The data needed to create a so.
+     * The data needed to create a gasto_luto.
      */
-    data?: XOR<soCreateInput, soUncheckedCreateInput>
+    data?: XOR<gasto_lutoCreateInput, gasto_lutoUncheckedCreateInput>
   }
 
 
   /**
-   * so createMany
+   * gasto_luto createMany
    */
-  export type soCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type gasto_lutoCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many sos.
+     * The data used to create many gasto_lutos.
      */
-    data: soCreateManyInput | soCreateManyInput[]
+    data: gasto_lutoCreateManyInput | gasto_lutoCreateManyInput[]
     skipDuplicates?: boolean
   }
 
 
   /**
-   * so update
+   * gasto_luto update
    */
-  export type soUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type gasto_lutoUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the so
+     * Select specific fields to fetch from the gasto_luto
      */
-    select?: soSelect<ExtArgs> | null
+    select?: gasto_lutoSelect<ExtArgs> | null
     /**
-     * The data needed to update a so.
+     * The data needed to update a gasto_luto.
      */
-    data: XOR<soUpdateInput, soUncheckedUpdateInput>
+    data: XOR<gasto_lutoUpdateInput, gasto_lutoUncheckedUpdateInput>
     /**
-     * Choose, which so to update.
+     * Choose, which gasto_luto to update.
      */
-    where: soWhereUniqueInput
+    where: gasto_lutoWhereUniqueInput
   }
 
 
   /**
-   * so updateMany
+   * gasto_luto updateMany
    */
-  export type soUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type gasto_lutoUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update sos.
+     * The data used to update gasto_lutos.
      */
-    data: XOR<soUpdateManyMutationInput, soUncheckedUpdateManyInput>
+    data: XOR<gasto_lutoUpdateManyMutationInput, gasto_lutoUncheckedUpdateManyInput>
     /**
-     * Filter which sos to update
+     * Filter which gasto_lutos to update
      */
-    where?: soWhereInput
+    where?: gasto_lutoWhereInput
   }
 
 
   /**
-   * so upsert
+   * gasto_luto upsert
    */
-  export type soUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type gasto_lutoUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the so
+     * Select specific fields to fetch from the gasto_luto
      */
-    select?: soSelect<ExtArgs> | null
+    select?: gasto_lutoSelect<ExtArgs> | null
     /**
-     * The filter to search for the so to update in case it exists.
+     * The filter to search for the gasto_luto to update in case it exists.
      */
-    where: soWhereUniqueInput
+    where: gasto_lutoWhereUniqueInput
     /**
-     * In case the so found by the `where` argument doesn't exist, create a new so with this data.
+     * In case the gasto_luto found by the `where` argument doesn't exist, create a new gasto_luto with this data.
      */
-    create: XOR<soCreateInput, soUncheckedCreateInput>
+    create: XOR<gasto_lutoCreateInput, gasto_lutoUncheckedCreateInput>
     /**
-     * In case the so was found with the provided `where` argument, update it with this data.
+     * In case the gasto_luto was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<soUpdateInput, soUncheckedUpdateInput>
+    update: XOR<gasto_lutoUpdateInput, gasto_lutoUncheckedUpdateInput>
   }
 
 
   /**
-   * so delete
+   * gasto_luto delete
    */
-  export type soDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type gasto_lutoDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the so
+     * Select specific fields to fetch from the gasto_luto
      */
-    select?: soSelect<ExtArgs> | null
+    select?: gasto_lutoSelect<ExtArgs> | null
     /**
-     * Filter which so to delete.
+     * Filter which gasto_luto to delete.
      */
-    where: soWhereUniqueInput
+    where: gasto_lutoWhereUniqueInput
   }
 
 
   /**
-   * so deleteMany
+   * gasto_luto deleteMany
    */
-  export type soDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type gasto_lutoDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Filter which sos to delete
+     * Filter which gasto_lutos to delete
      */
-    where?: soWhereInput
+    where?: gasto_lutoWhereInput
   }
 
 
   /**
-   * so without action
+   * gasto_luto without action
    */
-  export type soArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type gasto_lutoArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the so
+     * Select specific fields to fetch from the gasto_luto
      */
-    select?: soSelect<ExtArgs> | null
+    select?: gasto_lutoSelect<ExtArgs> | null
   }
 
 
@@ -20369,7 +20260,8 @@ export namespace Prisma {
     TELEFONO: 'TELEFONO',
     MOVIL: 'MOVIL',
     EDAD_PROM: 'EDAD_PROM',
-    MAIL: 'MAIL'
+    MAIL: 'MAIL',
+    ESTADO_VENTA: 'ESTADO_VENTA'
   };
 
   export type MaestroScalarFieldEnum = (typeof MaestroScalarFieldEnum)[keyof typeof MaestroScalarFieldEnum]
@@ -20579,25 +20471,13 @@ export namespace Prisma {
   export type Subcta_oldScalarFieldEnum = (typeof Subcta_oldScalarFieldEnum)[keyof typeof Subcta_oldScalarFieldEnum]
 
 
-  export const SoScalarFieldEnum: {
-    CONTRATO: 'CONTRATO',
-    SOCIO: 'SOCIO',
-    ALTA: 'ALTA',
-    GRUPO: 'GRUPO',
-    ADHERENTES: 'ADHERENTES',
-    PLAN: 'PLAN',
-    ZONA: 'ZONA',
-    EDAD: 'EDAD',
-    CUOTA: 'CUOTA',
-    EMPRESA: 'EMPRESA',
-    SUCURSAL: 'SUCURSAL',
-    CUOTAS: 'CUOTAS',
-    PAGOS: 'PAGOS',
-    DEUDA: 'DEUDA',
-    id: 'id'
+  export const Gasto_lutoScalarFieldEnum: {
+    idgastoluto: 'idgastoluto',
+    gasto1: 'gasto1',
+    gasto2: 'gasto2'
   };
 
-  export type SoScalarFieldEnum = (typeof SoScalarFieldEnum)[keyof typeof SoScalarFieldEnum]
+  export type Gasto_lutoScalarFieldEnum = (typeof Gasto_lutoScalarFieldEnum)[keyof typeof Gasto_lutoScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -21041,6 +20921,7 @@ export namespace Prisma {
     MOVIL?: StringNullableFilter<"maestro"> | string | null
     EDAD_PROM?: FloatNullableFilter<"maestro"> | number | null
     MAIL?: StringNullableFilter<"maestro"> | string | null
+    ESTADO_VENTA?: IntNullableFilter<"maestro"> | number | null
   }
 
   export type maestroOrderByWithRelationInput = {
@@ -21075,6 +20956,7 @@ export namespace Prisma {
     MOVIL?: SortOrderInput | SortOrder
     EDAD_PROM?: SortOrderInput | SortOrder
     MAIL?: SortOrderInput | SortOrder
+    ESTADO_VENTA?: SortOrderInput | SortOrder
   }
 
   export type maestroWhereUniqueInput = {
@@ -21113,6 +20995,7 @@ export namespace Prisma {
     MOVIL?: SortOrderInput | SortOrder
     EDAD_PROM?: SortOrderInput | SortOrder
     MAIL?: SortOrderInput | SortOrder
+    ESTADO_VENTA?: SortOrderInput | SortOrder
     _count?: maestroCountOrderByAggregateInput
     _avg?: maestroAvgOrderByAggregateInput
     _max?: maestroMaxOrderByAggregateInput
@@ -21155,6 +21038,7 @@ export namespace Prisma {
     MOVIL?: StringNullableWithAggregatesFilter<"maestro"> | string | null
     EDAD_PROM?: FloatNullableWithAggregatesFilter<"maestro"> | number | null
     MAIL?: StringNullableWithAggregatesFilter<"maestro"> | string | null
+    ESTADO_VENTA?: IntNullableWithAggregatesFilter<"maestro"> | number | null
   }
 
   export type obra_socWhereInput = {
@@ -22003,91 +21887,43 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"subcta_old"> | number
   }
 
-  export type soWhereInput = {
-    AND?: soWhereInput | soWhereInput[]
-    OR?: soWhereInput[]
-    NOT?: soWhereInput | soWhereInput[]
-    CONTRATO?: StringNullableFilter<"so"> | string | null
-    SOCIO?: StringNullableFilter<"so"> | string | null
-    ALTA?: StringNullableFilter<"so"> | string | null
-    GRUPO?: StringNullableFilter<"so"> | string | null
-    ADHERENTES?: StringNullableFilter<"so"> | string | null
-    PLAN?: StringNullableFilter<"so"> | string | null
-    ZONA?: StringNullableFilter<"so"> | string | null
-    EDAD?: StringNullableFilter<"so"> | string | null
-    CUOTA?: StringNullableFilter<"so"> | string | null
-    EMPRESA?: StringNullableFilter<"so"> | string | null
-    SUCURSAL?: StringNullableFilter<"so"> | string | null
-    CUOTAS?: StringNullableFilter<"so"> | string | null
-    PAGOS?: StringNullableFilter<"so"> | string | null
-    DEUDA?: StringNullableFilter<"so"> | string | null
-    id?: IntFilter<"so"> | number
+  export type gasto_lutoWhereInput = {
+    AND?: gasto_lutoWhereInput | gasto_lutoWhereInput[]
+    OR?: gasto_lutoWhereInput[]
+    NOT?: gasto_lutoWhereInput | gasto_lutoWhereInput[]
+    idgastoluto?: IntFilter<"gasto_luto"> | number
+    gasto1?: IntNullableFilter<"gasto_luto"> | number | null
+    gasto2?: IntNullableFilter<"gasto_luto"> | number | null
   }
 
-  export type soOrderByWithRelationInput = {
-    CONTRATO?: SortOrderInput | SortOrder
-    SOCIO?: SortOrderInput | SortOrder
-    ALTA?: SortOrderInput | SortOrder
-    GRUPO?: SortOrderInput | SortOrder
-    ADHERENTES?: SortOrderInput | SortOrder
-    PLAN?: SortOrderInput | SortOrder
-    ZONA?: SortOrderInput | SortOrder
-    EDAD?: SortOrderInput | SortOrder
-    CUOTA?: SortOrderInput | SortOrder
-    EMPRESA?: SortOrderInput | SortOrder
-    SUCURSAL?: SortOrderInput | SortOrder
-    CUOTAS?: SortOrderInput | SortOrder
-    PAGOS?: SortOrderInput | SortOrder
-    DEUDA?: SortOrderInput | SortOrder
-    id?: SortOrder
+  export type gasto_lutoOrderByWithRelationInput = {
+    idgastoluto?: SortOrder
+    gasto1?: SortOrderInput | SortOrder
+    gasto2?: SortOrderInput | SortOrder
   }
 
-  export type soWhereUniqueInput = {
-    id?: number
+  export type gasto_lutoWhereUniqueInput = {
+    idgastoluto?: number
   }
 
-  export type soOrderByWithAggregationInput = {
-    CONTRATO?: SortOrderInput | SortOrder
-    SOCIO?: SortOrderInput | SortOrder
-    ALTA?: SortOrderInput | SortOrder
-    GRUPO?: SortOrderInput | SortOrder
-    ADHERENTES?: SortOrderInput | SortOrder
-    PLAN?: SortOrderInput | SortOrder
-    ZONA?: SortOrderInput | SortOrder
-    EDAD?: SortOrderInput | SortOrder
-    CUOTA?: SortOrderInput | SortOrder
-    EMPRESA?: SortOrderInput | SortOrder
-    SUCURSAL?: SortOrderInput | SortOrder
-    CUOTAS?: SortOrderInput | SortOrder
-    PAGOS?: SortOrderInput | SortOrder
-    DEUDA?: SortOrderInput | SortOrder
-    id?: SortOrder
-    _count?: soCountOrderByAggregateInput
-    _avg?: soAvgOrderByAggregateInput
-    _max?: soMaxOrderByAggregateInput
-    _min?: soMinOrderByAggregateInput
-    _sum?: soSumOrderByAggregateInput
+  export type gasto_lutoOrderByWithAggregationInput = {
+    idgastoluto?: SortOrder
+    gasto1?: SortOrderInput | SortOrder
+    gasto2?: SortOrderInput | SortOrder
+    _count?: gasto_lutoCountOrderByAggregateInput
+    _avg?: gasto_lutoAvgOrderByAggregateInput
+    _max?: gasto_lutoMaxOrderByAggregateInput
+    _min?: gasto_lutoMinOrderByAggregateInput
+    _sum?: gasto_lutoSumOrderByAggregateInput
   }
 
-  export type soScalarWhereWithAggregatesInput = {
-    AND?: soScalarWhereWithAggregatesInput | soScalarWhereWithAggregatesInput[]
-    OR?: soScalarWhereWithAggregatesInput[]
-    NOT?: soScalarWhereWithAggregatesInput | soScalarWhereWithAggregatesInput[]
-    CONTRATO?: StringNullableWithAggregatesFilter<"so"> | string | null
-    SOCIO?: StringNullableWithAggregatesFilter<"so"> | string | null
-    ALTA?: StringNullableWithAggregatesFilter<"so"> | string | null
-    GRUPO?: StringNullableWithAggregatesFilter<"so"> | string | null
-    ADHERENTES?: StringNullableWithAggregatesFilter<"so"> | string | null
-    PLAN?: StringNullableWithAggregatesFilter<"so"> | string | null
-    ZONA?: StringNullableWithAggregatesFilter<"so"> | string | null
-    EDAD?: StringNullableWithAggregatesFilter<"so"> | string | null
-    CUOTA?: StringNullableWithAggregatesFilter<"so"> | string | null
-    EMPRESA?: StringNullableWithAggregatesFilter<"so"> | string | null
-    SUCURSAL?: StringNullableWithAggregatesFilter<"so"> | string | null
-    CUOTAS?: StringNullableWithAggregatesFilter<"so"> | string | null
-    PAGOS?: StringNullableWithAggregatesFilter<"so"> | string | null
-    DEUDA?: StringNullableWithAggregatesFilter<"so"> | string | null
-    id?: IntWithAggregatesFilter<"so"> | number
+  export type gasto_lutoScalarWhereWithAggregatesInput = {
+    AND?: gasto_lutoScalarWhereWithAggregatesInput | gasto_lutoScalarWhereWithAggregatesInput[]
+    OR?: gasto_lutoScalarWhereWithAggregatesInput[]
+    NOT?: gasto_lutoScalarWhereWithAggregatesInput | gasto_lutoScalarWhereWithAggregatesInput[]
+    idgastoluto?: IntWithAggregatesFilter<"gasto_luto"> | number
+    gasto1?: IntNullableWithAggregatesFilter<"gasto_luto"> | number | null
+    gasto2?: IntNullableWithAggregatesFilter<"gasto_luto"> | number | null
   }
 
   export type adherentCreateInput = {
@@ -22582,6 +22418,7 @@ export namespace Prisma {
     MOVIL?: string | null
     EDAD_PROM?: number | null
     MAIL?: string | null
+    ESTADO_VENTA?: number | null
   }
 
   export type maestroUncheckedCreateInput = {
@@ -22616,6 +22453,7 @@ export namespace Prisma {
     MOVIL?: string | null
     EDAD_PROM?: number | null
     MAIL?: string | null
+    ESTADO_VENTA?: number | null
   }
 
   export type maestroUpdateInput = {
@@ -22649,6 +22487,7 @@ export namespace Prisma {
     MOVIL?: NullableStringFieldUpdateOperationsInput | string | null
     EDAD_PROM?: NullableFloatFieldUpdateOperationsInput | number | null
     MAIL?: NullableStringFieldUpdateOperationsInput | string | null
+    ESTADO_VENTA?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type maestroUncheckedUpdateInput = {
@@ -22683,6 +22522,7 @@ export namespace Prisma {
     MOVIL?: NullableStringFieldUpdateOperationsInput | string | null
     EDAD_PROM?: NullableFloatFieldUpdateOperationsInput | number | null
     MAIL?: NullableStringFieldUpdateOperationsInput | string | null
+    ESTADO_VENTA?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type maestroCreateManyInput = {
@@ -22717,6 +22557,7 @@ export namespace Prisma {
     MOVIL?: string | null
     EDAD_PROM?: number | null
     MAIL?: string | null
+    ESTADO_VENTA?: number | null
   }
 
   export type maestroUpdateManyMutationInput = {
@@ -22750,6 +22591,7 @@ export namespace Prisma {
     MOVIL?: NullableStringFieldUpdateOperationsInput | string | null
     EDAD_PROM?: NullableFloatFieldUpdateOperationsInput | number | null
     MAIL?: NullableStringFieldUpdateOperationsInput | string | null
+    ESTADO_VENTA?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type maestroUncheckedUpdateManyInput = {
@@ -22784,6 +22626,7 @@ export namespace Prisma {
     MOVIL?: NullableStringFieldUpdateOperationsInput | string | null
     EDAD_PROM?: NullableFloatFieldUpdateOperationsInput | number | null
     MAIL?: NullableStringFieldUpdateOperationsInput | string | null
+    ESTADO_VENTA?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type obra_socCreateInput = {
@@ -23974,127 +23817,43 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type soCreateInput = {
-    CONTRATO?: string | null
-    SOCIO?: string | null
-    ALTA?: string | null
-    GRUPO?: string | null
-    ADHERENTES?: string | null
-    PLAN?: string | null
-    ZONA?: string | null
-    EDAD?: string | null
-    CUOTA?: string | null
-    EMPRESA?: string | null
-    SUCURSAL?: string | null
-    CUOTAS?: string | null
-    PAGOS?: string | null
-    DEUDA?: string | null
+  export type gasto_lutoCreateInput = {
+    gasto1?: number | null
+    gasto2?: number | null
   }
 
-  export type soUncheckedCreateInput = {
-    CONTRATO?: string | null
-    SOCIO?: string | null
-    ALTA?: string | null
-    GRUPO?: string | null
-    ADHERENTES?: string | null
-    PLAN?: string | null
-    ZONA?: string | null
-    EDAD?: string | null
-    CUOTA?: string | null
-    EMPRESA?: string | null
-    SUCURSAL?: string | null
-    CUOTAS?: string | null
-    PAGOS?: string | null
-    DEUDA?: string | null
-    id?: number
+  export type gasto_lutoUncheckedCreateInput = {
+    idgastoluto?: number
+    gasto1?: number | null
+    gasto2?: number | null
   }
 
-  export type soUpdateInput = {
-    CONTRATO?: NullableStringFieldUpdateOperationsInput | string | null
-    SOCIO?: NullableStringFieldUpdateOperationsInput | string | null
-    ALTA?: NullableStringFieldUpdateOperationsInput | string | null
-    GRUPO?: NullableStringFieldUpdateOperationsInput | string | null
-    ADHERENTES?: NullableStringFieldUpdateOperationsInput | string | null
-    PLAN?: NullableStringFieldUpdateOperationsInput | string | null
-    ZONA?: NullableStringFieldUpdateOperationsInput | string | null
-    EDAD?: NullableStringFieldUpdateOperationsInput | string | null
-    CUOTA?: NullableStringFieldUpdateOperationsInput | string | null
-    EMPRESA?: NullableStringFieldUpdateOperationsInput | string | null
-    SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
-    CUOTAS?: NullableStringFieldUpdateOperationsInput | string | null
-    PAGOS?: NullableStringFieldUpdateOperationsInput | string | null
-    DEUDA?: NullableStringFieldUpdateOperationsInput | string | null
+  export type gasto_lutoUpdateInput = {
+    gasto1?: NullableIntFieldUpdateOperationsInput | number | null
+    gasto2?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type soUncheckedUpdateInput = {
-    CONTRATO?: NullableStringFieldUpdateOperationsInput | string | null
-    SOCIO?: NullableStringFieldUpdateOperationsInput | string | null
-    ALTA?: NullableStringFieldUpdateOperationsInput | string | null
-    GRUPO?: NullableStringFieldUpdateOperationsInput | string | null
-    ADHERENTES?: NullableStringFieldUpdateOperationsInput | string | null
-    PLAN?: NullableStringFieldUpdateOperationsInput | string | null
-    ZONA?: NullableStringFieldUpdateOperationsInput | string | null
-    EDAD?: NullableStringFieldUpdateOperationsInput | string | null
-    CUOTA?: NullableStringFieldUpdateOperationsInput | string | null
-    EMPRESA?: NullableStringFieldUpdateOperationsInput | string | null
-    SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
-    CUOTAS?: NullableStringFieldUpdateOperationsInput | string | null
-    PAGOS?: NullableStringFieldUpdateOperationsInput | string | null
-    DEUDA?: NullableStringFieldUpdateOperationsInput | string | null
-    id?: IntFieldUpdateOperationsInput | number
+  export type gasto_lutoUncheckedUpdateInput = {
+    idgastoluto?: IntFieldUpdateOperationsInput | number
+    gasto1?: NullableIntFieldUpdateOperationsInput | number | null
+    gasto2?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type soCreateManyInput = {
-    CONTRATO?: string | null
-    SOCIO?: string | null
-    ALTA?: string | null
-    GRUPO?: string | null
-    ADHERENTES?: string | null
-    PLAN?: string | null
-    ZONA?: string | null
-    EDAD?: string | null
-    CUOTA?: string | null
-    EMPRESA?: string | null
-    SUCURSAL?: string | null
-    CUOTAS?: string | null
-    PAGOS?: string | null
-    DEUDA?: string | null
-    id?: number
+  export type gasto_lutoCreateManyInput = {
+    idgastoluto?: number
+    gasto1?: number | null
+    gasto2?: number | null
   }
 
-  export type soUpdateManyMutationInput = {
-    CONTRATO?: NullableStringFieldUpdateOperationsInput | string | null
-    SOCIO?: NullableStringFieldUpdateOperationsInput | string | null
-    ALTA?: NullableStringFieldUpdateOperationsInput | string | null
-    GRUPO?: NullableStringFieldUpdateOperationsInput | string | null
-    ADHERENTES?: NullableStringFieldUpdateOperationsInput | string | null
-    PLAN?: NullableStringFieldUpdateOperationsInput | string | null
-    ZONA?: NullableStringFieldUpdateOperationsInput | string | null
-    EDAD?: NullableStringFieldUpdateOperationsInput | string | null
-    CUOTA?: NullableStringFieldUpdateOperationsInput | string | null
-    EMPRESA?: NullableStringFieldUpdateOperationsInput | string | null
-    SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
-    CUOTAS?: NullableStringFieldUpdateOperationsInput | string | null
-    PAGOS?: NullableStringFieldUpdateOperationsInput | string | null
-    DEUDA?: NullableStringFieldUpdateOperationsInput | string | null
+  export type gasto_lutoUpdateManyMutationInput = {
+    gasto1?: NullableIntFieldUpdateOperationsInput | number | null
+    gasto2?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type soUncheckedUpdateManyInput = {
-    CONTRATO?: NullableStringFieldUpdateOperationsInput | string | null
-    SOCIO?: NullableStringFieldUpdateOperationsInput | string | null
-    ALTA?: NullableStringFieldUpdateOperationsInput | string | null
-    GRUPO?: NullableStringFieldUpdateOperationsInput | string | null
-    ADHERENTES?: NullableStringFieldUpdateOperationsInput | string | null
-    PLAN?: NullableStringFieldUpdateOperationsInput | string | null
-    ZONA?: NullableStringFieldUpdateOperationsInput | string | null
-    EDAD?: NullableStringFieldUpdateOperationsInput | string | null
-    CUOTA?: NullableStringFieldUpdateOperationsInput | string | null
-    EMPRESA?: NullableStringFieldUpdateOperationsInput | string | null
-    SUCURSAL?: NullableStringFieldUpdateOperationsInput | string | null
-    CUOTAS?: NullableStringFieldUpdateOperationsInput | string | null
-    PAGOS?: NullableStringFieldUpdateOperationsInput | string | null
-    DEUDA?: NullableStringFieldUpdateOperationsInput | string | null
-    id?: IntFieldUpdateOperationsInput | number
+  export type gasto_lutoUncheckedUpdateManyInput = {
+    idgastoluto?: IntFieldUpdateOperationsInput | number
+    gasto1?: NullableIntFieldUpdateOperationsInput | number | null
+    gasto2?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -24566,6 +24325,7 @@ export namespace Prisma {
     MOVIL?: SortOrder
     EDAD_PROM?: SortOrder
     MAIL?: SortOrder
+    ESTADO_VENTA?: SortOrder
   }
 
   export type maestroAvgOrderByAggregateInput = {
@@ -24581,6 +24341,7 @@ export namespace Prisma {
     EDAD?: SortOrder
     COD_POST?: SortOrder
     EDAD_PROM?: SortOrder
+    ESTADO_VENTA?: SortOrder
   }
 
   export type maestroMaxOrderByAggregateInput = {
@@ -24615,6 +24376,7 @@ export namespace Prisma {
     MOVIL?: SortOrder
     EDAD_PROM?: SortOrder
     MAIL?: SortOrder
+    ESTADO_VENTA?: SortOrder
   }
 
   export type maestroMinOrderByAggregateInput = {
@@ -24649,6 +24411,7 @@ export namespace Prisma {
     MOVIL?: SortOrder
     EDAD_PROM?: SortOrder
     MAIL?: SortOrder
+    ESTADO_VENTA?: SortOrder
   }
 
   export type maestroSumOrderByAggregateInput = {
@@ -24664,6 +24427,7 @@ export namespace Prisma {
     EDAD?: SortOrder
     COD_POST?: SortOrder
     EDAD_PROM?: SortOrder
+    ESTADO_VENTA?: SortOrder
   }
 
   export type obra_socCountOrderByAggregateInput = {
@@ -25418,66 +25182,34 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type soCountOrderByAggregateInput = {
-    CONTRATO?: SortOrder
-    SOCIO?: SortOrder
-    ALTA?: SortOrder
-    GRUPO?: SortOrder
-    ADHERENTES?: SortOrder
-    PLAN?: SortOrder
-    ZONA?: SortOrder
-    EDAD?: SortOrder
-    CUOTA?: SortOrder
-    EMPRESA?: SortOrder
-    SUCURSAL?: SortOrder
-    CUOTAS?: SortOrder
-    PAGOS?: SortOrder
-    DEUDA?: SortOrder
-    id?: SortOrder
+  export type gasto_lutoCountOrderByAggregateInput = {
+    idgastoluto?: SortOrder
+    gasto1?: SortOrder
+    gasto2?: SortOrder
   }
 
-  export type soAvgOrderByAggregateInput = {
-    id?: SortOrder
+  export type gasto_lutoAvgOrderByAggregateInput = {
+    idgastoluto?: SortOrder
+    gasto1?: SortOrder
+    gasto2?: SortOrder
   }
 
-  export type soMaxOrderByAggregateInput = {
-    CONTRATO?: SortOrder
-    SOCIO?: SortOrder
-    ALTA?: SortOrder
-    GRUPO?: SortOrder
-    ADHERENTES?: SortOrder
-    PLAN?: SortOrder
-    ZONA?: SortOrder
-    EDAD?: SortOrder
-    CUOTA?: SortOrder
-    EMPRESA?: SortOrder
-    SUCURSAL?: SortOrder
-    CUOTAS?: SortOrder
-    PAGOS?: SortOrder
-    DEUDA?: SortOrder
-    id?: SortOrder
+  export type gasto_lutoMaxOrderByAggregateInput = {
+    idgastoluto?: SortOrder
+    gasto1?: SortOrder
+    gasto2?: SortOrder
   }
 
-  export type soMinOrderByAggregateInput = {
-    CONTRATO?: SortOrder
-    SOCIO?: SortOrder
-    ALTA?: SortOrder
-    GRUPO?: SortOrder
-    ADHERENTES?: SortOrder
-    PLAN?: SortOrder
-    ZONA?: SortOrder
-    EDAD?: SortOrder
-    CUOTA?: SortOrder
-    EMPRESA?: SortOrder
-    SUCURSAL?: SortOrder
-    CUOTAS?: SortOrder
-    PAGOS?: SortOrder
-    DEUDA?: SortOrder
-    id?: SortOrder
+  export type gasto_lutoMinOrderByAggregateInput = {
+    idgastoluto?: SortOrder
+    gasto1?: SortOrder
+    gasto2?: SortOrder
   }
 
-  export type soSumOrderByAggregateInput = {
-    id?: SortOrder
+  export type gasto_lutoSumOrderByAggregateInput = {
+    idgastoluto?: SortOrder
+    gasto1?: SortOrder
+    gasto2?: SortOrder
   }
 
   export type NullableStringFieldUpdateOperationsInput = {

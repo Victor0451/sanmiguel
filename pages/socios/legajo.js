@@ -1100,25 +1100,25 @@ function Legajo(props) {
     });
   };
 
-  // const gasLuto = async (plan, alta, cantadh) => {
-  //   await axios
-  //     .get(`/api/sepelio/servicios`, {
-  //       params: {
-  //         f: "gasto luto",
-  //       },
-  //     })
-  //     .then((res) => {
-  //       if (res.data) {
-  //         guardarGastoLuto(res.data[0]);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       toast.error("Ocurrio un error al consultar el gasto de luto");
-  //     });
-  // };
+  const gasLuto = async (plan, alta, cantadh) => {
+    await axios
+      .get(`/api/socios`, {
+        params: {
+          f: "gasto luto",
+        },
+      })
+      .then((res) => {
+        if (res.data) {
+          guardarGastoLuto(res.data[0]);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Ocurrio un error al consultar el gasto de luto");
+      });
+  };
 
-  //  useSWR("/api/sepelio/servicios", gasLuto);
+  useSWR("/api/sepelio/servicios", gasLuto);
 
   if (isLoading === true) return <Skeleton />;
 

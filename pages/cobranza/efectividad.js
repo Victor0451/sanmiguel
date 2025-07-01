@@ -41,7 +41,11 @@ function efectividad(props) {
 
     efect = (cobTot * 100) / emiTot;
 
-    return efect.toFixed(2);
+    if (!efect) {
+      return 0;
+    } else {
+      return efect.toFixed(2);
+    }
   };
 
   const totates = (arr, f) => {
@@ -51,31 +55,50 @@ function efectividad(props) {
       for (let i = 0; i < arr.length; i++) {
         total += parseFloat(arr[i].total);
       }
-      return total.toFixed(2);
+      if (!total) {
+        return 0;
+      } else {
+        return total.toFixed(2);
+      }
     } else if (f === "fichas emi") {
       for (let i = 0; i < arr.length; i++) {
         total += parseInt(arr[i].fichas);
       }
 
-      return total;
+      if (!total) {
+        return 0;
+      } else {
+        return total;
+      }
     } else if (f === "cob") {
       for (let i = 0; i < arr.length; i++) {
         total += parseFloat(arr[i].cobrado);
       }
-
-      return total.toFixed(2);
+      if (!total) {
+        return 0;
+      } else {
+        return total.toFixed(2);
+      }
     } else if (f === "fichas cob") {
       for (let i = 0; i < arr.length; i++) {
         total += parseInt(arr[i].fichascob);
       }
 
-      return total;
+      if (!total) {
+        return 0;
+      } else {
+        return total;
+      }
     } else if (f === "adelantado") {
       for (let i = 0; i < arr.length; i++) {
         total += parseFloat(arr[i].adelantado);
       }
 
-      return total;
+      if (!total) {
+        return 0;
+      } else {
+        return total.toFixed(2);
+      }
     }
   };
 
@@ -108,6 +131,7 @@ function efectividad(props) {
           mes: mesSel,
           ano: anoSel,
           f: "ofi cob",
+          tab: tableName,
         },
       })
       .then((res) => {

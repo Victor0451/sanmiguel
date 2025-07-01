@@ -80,37 +80,38 @@ model localidad {
 }
 
 model maestro {
-  idmaestro  Int       @id @default(autoincrement())
-  ESTADO     Boolean?
-  SUCURSAL   String?   @db.VarChar(1)
-  CONTRATO   Int
-  NRO_DOC    Int?
-  APELLIDOS  String?   @db.VarChar(100)
-  NOMBRES    String?   @db.VarChar(100)
-  NACIMIENTO DateTime? @db.Date
-  CALLE      String?   @db.VarChar(100)
-  LOCALIDAD  String?   @db.VarChar(100)
-  NRO_CALLE  Int?
-  BARRIO     String?   @db.VarChar(100)
-  DOMI_COBR  String?   @db.VarChar(100)
-  DOM_LAB    String?   @db.VarChar(100)
-  ZONA       Int?
-  ALTA       DateTime? @db.Date
-  VIGENCIA   DateTime? @db.Date
-  GRUPO      Int?
-  SEXO       String?   @db.VarChar(1)
-  ADHERENTES Int?
-  OPERADOR   String?   @db.VarChar(255)
-  OBRA_SOC   Int?
-  PRODUCTOR  Int?
-  PLAN       String?   @db.VarChar(255)
-  EMPRESA    String?   @db.VarChar(10)
-  EDAD       Int?
-  COD_POST   Int?
-  TELEFONO   String?   @db.VarChar(100)
-  MOVIL      String?   @db.VarChar(100)
-  EDAD_PROM  Float?
-  MAIL       String?   @db.VarChar(100)
+  idmaestro    Int       @id @default(autoincrement())
+  ESTADO       Boolean?
+  SUCURSAL     String?   @db.VarChar(1)
+  CONTRATO     Int
+  NRO_DOC      Int?
+  APELLIDOS    String?   @db.VarChar(100)
+  NOMBRES      String?   @db.VarChar(100)
+  NACIMIENTO   DateTime? @db.Date
+  CALLE        String?   @db.VarChar(100)
+  LOCALIDAD    String?   @db.VarChar(100)
+  NRO_CALLE    Int?
+  BARRIO       String?   @db.VarChar(100)
+  DOMI_COBR    String?   @db.VarChar(100)
+  DOM_LAB      String?   @db.VarChar(100)
+  ZONA         Int?
+  ALTA         DateTime? @db.Date
+  VIGENCIA     DateTime? @db.Date
+  GRUPO        Int?
+  SEXO         String?   @db.VarChar(1)
+  ADHERENTES   Int?
+  OPERADOR     String?   @db.VarChar(255)
+  OBRA_SOC     Int?
+  PRODUCTOR    Int?
+  PLAN         String?   @db.VarChar(255)
+  EMPRESA      String?   @db.VarChar(10)
+  EDAD         Int?
+  COD_POST     Int?
+  TELEFONO     String?   @db.VarChar(100)
+  MOVIL        String?   @db.VarChar(100)
+  EDAD_PROM    Float?
+  MAIL         String?   @db.VarChar(100)
+  ESTADO_VENTA Int?
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
@@ -323,20 +324,25 @@ model subcta_old {
   id    Int     @id @default(autoincrement())
 }
 
-model so {
-  CONTRATO   String? @db.VarChar(255)
-  SOCIO      String? @db.VarChar(255)
-  ALTA       String? @db.VarChar(255)
-  GRUPO      String? @db.VarChar(255)
-  ADHERENTES String? @db.VarChar(255)
-  PLAN       String? @db.VarChar(255)
-  ZONA       String? @db.VarChar(255)
-  EDAD       String? @db.VarChar(255)
-  CUOTA      String? @db.VarChar(255)
-  EMPRESA    String? @db.VarChar(255)
-  SUCURSAL   String? @db.VarChar(255)
-  CUOTAS     String? @db.VarChar(255)
-  PAGOS      String? @db.VarChar(255)
-  DEUDA      String? @db.VarChar(255)
-  id         Int     @id @default(autoincrement())
+model gasto_luto {
+  idgastoluto Int  @id @default(autoincrement())
+  gasto1      Int?
+  gasto2      Int?
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model producto {
+  CODIGO   Int?
+  DESCRIP  String?   @db.VarChar(30)
+  ACTIVO   Int?      @db.TinyInt
+  COD_PERS Int?
+  COD_SUP  Int?
+  SUCURSAL String?   @db.VarChar(1)
+  ALTA     DateTime? @db.Date
+  BAJA     DateTime? @db.Date
+  NRO_DOC  Int?
+  FEC_NAC  DateTime? @db.Date
+  PLAN     Int?
+
+  @@ignore
 }

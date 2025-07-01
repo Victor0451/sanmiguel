@@ -60,7 +60,7 @@ export default async function handler(req, res) {
           SELECT 'Oficina' as 'zona', 'Monterrico' as 'descr', COUNT(*) as 'fichas', SUM(CUOTA) as 'total' 
           FROM ${tab} 
           WHERE GRUPO = 1000 
-          AND DEUDA in (0,1)   
+          AND DEUDA IN (1, 2)
 `);
 
       res
@@ -71,21 +71,23 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "ofi cob") {
-      const ofiEmi = await SanMiguel.$queryRaw`
+
+      let tab = `${req.query.tab}`;
+      const ofiEmi = await SMArchivo.$queryRawUnsafe(`
           SELECT 'Oficina' as 'zona', COUNT(*) as 'fichascob', SUM(CUOTA) as 'cobrado'           
-          FROM so as s
-          INNER JOIN pagos as p on p.CONTRATO = s.CONTRATO
+          FROM ${tab}  as s
+          INNER JOIN sanmiguel.pagos as p on p.CONTRATO = s.CONTRATO
           WHERE s.GRUPO = 1000
-          AND s.DEUDA in (0,1)
+          AND s.DEUDA in (1,2)
           AND p.MES = ${parseInt(req.query.mes)}
           AND p.ANO = ${parseInt(req.query.ano)}
           AND p.MOVIM = 'P'
-          AND p.DIA_PAG BETWEEN ${moment(req.query.mes, "MM")
+          AND p.DIA_PAG BETWEEN '${moment(req.query.mes, "MM")
             .startOf("month")
-            .format("YYYY-MM-DD")}
-          AND ${moment(req.query.mes, "MM").endOf("month").format("YYYY-MM-DD")}
+            .format("YYYY-MM-DD")}'
+          AND '${moment(req.query.mes, "MM").endOf("month").format("YYYY-MM-DD")}'
           
-`;
+`);
 
       res
         .status(200)
@@ -132,7 +134,7 @@ export default async function handler(req, res) {
                   ${tab} AS s
               WHERE
                   s.GRUPO = 1000
-              AND s.DEUDA IN (0, 1)
+              AND s.DEUDA IN (1, 2)
               AND NOT EXISTS (
                   SELECT
                     *
