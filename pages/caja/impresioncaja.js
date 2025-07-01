@@ -26,6 +26,7 @@ function impresioncaja(props) {
 
   if (params.query.fecha) {
     jsCookie.set("fecha", params.query.fecha, { expires: 1 });
+    jsCookie.set("usucaja", params.query.usucaja, { expires: 1 });
   }
 
   const traerCaja = async () => {
@@ -34,6 +35,7 @@ function impresioncaja(props) {
         .get("/api/caja", {
           params: {
             fecha: jsCookie.get("fecha"),
+            usuario: jsCookie.get("usucaja"),
             f: "traer ingresos caja fecha",
           },
         })
@@ -52,6 +54,7 @@ function impresioncaja(props) {
         .get("/api/caja", {
           params: {
             fecha: jsCookie.get("fecha"),
+            usuario: jsCookie.get("usucaja"),
             f: "traer egresos caja fecha",
           },
         })

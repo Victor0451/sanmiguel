@@ -19,6 +19,8 @@ export default function ModalActualizarCuota({
   nuCuotaRef,
   actCuota,
   fclose,
+  alerCuo,
+  confirmacion,
 }) {
   let componentRef = React.createRef();
   const [open, setOpen] = useState(false);
@@ -27,7 +29,7 @@ export default function ModalActualizarCuota({
   return (
     <Fragment>
       <Button className=" bg-gray-900" size="sm" onClick={handleOpen}>
-        Actualizar Cuota
+        <>{alerCuo ? <>Registrar Cuota</> : <>Actualizar Cuota</>}</>
       </Button>
 
       <Dialog
@@ -90,11 +92,24 @@ export default function ModalActualizarCuota({
           {errores ? (
             <Alert
               color="red"
+              className="mt-5"
               icon={
                 <InformationCircleIcon strokeWidth={2} className="h-6 w-6" />
               }
             >
               {errores}
+            </Alert>
+          ) : null}
+
+          {confirmacion ? (
+            <Alert
+              color="green"
+              className="mt-5"
+              icon={
+                <InformationCircleIcon strokeWidth={2} className="h-6 w-6" />
+              }
+            >
+              {confirmacion}
             </Alert>
           ) : null}
         </DialogBody>

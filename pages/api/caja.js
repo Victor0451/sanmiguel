@@ -10,8 +10,8 @@ export default async function handler(req, res) {
                 CONCAT("Produccion Puesto"," (",PUESTO,")")'DETALLE',
                 SUM(IMPORTE) 'IMPORTE',
                 'I' as 'MOVIM',
-                0 as 'SERIE',                                  
-                0 as 'NUMERO',
+                SERIE,                                  
+                NRO_RECIBO as 'NUMERO',
                 665 as 'CODIGO',
                 '0401050000' as 'CUENTA',
                 DATE_FORMAT(CURDATE(), "%Y-%m-%d" ) as 'FECHA',
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
           AND RENDIDO = 0
           AND DIA_EMI = CURDATE()
           AND MOVIM = 'P'
-          GROUP BY DIA_EMI, PUESTO, OPERADOR
+          GROUP BY DIA_EMI, PUESTO, OPERADOR, SERIE, NRO_RECIBO
 `;
 
       res
@@ -83,7 +83,6 @@ export default async function handler(req, res) {
           SELECT FECHA, HORA, IMPORTE, OPERADOR              
           FROM caja
           WHERE DETALLE = 'VALORES A DEPOSITAR'
-        
           GROUP BY FECHA, HORA, IMPORTE, OPERADOR    
           ORDER BY FECHA DESC 
 `;
@@ -102,6 +101,7 @@ export default async function handler(req, res) {
           WHERE FECHA = ${req.query.fecha}
           AND MOVIM = 'I'
           AND DETALLE != ('SALDO INICIAL')
+          AND OPERADOR = ${req.query.usuario}
           
           
 `;
@@ -120,6 +120,7 @@ export default async function handler(req, res) {
           WHERE FECHA = ${req.query.fecha}
           AND MOVIM = 'E'
           AND DETALLE != ('VALORES A DEPOSITAR')
+          AND OPERADOR = ${req.query.usuario}
           
           
 `;

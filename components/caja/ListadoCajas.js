@@ -63,7 +63,7 @@ const ListadoCajas = ({ listado }) => {
           <Link
             href={{
               pathname: "/caja/impresioncaja",
-              query: { fecha: row.FECHA },
+              query: { fecha: row.FECHA, usucaja: row.OPERADOR },
             }}
             target="__blank"
           >

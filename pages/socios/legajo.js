@@ -30,6 +30,7 @@ function Legajo(props) {
 
   const [errores, guardarErrores] = useState(null);
   const [alertas, guardarAlertas] = useState(null);
+  const [confirmacion, guardarConfirmacion] = useState(null);
   const [alerCuo, guardarAlerCuo] = useState(null);
   const [ficha, guardarFicha] = useState([]);
   const [adhs, guardarAdhs] = useState([]);
@@ -618,8 +619,12 @@ function Legajo(props) {
         if (res.data[0]) {
           guardarCuotaMensual(res.data[0].IMPORTE);
         } else if (!res.data[0]) {
-          toast.warning("Esta ficha no tiene cuota mensual registrada. REGISTRA CUOTA URGENTE!!");
-          guardarAlerCuo("Esta ficha no tiene cuota mensual registrada. REGISTRA CUOTA URGENTE!!")
+          toast.warning(
+            "Esta ficha no tiene cuota mensual registrada. REGISTRA CUOTA URGENTE!!"
+          );
+          guardarAlerCuo(
+            "Esta ficha no tiene cuota mensual registrada. REGISTRA CUOTA URGENTE!!"
+          );
         }
       })
       .catch((error) => {
@@ -714,59 +719,98 @@ function Legajo(props) {
   };
 
   const actCuota = async () => {
-    if (nuCuotaRef.current.value === "") {
-      guardarErrores("Debes ingresar el valor de la nueva cuota");
-    } else {
+    if (alerCuo) {
       let data = {
-        f: "act valor cuota",
-        cuota: nuCuotaRef.current.value,
-        vieja: cuotaMensual,
-        contrato: ficha[0].CONTRATO,
+        f: "reg cuota",
+        CONTRATO: ficha[0].CONTRATO,
+        IMPORTE: nuCuotaRef.current.value,
+        CUO_ANT: 0,
+        DESDE: moment().format("YYYY-MM-DD"),
+        OPERADOR: usu.usuario,
       };
 
-      guardarErrores(null);
+      await axios
+        .post("/api/socios", data)
+        .then((res) => {
+          if (res.status === 200) {
+            toast.success("Cuota Registrada");
 
-      guardarFClose(true);
-      await confirmAlert({
-        title: "ATENCION",
-        message: "¿Seguro quieres actualizar el valor de la cuota?",
-        buttons: [
-          {
-            label: "Si",
-            onClick: () => {
-              axios
-                .put(`/api/socios`, data)
-                .then((res) => {
-                  if (res.status === 200) {
-                    toast.success("El valor de la cuota fue actualizado");
+            let hist = {
+              CONTRATO: ficha[0].CONTRATO,
+              OPERADOR: usu.usuario,
+              ACCION: `Registro de cuota de $${cuotaMensual} a $${data.IMPORTE}.`,
+              FECHA: moment().format("DD/MM/YYYY HH:mm"),
+              f: "reg historia",
+            };
 
-                    let hist = {
-                      CONTRATO: data.contrato,
-                      OPERADOR: usu.usuario,
-                      ACCION: `Actualizacion de cuota de $${cuotaMensual} a $${data.cuota}.`,
-                      FECHA: moment().format("DD/MM/YYYY HH:mm"),
-                      f: "reg historia",
-                    };
+            guardarConfirmacion("Cuota registrada Correctamente");
 
-                    registrarHistoria(hist);
+            registrarHistoria(hist);
 
-                    traerHistorial(ficha[0].CONTRATO);
-                    traerCuotas(ficha[0].CONTRATO);
-                  }
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
+            traerHistorial(ficha[0].CONTRATO);
+            traerCuotas(ficha[0].CONTRATO);
+            guardarAlerCuo(null);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Ocurrio un error al registrar la cuota");
+        });
+    } else {
+      if (nuCuotaRef.current.value === "") {
+        guardarErrores("Debes ingresar el valor de la nueva cuota");
+      } else {
+        let data = {
+          f: "act valor cuota",
+          cuota: nuCuotaRef.current.value,
+          vieja: cuotaMensual,
+          contrato: ficha[0].CONTRATO,
+        };
+
+        guardarErrores(null);
+
+        guardarFClose(true);
+        await confirmAlert({
+          title: "ATENCION",
+          message: "¿Seguro quieres actualizar el valor de la cuota?",
+          buttons: [
+            {
+              label: "Si",
+              onClick: () => {
+                axios
+                  .put(`/api/socios`, data)
+                  .then((res) => {
+                    if (res.status === 200) {
+                      toast.success("El valor de la cuota fue actualizado");
+
+                      let hist = {
+                        CONTRATO: data.contrato,
+                        OPERADOR: usu.usuario,
+                        ACCION: `Actualizacion de cuota de $${cuotaMensual} a $${data.cuota}.`,
+                        FECHA: moment().format("DD/MM/YYYY HH:mm"),
+                        f: "reg historia",
+                      };
+
+                      registrarHistoria(hist);
+
+                      traerHistorial(ficha[0].CONTRATO);
+                      traerCuotas(ficha[0].CONTRATO);
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              },
             },
-          },
-          {
-            label: "No",
-            onClick: () => {
-              toast.info("Accion cancelada, no se realizo la actualizacion");
+            {
+              label: "No",
+              onClick: () => {
+                toast.info("Accion cancelada, no se realizo la actualizacion");
+              },
             },
-          },
-        ],
-      });
+          ],
+        });
+      }
     }
   };
 
@@ -1133,6 +1177,7 @@ function Legajo(props) {
             reafiliarFicha={reafiliarFicha}
             reafilAdh={reafilAdh}
             alerCuo={alerCuo}
+            confirmacion={confirmacion}
           />
         </>
       )}

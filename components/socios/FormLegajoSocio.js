@@ -83,6 +83,7 @@ const FormLegajoSocio = ({
   reafiliarFicha,
   reafilAdh,
   alerCuo,
+  confirmacion,
 }) => {
   return (
     <Card className="h-full w-full p-4 ">
@@ -381,6 +382,8 @@ const FormLegajoSocio = ({
                         actCuota={actCuota}
                         fclose={fclose}
                         errores={errores}
+                        alerCuo={alerCuo}
+                        confirmacion={confirmacion}
                       />
                     </div>
 

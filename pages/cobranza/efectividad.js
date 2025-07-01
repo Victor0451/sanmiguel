@@ -36,8 +36,8 @@ function efectividad(props) {
   const porcent = (adel, emi, cob) => {
     let efect = 0;
 
-    let emiTot = parseFloat(emi) + parseFloat(adel);
-    let cobTot = parseFloat(cob) + parseFloat(adel);
+    let emiTot = parseFloat(emi);
+    let cobTot = parseFloat(cob);
 
     efect = (cobTot * 100) / emiTot;
 

@@ -105,7 +105,7 @@ export default async function handler(req, res) {
           END
           ) as 'adelantado'           
           FROM  pagos as p 
-          WHERE p.MES > ${parseInt(req.query.mes)}
+          WHERE p.MES >= ${parseInt(req.query.mes)}
           AND p.ANO >= ${parseInt(req.query.ano)}
           AND p.MOVIM = 'P'
           AND p.DIA_PAG BETWEEN ${moment(req.query.mes, "MM")
