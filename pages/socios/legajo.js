@@ -88,7 +88,7 @@ function Legajo(props) {
           label: "Si",
           onClick: () => {
             axios
-              .delete(`${ip}api/archivos/legajovirtual/eliminararchivos/${id}`)
+              .delete(`${ip}api/archivos/legajovirtualsm/eliminararchivos/${id}`)
               .then((res) => {
                 if (res.status === 200) {
                   toast.success("El archivo fue eliminado con exito");
@@ -124,7 +124,7 @@ function Legajo(props) {
 
     await axios
       .post(
-        `${ip}api/archivos/legajovirtual/uploadfichalegajosoli/${ficha[0].CONTRATO}`,
+        `${ip}api/archivos/legajovirtualsm/uploadfichalegajosoli/${ficha[0].CONTRATO}`,
         upload
       )
       .then((res) => {
@@ -155,7 +155,7 @@ function Legajo(props) {
 
     await axios
       .post(
-        `${ip}api/archivos/legajovirtual/uploadfichalegajocondi/${ficha[0].CONTRATO}`,
+        `${ip}api/archivos/legajovirtualsm/uploadfichalegajocondi/${ficha[0].CONTRATO}`,
         upload
       )
       .then((res) => {
@@ -186,7 +186,7 @@ function Legajo(props) {
 
     await axios
       .post(
-        `${ip}api/archivos/legajovirtual/uploadfichalegajorehab/${ficha[0].CONTRATO}`,
+        `${ip}api/archivos/legajovirtualsm/uploadfichalegajorehab/${ficha[0].CONTRATO}`,
         upload
       )
       .then((res) => {
@@ -217,7 +217,7 @@ function Legajo(props) {
 
     await axios
       .post(
-        `${ip}api/archivos/legajovirtual/uploadfichalegajonoti/${ficha[0].CONTRATO}`,
+        `${ip}api/archivos/legajovirtualsm/uploadfichalegajonoti/${ficha[0].CONTRATO}`,
         upload
       )
       .then((res) => {
@@ -248,7 +248,7 @@ function Legajo(props) {
 
     await axios
       .post(
-        `${ip}api/archivos/legajovirtual/uploadfichalegajorecf/${ficha[0].CONTRATO}`,
+        `${ip}api/archivos/legajovirtualsm/uploadfichalegajorecf/${ficha[0].CONTRATO}`,
         upload
       )
       .then((res) => {
@@ -279,7 +279,7 @@ function Legajo(props) {
 
     await axios
       .post(
-        `${ip}api/archivos/legajovirtual/uploadfichalegajorecd/${ficha[0].CONTRATO}`,
+        `${ip}api/archivos/legajovirtualsm/uploadfichalegajorecd/${ficha[0].CONTRATO}`,
         upload
       )
       .then((res) => {

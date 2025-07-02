@@ -676,57 +676,99 @@ const FormLegajoSocio = ({
 
                     <hr className="mt-5 mb-5 border-2" />
 
-                    {/* <div className="p-4 border-2 rounded-lg mt-6">
-<div className="grid md:grid-cols-2 md:gap-6">
-<div className="relative z-0 w-full mb-6 group">
-  <Typography variant="h5" color="blue-gray" className="mb-6">
-    Subir Solicitud
-  </Typography>
+                    <div className="p-4 border-2 rounded-lg mt-6">
+                      <div className="grid md:grid-cols-2 md:gap-6">
+                        <div className="relative z-0 w-full mb-6 group">
+                          <Typography
+                            variant="h5"
+                            color="blue-gray"
+                            className="mb-6"
+                          >
+                            Subir Solicitud
+                          </Typography>
 
-  <FormSubirArchivos file={file} handleUpload={handleSoli} />
-</div>
+                          <FormSubirArchivos
+                            file={file}
+                            handleUpload={handleSoli}
+                          />
+                        </div>
 
-<div className="relative z-0 w-full mb-6 group">
-  <Typography variant="h5" color="blue-gray" className="mb-6">
-    Subir Condiciones
-  </Typography>
+                        <div className="relative z-0 w-full mb-6 group">
+                          <Typography
+                            variant="h5"
+                            color="blue-gray"
+                            className="mb-6"
+                          >
+                            Subir Condiciones
+                          </Typography>
 
-  <FormSubirArchivos file={file} handleUpload={handleCondi} />
-</div>
+                          <FormSubirArchivos
+                            file={file}
+                            handleUpload={handleCondi}
+                          />
+                        </div>
 
-<div className="relative z-0 w-full mb-6 group">
-  <Typography variant="h5" color="blue-gray" className="mb-6">
-    Subir Rehabilitacion
-  </Typography>
+                        <div className="relative z-0 w-full mb-6 group">
+                          <Typography
+                            variant="h5"
+                            color="blue-gray"
+                            className="mb-6"
+                          >
+                            Subir Rehabilitacion
+                          </Typography>
 
-  <FormSubirArchivos file={file} handleUpload={handleRehab} />
-</div>
+                          <FormSubirArchivos
+                            file={file}
+                            handleUpload={handleRehab}
+                          />
+                        </div>
 
-<div className="relative z-0 w-full mb-6 group">
-  <Typography variant="h5" color="blue-gray" className="mb-6">
-    Subir Notificacion
-  </Typography>
+                        <div className="relative z-0 w-full mb-6 group">
+                          <Typography
+                            variant="h5"
+                            color="blue-gray"
+                            className="mb-6"
+                          >
+                            Subir Notificacion
+                          </Typography>
 
-  <FormSubirArchivos file={file} handleUpload={handleNoti} />
-</div>
+                          <FormSubirArchivos
+                            file={file}
+                            handleUpload={handleNoti}
+                          />
+                        </div>
 
-<div className="relative z-0 w-full mb-6 group">
-  <Typography variant="h5" color="blue-gray" className="mb-6">
-    Subir Recibo (FRENTE)
-  </Typography>
+                        <div className="relative z-0 w-full mb-6 group">
+                          <Typography
+                            variant="h5"
+                            color="blue-gray"
+                            className="mb-6"
+                          >
+                            Subir Recibo (FRENTE)
+                          </Typography>
 
-  <FormSubirArchivos file={file} handleUpload={handleRecF} />
-</div>
+                          <FormSubirArchivos
+                            file={file}
+                            handleUpload={handleRecF}
+                          />
+                        </div>
 
-<div className="relative z-0 w-full mb-6 group">
-  <Typography variant="h5" color="blue-gray" className="mb-6">
-    Subir Recibo (DORSO)
-  </Typography>
+                        <div className="relative z-0 w-full mb-6 group">
+                          <Typography
+                            variant="h5"
+                            color="blue-gray"
+                            className="mb-6"
+                          >
+                            Subir Recibo (DORSO)
+                          </Typography>
 
-  <FormSubirArchivos file={file} handleUpload={handleRecD} />
-</div>
-</div>
-</div> */}
+                          <FormSubirArchivos
+                            file={file}
+                            handleUpload={handleRecD}
+                          />
+                        </div>
+                      </div>
+                    </div>
 
                     <hr className="mt-5 mb-5 border-2" />
 
@@ -748,9 +790,9 @@ const FormLegajoSocio = ({
                                 className="relative z-0 w-full mb-6 group"
                               >
                                 <Archivo
-                                  url={"api/archivos/legajovirtual/archivo/"}
+                                  url={"api/archivos/legajovirtualsm/archivo/"}
                                   urlDesc={
-                                    "api/archivos/legajovirtual/descargararchivo/"
+                                    "api/archivos/legajovirtualsm/descargararchivo/"
                                   }
                                   archivo={a.archivo}
                                   eliminarArchivos={eliminarArchivos}
