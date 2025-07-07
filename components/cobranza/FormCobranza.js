@@ -16,6 +16,10 @@ import { IconSolid } from "../../libs/funciones";
 import ListadoCuotas from "./ListadoCuotas";
 import Select from "react-select";
 import { meses3, anos } from "../../array/array";
+import {
+  CheckCircleIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/solid";
 
 const FormCobranza = ({
   dniRef,
@@ -126,8 +130,36 @@ const FormCobranza = ({
             <hr className="border-2 mt-5 mb-5" />
 
             <div className="border-2 p-4 rounded-lg">
+              {(ficha && ficha.GRUPO === 666) ||
+              (ficha && ficha.GRUPO === 1001) ||
+              (ficha && ficha.GRUPO === 1005) ||
+              (ficha && ficha.GRUPO === 1006) ||
+              (ficha && ficha.GRUPO === 3444) ||
+              (ficha && ficha.GRUPO === 3666) ||
+              (ficha && ficha.GRUPO === 3777) ||
+              (ficha && ficha.GRUPO === 3888) ||
+              (ficha && ficha.GRUPO === 3999) ||
+              (ficha && ficha.GRUPO === 4004) ||
+              (ficha && ficha.GRUPO === 7777) ||
+              (ficha && ficha.GRUPO === 8500) ? (
+                <Alert
+                  color="red"
+                  icon={
+                    <InformationCircleIcon
+                      strokeWidth={2}
+                      className="h-6 w-6"
+                    />
+                  }
+                  className="mt-5 mb-5"
+                >
+                  <strong>
+                    Ficha en estado moroso. Verifique su situacion
+                  </strong>
+                </Alert>
+              ) : null}
+
               <Typography variant="h5" color="blue-gray" className="mb-6">
-                Informacion del Socio
+                <u>Socio</u>: {ficha.APELLIDOS}, {ficha.NOMBRES}
               </Typography>
 
               <div className="grid md:grid-cols-4 md:gap-6 mt-6">
@@ -165,7 +197,7 @@ const FormCobranza = ({
                     size="md"
                     label="Plan"
                     type="text"
-                    value={`${ficha.PLAN}${ficha.SUB_PLAN}`}
+                    value={`${ficha.PLAN}`}
                     readOnly
                   />
                 </div>

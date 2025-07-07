@@ -150,6 +150,34 @@ function socios(props) {
           let re = JSON.parse(res0.data);
           if (re.length > 0) {
             let ficha = JSON.parse(res0.data);
+
+            if (
+              ficha[0].GRUPO === 666 ||
+              ficha[0].GRUPO === 1001 ||
+              ficha[0].GRUPO === 1005 ||
+              ficha[0].GRUPO === 1006 ||
+              ficha[0].GRUPO === 3444 ||
+              ficha[0].GRUPO === 3666 ||
+              ficha[0].GRUPO === 3777 ||
+              ficha[0].GRUPO === 3888 ||
+              ficha[0].GRUPO === 3999 ||
+              ficha[0].GRUPO === 4004 ||
+              ficha[0].GRUPO === 7777 ||
+              ficha[0].GRUPO === 8500
+            ) {
+              confirmAlert({
+                title: "¡¡¡¡¡ATENCION!!!!!",
+                message:
+                  "FICHA CON ESTADO DE MOROSIDAD, HAY QUE DEFINIR ANTES SU SITUACION.",
+                buttons: [
+                  {
+                    label: "OK",
+                    onClick: () => {},
+                  },
+                ],
+              });
+            }
+
             guardarFicha(ficha[0]);
             guardarShow(true);
 
@@ -157,41 +185,13 @@ function socios(props) {
             descriGrupo(ficha[0].GRUPO);
             traerCuotas(ficha[0].CONTRATO);
             traerPagos(ficha[0].CONTRATO, ficha[0].EMPRESA);
-          } else if (re.length === 0) {
-            axios
-              .get("/api/socios", {
-                params: {
-                  f: "mutual",
-                  dni: dniRef.current.value,
-                },
-              })
-              .then((res2) => {
-                let re = JSON.parse(res2.data);
-
-                if (re.length > 0) {
-                  let ficha = JSON.parse(res2.data);
-                  guardarFicha(ficha[0]);
-                  guardarShow(true);
-
-                  traerAdhs("mutual adh", ficha[0].CONTRATO);
-                  descriGrupo(ficha[0].GRUPO);
-                  traerCuotas(ficha[0].CONTRATO);
-                  traerPagos(ficha[0].CONTRATO, ficha[0].EMPRESA);
-                } else {
-                  guardarAlertas(
-                    "El DNI ingresado no esta registrado o pertenece a un adherente"
-                  );
-                  toast.info(
-                    "El DNI ingresado no esta registrado o pertenece a un adherente"
-                  );
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-                toast.error(
-                  "Ocurrio un error al tarer los datos del socio en Mutual"
-                );
-              });
+          } else {
+            guardarAlertas(
+              "El DNI ingresado no esta registrado o pertenece a un adherente"
+            );
+            toast.info(
+              "El DNI ingresado no esta registrado o pertenece a un adherente"
+            );
           }
         })
         .catch((error) => {
@@ -204,6 +204,10 @@ function socios(props) {
   };
 
   const tarerSocioContrato = async () => {
+    guardarErrores(null);
+    guardarAlertas(null);
+    guardarShow(false);
+
     let contrato = contratoRef.current.value;
 
     if (contrato === "") {
@@ -220,6 +224,34 @@ function socios(props) {
           let re = JSON.parse(res0.data);
           if (re.length > 0) {
             let ficha = JSON.parse(res0.data);
+
+            if (
+              ficha[0].GRUPO === 666 ||
+              ficha[0].GRUPO === 1001 ||
+              ficha[0].GRUPO === 1005 ||
+              ficha[0].GRUPO === 1006 ||
+              ficha[0].GRUPO === 3444 ||
+              ficha[0].GRUPO === 3666 ||
+              ficha[0].GRUPO === 3777 ||
+              ficha[0].GRUPO === 3888 ||
+              ficha[0].GRUPO === 3999 ||
+              ficha[0].GRUPO === 4004 ||
+              ficha[0].GRUPO === 7777 ||
+              ficha[0].GRUPO === 8500
+            ) {
+              confirmAlert({
+                title: "¡¡¡¡¡ATENCION!!!!!",
+                message:
+                  "FICHA CON ESTADO DE MOROSIDAD, HAY QUE DEFINIR ANTES SU SITUACION.",
+                buttons: [
+                  {
+                    label: "OK",
+                    onClick: () => {},
+                  },
+                ],
+              });
+            }
+
             guardarFicha(ficha[0]);
             guardarShow(true);
 
@@ -227,41 +259,13 @@ function socios(props) {
             descriGrupo(ficha[0].GRUPO);
             traerCuotas(ficha[0].CONTRATO);
             traerPagos(ficha[0].CONTRATO, ficha[0].EMPRESA);
-          } else if (re.length === 0) {
-            axios
-              .get("/api/socios", {
-                params: {
-                  f: "mutual contrato",
-                  ficha: contrato,
-                },
-              })
-              .then((res2) => {
-                let re = JSON.parse(res2.data);
-
-                if (re.length > 0) {
-                  let ficha = JSON.parse(res2.data);
-                  guardarFicha(ficha[0]);
-                  guardarShow(true);
-
-                  traerAdhs("mutual adh", ficha[0].CONTRATO);
-                  descriGrupo(ficha[0].GRUPO);
-                  traerCuotas(ficha[0].CONTRATO);
-                  traerPagos(ficha[0].CONTRATO, ficha[0].EMPRESA);
-                } else {
-                  guardarAlertas(
-                    "El DNI ingresado no esta registrado o pertenece a un adherente"
-                  );
-                  toast.info(
-                    "El DNI ingresado no esta registrado o pertenece a un adherente"
-                  );
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-                toast.error(
-                  "Ocurrio un error al tarer los datos del socio en Mutual"
-                );
-              });
+          } else {
+            guardarAlertas(
+              "El N° de Ficha ingresado no esta registrado o pertenece a un adherente"
+            );
+            toast.info(
+              "El N° de Ficha ingresado no esta registrado o pertenece a un adherente"
+            );
           }
         })
         .catch((error) => {
