@@ -398,7 +398,7 @@ function editartitular(props) {
 
       registrarHistoria(hist);
     } else if (data.PRODUCTO !== "") {
-      putDato(data.PRODUCTO, "S", "PRODUCTO");
+      putDato(data.PRODUCTO, "S", "PRODUCTOR");
 
       let hist = {
         CONTRATO: ficha.CONTRATO,
@@ -606,6 +606,30 @@ function editartitular(props) {
         CONTRATO: ficha.CONTRATO,
         OPERADOR: usu.usuario,
         ACCION: `Edicion de datos, SEXO anterior: ${ficha.SEXO} ----> SEXO nuevo: ${data.SEXO}.`,
+        FECHA: moment().format("DD/MM/YYYY HH:mm"),
+        f: "reg historia",
+      };
+
+      registrarHistoria(hist);
+    } else if (data.DOMI_COBR !== "") {
+      putDato(data.DOMI_COBR, "S", "DOMI_COBR");
+
+      let hist = {
+        CONTRATO: ficha.CONTRATO,
+        OPERADOR: usu.usuario,
+        ACCION: `Edicion de datos, Domicilio Cobrador anterior: ${ficha.DOMI_COBR} ----> Domicilio Cobrador nuevo: ${data.DOMI_COBR}.`,
+        FECHA: moment().format("DD/MM/YYYY HH:mm"),
+        f: "reg historia",
+      };
+
+      registrarHistoria(hist);
+    } else if (data.DOMI_LAB !== "") {
+      putDato(data.DOMI_LAB, "S", "DOM_LAB");
+
+      let hist = {
+        CONTRATO: ficha.CONTRATO,
+        OPERADOR: usu.usuario,
+        ACCION: `Edicion de datos, Domicilio Laboral anterior: ${ficha.DOMI_LAB} ----> Domicilio Laboral nuevo: ${data.DOMI_LAB}.`,
         FECHA: moment().format("DD/MM/YYYY HH:mm"),
         f: "reg historia",
       };

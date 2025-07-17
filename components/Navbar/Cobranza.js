@@ -68,6 +68,13 @@ export const Cobranza = () => {
                       <Typography color="black">Listado de Recibos</Typography>
                     </MenuItem>
                   </Link>
+                  <Link href={"/cobranza/cargarecibo"}>
+                    <MenuItem>
+                      <Typography color="black">
+                        Carga de Recibos Externos
+                      </Typography>
+                    </MenuItem>
+                  </Link>
                 </MenuList>
               </Menu>
 

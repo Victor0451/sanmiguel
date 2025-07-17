@@ -71,7 +71,6 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "ofi cob") {
-
       let tab = `${req.query.tab}`;
       const ofiEmi = await SMArchivo.$queryRawUnsafe(`
           SELECT 'Oficina' as 'zona', COUNT(*) as 'fichascob', SUM(CUOTA) as 'cobrado'           
@@ -85,7 +84,9 @@ export default async function handler(req, res) {
           AND p.DIA_PAG BETWEEN '${moment(req.query.mes, "MM")
             .startOf("month")
             .format("YYYY-MM-DD")}'
-          AND '${moment(req.query.mes, "MM").endOf("month").format("YYYY-MM-DD")}'
+          AND '${moment(req.query.mes, "MM")
+            .endOf("month")
+            .format("YYYY-MM-DD")}'
           
 `);
 
@@ -153,6 +154,25 @@ export default async function handler(req, res) {
         .status(200)
         .json(
           JSON.stringify(ofiEmi, (key, value) =>
+            typeof value === "bigint" ? value.toString() : value
+          )
+        );
+    } else if (req.query.f && req.query.f === "check rec") {
+      const chkRec = await SanMiguel.$queryRawUnsafe(`
+        SELECT
+            *
+        FROM
+          pagos
+        WHERE SERIE = ${req.query.serie}
+        AND NRO_RECIBO = ${req.query.nro}
+          
+    
+`);
+
+      res
+        .status(200)
+        .json(
+          JSON.stringify(chkRec, (key, value) =>
             typeof value === "bigint" ? value.toString() : value
           )
         );

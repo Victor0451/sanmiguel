@@ -11,6 +11,7 @@ import moment from "moment";
 import { registrarHistoria, regHistorialSocio } from "@/libs/funciones";
 import Router, { useRouter } from "next/router";
 import ListadoRecibos from "@/components/cobranza/ListadoRecibos";
+import Restringed from "@/components/auth/Restringed";
 
 function listadorecibos(props) {
   const [recibos, guardarRecibos] = useState([]);
@@ -118,7 +119,13 @@ function listadorecibos(props) {
         <Redirect />
       ) : (
         <>
-          <ListadoRecibos listado={recibos} anularRec={anularRec} />
+          {usu.perfil === 1 || usu.perfil === 3 ? (
+            <ListadoRecibos listado={recibos} anularRec={anularRec} />
+          ) : (
+            <>
+              <Restringed />
+            </>
+          )}
         </>
       )}
     </>
