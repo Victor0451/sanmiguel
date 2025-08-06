@@ -346,3 +346,17 @@ model producto {
 
   @@ignore
 }
+
+model rehabilitaciones {
+  idrehab    Int       @id @default(autoincrement())
+  contrato   String?   @db.VarChar(255)
+  apellido   String?   @db.VarChar(255)
+  nombre     String?   @db.VarChar(255)
+  operador   String?   @db.VarChar(255)
+  vigencia   DateTime? @db.Date
+  fecha      DateTime? @db.Date
+  cuotas     Int?
+  dni        Int?
+  empresa    String?   @db.VarChar(255)
+  idoperador Int?
+}

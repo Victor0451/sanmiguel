@@ -27,6 +27,7 @@ function Legajo(props) {
   let nuCuotaRef = React.createRef();
   let mes0Ref = React.createRef();
   let ano0Ref = React.createRef();
+  let cuotasRef = React.createRef();
 
   const [errores, guardarErrores] = useState(null);
   const [alertas, guardarAlertas] = useState(null);
@@ -50,6 +51,9 @@ function Legajo(props) {
   const [cuenta, guardarCuenta] = useState([]);
   const [fbaj, guardarFbaj] = useState(false);
   const [justiSel, guardarJustiSel] = useState("");
+  const [vigencia, guardarVigencia] = useState(null);
+  const [cuotas, guardarCuotas] = useState(null);
+  const [showAfi, guardarShowAfi] = useState(false);
 
   const { usu } = useWerchow();
 
@@ -88,7 +92,9 @@ function Legajo(props) {
           label: "Si",
           onClick: () => {
             axios
-              .delete(`${ip}api/archivos/legajovirtualsm/eliminararchivos/${id}`)
+              .delete(
+                `${ip}api/archivos/legajovirtualsm/eliminararchivos/${id}`
+              )
               .then((res) => {
                 if (res.status === 200) {
                   toast.success("El archivo fue eliminado con exito");
@@ -1118,6 +1124,85 @@ function Legajo(props) {
       });
   };
 
+  const handleVigencia = () => {
+    guardarErrores(null);
+    let cuotas = cuotasRef.current.value;
+
+    if (cuotas === "") {
+      document.getElementById("btn").hidden = true;
+      guardarVigencia("");
+      guardarShowAfi(false);
+    } else if (cuotas !== "") {
+      if (cuotas === "1") {
+        guardarCuotas(cuotas);
+
+        let carencia = cuotas * 15;
+
+        let vigencia = moment().add(carencia, "days").format("DD/MM/YYYY");
+
+        document.getElementById("btn").hidden = false;
+
+        guardarVigencia(vigencia);
+
+        guardarShowAfi(true);
+      } else if (cuotas > "1") {
+        guardarCuotas(cuotas);
+
+        let carencia = cuotas * 30;
+
+        let vigencia = moment().add(carencia, "days").format("DD/MM/YYYY");
+
+        document.getElementById("btn").hidden = false;
+
+        guardarVigencia(vigencia);
+
+        guardarShowAfi(true);
+      }
+    }
+  };
+
+  const handleBlur = () => {
+    let cuotas = cuotasRef.current.value;
+
+    if (cuotas === "") {
+      const error = "Debes Ingresar La Cantidad De Cuotas Adeudadas";
+      guardarErrores(error);
+    }
+  };
+
+  const regAfi = async () => {
+    const rehab = {
+      contrato: ficha[0].CONTRATO,
+      apellido: ficha[0].APELLIDOS,
+      nombre: ficha[0].NOMBRES,
+      operador: usu.usuario,
+      idoperador: usu.id,
+      vigencia: moment(vigencia).format("YYYY-MM-DD"),
+      fecha: moment().format("YYYY-MM-DD"),
+      cuotas: cuotasRef.current.value,
+      dni: ficha[0].NRO_DOC,
+      empresa: ficha[0].EMPRESA,
+      f: "soli afi",
+    };
+
+    await axios
+      .post(`/api/socios`, rehab)
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success(
+            "La rehabilitacion del socio fue registrada, puede imprimir la notificacion"
+          );
+
+          let accion = `Se emitio una notificacion de rehabilitacion de servicios ID: ${res.data.idrehab} al socio: ${rehab.contrato} - ${rehab.apellido}, ${rehab.nombre} perteneciente a: ${rehab.empresa}`;
+
+          registrarHistoria(accion, usu.usuario);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useSWR("/api/sepelio/servicios", gasLuto);
 
   if (isLoading === true) return <Skeleton />;
@@ -1178,6 +1263,13 @@ function Legajo(props) {
             reafilAdh={reafilAdh}
             alerCuo={alerCuo}
             confirmacion={confirmacion}
+            handleVigencia={handleVigencia}
+            handleBlur={handleBlur}
+            cuotasRef={cuotasRef}
+            vigencia={vigencia}
+            cuotas={cuotas}
+            showAfi={showAfi}
+            regAfi={regAfi}
           />
         </>
       )}

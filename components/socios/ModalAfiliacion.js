@@ -94,7 +94,7 @@ export default function ModalAfiliacion({
                 <div className="grid md:grid-cols-2 md:gap-6 mt-6">
                   <div className=" flex justify-start ">
                     <img
-                      className="werchowlogo"
+                      className="smlogonoti"
                       src="/img/logo.png"
                       alt="werchowlogo"
                     />
@@ -138,14 +138,13 @@ export default function ModalAfiliacion({
 
                 <p className="text-justify mt-2 p-2">
                   <Typography variant="paragraph">
-                    Por la presente solicito la afiliación a la Empresa Werchow
-                    Medicina Privada S.A, a los efectos de poder efectivizar el
-                    pago de la cuota de inscripción. Asimismo acepto que de
-                    conformidad a las condiciones de la contratación,la nueva
-                    fecha de vigencia es{" "}
-                    {vigencia ? <strong>{vigencia}</strong> : null}, en lo que
-                    se refiere al servicio de sepelio, para los servicios
-                    médicos la vigencia es de 48 hs.
+                    Por la presente solicito la afiliación a la Empresa San
+                    Miguel Servicios Sociales, a los efectos de poder efectivizar el pago de la
+                    cuota de inscripción. Asimismo acepto que de conformidad a
+                    las condiciones de la contratación,la nueva fecha de
+                    vigencia es {vigencia ? <strong>{vigencia}</strong> : null},
+                    en lo que se refiere al servicio de sepelio, para los
+                    servicios médicos la vigencia es de 48 hs.
                   </Typography>
                 </p>
 

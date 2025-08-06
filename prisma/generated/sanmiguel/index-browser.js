@@ -388,6 +388,20 @@ exports.Prisma.Gasto_lutoScalarFieldEnum = {
   gasto2: 'gasto2'
 };
 
+exports.Prisma.RehabilitacionesScalarFieldEnum = {
+  idrehab: 'idrehab',
+  contrato: 'contrato',
+  apellido: 'apellido',
+  nombre: 'nombre',
+  operador: 'operador',
+  vigencia: 'vigencia',
+  fecha: 'fecha',
+  cuotas: 'cuotas',
+  dni: 'dni',
+  empresa: 'empresa',
+  idoperador: 'idoperador'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -416,7 +430,8 @@ exports.Prisma.ModelName = {
   maestro_cuentas: 'maestro_cuentas',
   operador: 'operador',
   subcta_old: 'subcta_old',
-  gasto_luto: 'gasto_luto'
+  gasto_luto: 'gasto_luto',
+  rehabilitaciones: 'rehabilitaciones'
 };
 
 /**

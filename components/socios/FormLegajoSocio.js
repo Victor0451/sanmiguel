@@ -84,6 +84,13 @@ const FormLegajoSocio = ({
   reafilAdh,
   alerCuo,
   confirmacion,
+  handleVigencia,
+  handleBlur,
+  cuotasRef,
+  vigencia,
+  cuotas,
+  showAfi,
+  regAfi
 }) => {
   return (
     <Card className="h-full w-full p-4 ">
@@ -326,7 +333,7 @@ const FormLegajoSocio = ({
                   </Typography>
 
                   <div className=" mt-4 grid gap-6 mb-6 md:grid-cols-5">
-                    {/* <div>
+                    <div>
                       <ModalAfiliacion
                         ficha={ficha}
                         cuotasRef={cuotasRef}
@@ -338,7 +345,7 @@ const FormLegajoSocio = ({
                         showAfi={showAfi}
                         regAfi={regAfi}
                       />
-                    </div> */}
+                    </div>
 
                     <div>
                       <ListadoUsos listado={usos} />

@@ -757,7 +757,7 @@ export default async function handler(req, res) {
     }
   } else if (req.method === "POST") {
     if (req.body.f && req.body.f === "soli afi") {
-      const regSoli = await SGI.rehabilitaciones.create({
+      const regSoli = await SanMiguel.rehabilitaciones.create({
         data: {
           contrato: `${req.body.contrato}`,
           apellido: req.body.apellido,

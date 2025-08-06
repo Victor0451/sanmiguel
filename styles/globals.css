@@ -27,6 +27,12 @@ body {
 }
 
 
+.smlogonoti {
+  margin-top: -25px;
+  width: 165px;
+  height: 105px;
+}
+
 .butlist:hover {
   opacity: 0.6;
   color: gray;

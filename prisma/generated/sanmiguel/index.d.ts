@@ -465,6 +465,30 @@ export type gasto_lutoPayload<ExtArgs extends $Extensions.Args = $Extensions.Def
  * 
  */
 export type gasto_luto = runtime.Types.DefaultSelection<gasto_lutoPayload>
+export type rehabilitacionesPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "rehabilitaciones"
+  objects: {}
+  scalars: $Extensions.GetResult<{
+    idrehab: number
+    contrato: string | null
+    apellido: string | null
+    nombre: string | null
+    operador: string | null
+    vigencia: Date | null
+    fecha: Date | null
+    cuotas: number | null
+    dni: number | null
+    empresa: string | null
+    idoperador: number | null
+  }, ExtArgs["result"]["rehabilitaciones"]>
+  composites: {}
+}
+
+/**
+ * Model rehabilitaciones
+ * 
+ */
+export type rehabilitaciones = runtime.Types.DefaultSelection<rehabilitacionesPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -760,6 +784,16 @@ export class PrismaClient<
     * ```
     */
   get gasto_luto(): Prisma.gasto_lutoDelegate<GlobalReject, ExtArgs>;
+
+  /**
+   * `prisma.rehabilitaciones`: Exposes CRUD operations for the **rehabilitaciones** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Rehabilitaciones
+    * const rehabilitaciones = await prisma.rehabilitaciones.findMany()
+    * ```
+    */
+  get rehabilitaciones(): Prisma.rehabilitacionesDelegate<GlobalReject, ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1259,7 +1293,8 @@ export namespace Prisma {
     maestro_cuentas: 'maestro_cuentas',
     operador: 'operador',
     subcta_old: 'subcta_old',
-    gasto_luto: 'gasto_luto'
+    gasto_luto: 'gasto_luto',
+    rehabilitaciones: 'rehabilitaciones'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1276,7 +1311,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'adherent' | 'cuo_fija' | 'grupos' | 'historia' | 'localidad' | 'maestro' | 'obra_soc' | 'bajas' | 'gestioncaso' | 'pagos' | 'pago_bco' | 'caja' | 'subcta' | 'maestro_cuentas' | 'operador' | 'subcta_old' | 'gasto_luto'
+      modelProps: 'adherent' | 'cuo_fija' | 'grupos' | 'historia' | 'localidad' | 'maestro' | 'obra_soc' | 'bajas' | 'gestioncaso' | 'pagos' | 'pago_bco' | 'caja' | 'subcta' | 'maestro_cuentas' | 'operador' | 'subcta_old' | 'gasto_luto' | 'rehabilitaciones'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -2399,6 +2434,72 @@ export namespace Prisma {
           count: {
             args: Prisma.gasto_lutoCountArgs<ExtArgs>,
             result: $Utils.Optional<Gasto_lutoCountAggregateOutputType> | number
+          }
+        }
+      }
+      rehabilitaciones: {
+        payload: rehabilitacionesPayload<ExtArgs>
+        fields: Prisma.rehabilitacionesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.rehabilitacionesFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<rehabilitacionesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.rehabilitacionesFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<rehabilitacionesPayload>
+          }
+          findFirst: {
+            args: Prisma.rehabilitacionesFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<rehabilitacionesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.rehabilitacionesFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<rehabilitacionesPayload>
+          }
+          findMany: {
+            args: Prisma.rehabilitacionesFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<rehabilitacionesPayload>[]
+          }
+          create: {
+            args: Prisma.rehabilitacionesCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<rehabilitacionesPayload>
+          }
+          createMany: {
+            args: Prisma.rehabilitacionesCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.rehabilitacionesDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<rehabilitacionesPayload>
+          }
+          update: {
+            args: Prisma.rehabilitacionesUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<rehabilitacionesPayload>
+          }
+          deleteMany: {
+            args: Prisma.rehabilitacionesDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.rehabilitacionesUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.rehabilitacionesUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<rehabilitacionesPayload>
+          }
+          aggregate: {
+            args: Prisma.RehabilitacionesAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateRehabilitaciones>
+          }
+          groupBy: {
+            args: Prisma.rehabilitacionesGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<RehabilitacionesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.rehabilitacionesCountArgs<ExtArgs>,
+            result: $Utils.Optional<RehabilitacionesCountAggregateOutputType> | number
           }
         }
       }
@@ -20133,6 +20234,1005 @@ export namespace Prisma {
 
 
   /**
+   * Model rehabilitaciones
+   */
+
+
+  export type AggregateRehabilitaciones = {
+    _count: RehabilitacionesCountAggregateOutputType | null
+    _avg: RehabilitacionesAvgAggregateOutputType | null
+    _sum: RehabilitacionesSumAggregateOutputType | null
+    _min: RehabilitacionesMinAggregateOutputType | null
+    _max: RehabilitacionesMaxAggregateOutputType | null
+  }
+
+  export type RehabilitacionesAvgAggregateOutputType = {
+    idrehab: number | null
+    cuotas: number | null
+    dni: number | null
+    idoperador: number | null
+  }
+
+  export type RehabilitacionesSumAggregateOutputType = {
+    idrehab: number | null
+    cuotas: number | null
+    dni: number | null
+    idoperador: number | null
+  }
+
+  export type RehabilitacionesMinAggregateOutputType = {
+    idrehab: number | null
+    contrato: string | null
+    apellido: string | null
+    nombre: string | null
+    operador: string | null
+    vigencia: Date | null
+    fecha: Date | null
+    cuotas: number | null
+    dni: number | null
+    empresa: string | null
+    idoperador: number | null
+  }
+
+  export type RehabilitacionesMaxAggregateOutputType = {
+    idrehab: number | null
+    contrato: string | null
+    apellido: string | null
+    nombre: string | null
+    operador: string | null
+    vigencia: Date | null
+    fecha: Date | null
+    cuotas: number | null
+    dni: number | null
+    empresa: string | null
+    idoperador: number | null
+  }
+
+  export type RehabilitacionesCountAggregateOutputType = {
+    idrehab: number
+    contrato: number
+    apellido: number
+    nombre: number
+    operador: number
+    vigencia: number
+    fecha: number
+    cuotas: number
+    dni: number
+    empresa: number
+    idoperador: number
+    _all: number
+  }
+
+
+  export type RehabilitacionesAvgAggregateInputType = {
+    idrehab?: true
+    cuotas?: true
+    dni?: true
+    idoperador?: true
+  }
+
+  export type RehabilitacionesSumAggregateInputType = {
+    idrehab?: true
+    cuotas?: true
+    dni?: true
+    idoperador?: true
+  }
+
+  export type RehabilitacionesMinAggregateInputType = {
+    idrehab?: true
+    contrato?: true
+    apellido?: true
+    nombre?: true
+    operador?: true
+    vigencia?: true
+    fecha?: true
+    cuotas?: true
+    dni?: true
+    empresa?: true
+    idoperador?: true
+  }
+
+  export type RehabilitacionesMaxAggregateInputType = {
+    idrehab?: true
+    contrato?: true
+    apellido?: true
+    nombre?: true
+    operador?: true
+    vigencia?: true
+    fecha?: true
+    cuotas?: true
+    dni?: true
+    empresa?: true
+    idoperador?: true
+  }
+
+  export type RehabilitacionesCountAggregateInputType = {
+    idrehab?: true
+    contrato?: true
+    apellido?: true
+    nombre?: true
+    operador?: true
+    vigencia?: true
+    fecha?: true
+    cuotas?: true
+    dni?: true
+    empresa?: true
+    idoperador?: true
+    _all?: true
+  }
+
+  export type RehabilitacionesAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which rehabilitaciones to aggregate.
+     */
+    where?: rehabilitacionesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of rehabilitaciones to fetch.
+     */
+    orderBy?: rehabilitacionesOrderByWithRelationInput | rehabilitacionesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: rehabilitacionesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` rehabilitaciones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` rehabilitaciones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned rehabilitaciones
+    **/
+    _count?: true | RehabilitacionesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RehabilitacionesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RehabilitacionesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RehabilitacionesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RehabilitacionesMaxAggregateInputType
+  }
+
+  export type GetRehabilitacionesAggregateType<T extends RehabilitacionesAggregateArgs> = {
+        [P in keyof T & keyof AggregateRehabilitaciones]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRehabilitaciones[P]>
+      : GetScalarType<T[P], AggregateRehabilitaciones[P]>
+  }
+
+
+
+
+  export type rehabilitacionesGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: rehabilitacionesWhereInput
+    orderBy?: rehabilitacionesOrderByWithAggregationInput | rehabilitacionesOrderByWithAggregationInput[]
+    by: RehabilitacionesScalarFieldEnum[] | RehabilitacionesScalarFieldEnum
+    having?: rehabilitacionesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RehabilitacionesCountAggregateInputType | true
+    _avg?: RehabilitacionesAvgAggregateInputType
+    _sum?: RehabilitacionesSumAggregateInputType
+    _min?: RehabilitacionesMinAggregateInputType
+    _max?: RehabilitacionesMaxAggregateInputType
+  }
+
+
+  export type RehabilitacionesGroupByOutputType = {
+    idrehab: number
+    contrato: string | null
+    apellido: string | null
+    nombre: string | null
+    operador: string | null
+    vigencia: Date | null
+    fecha: Date | null
+    cuotas: number | null
+    dni: number | null
+    empresa: string | null
+    idoperador: number | null
+    _count: RehabilitacionesCountAggregateOutputType | null
+    _avg: RehabilitacionesAvgAggregateOutputType | null
+    _sum: RehabilitacionesSumAggregateOutputType | null
+    _min: RehabilitacionesMinAggregateOutputType | null
+    _max: RehabilitacionesMaxAggregateOutputType | null
+  }
+
+  type GetRehabilitacionesGroupByPayload<T extends rehabilitacionesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RehabilitacionesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RehabilitacionesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RehabilitacionesGroupByOutputType[P]>
+            : GetScalarType<T[P], RehabilitacionesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type rehabilitacionesSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    idrehab?: boolean
+    contrato?: boolean
+    apellido?: boolean
+    nombre?: boolean
+    operador?: boolean
+    vigencia?: boolean
+    fecha?: boolean
+    cuotas?: boolean
+    dni?: boolean
+    empresa?: boolean
+    idoperador?: boolean
+  }, ExtArgs["result"]["rehabilitaciones"]>
+
+  export type rehabilitacionesSelectScalar = {
+    idrehab?: boolean
+    contrato?: boolean
+    apellido?: boolean
+    nombre?: boolean
+    operador?: boolean
+    vigencia?: boolean
+    fecha?: boolean
+    cuotas?: boolean
+    dni?: boolean
+    empresa?: boolean
+    idoperador?: boolean
+  }
+
+
+  type rehabilitacionesGetPayload<S extends boolean | null | undefined | rehabilitacionesArgs> = $Types.GetResult<rehabilitacionesPayload, S>
+
+  type rehabilitacionesCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
+    Omit<rehabilitacionesFindManyArgs, 'select' | 'include'> & {
+      select?: RehabilitacionesCountAggregateInputType | true
+    }
+
+  export interface rehabilitacionesDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['rehabilitaciones'], meta: { name: 'rehabilitaciones' } }
+    /**
+     * Find zero or one Rehabilitaciones that matches the filter.
+     * @param {rehabilitacionesFindUniqueArgs} args - Arguments to find a Rehabilitaciones
+     * @example
+     * // Get one Rehabilitaciones
+     * const rehabilitaciones = await prisma.rehabilitaciones.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends rehabilitacionesFindUniqueArgs<ExtArgs>, LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, rehabilitacionesFindUniqueArgs<ExtArgs>>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'rehabilitaciones'> extends True ? Prisma__rehabilitacionesClient<$Types.GetResult<rehabilitacionesPayload<ExtArgs>, T, 'findUnique', never>, never, ExtArgs> : Prisma__rehabilitacionesClient<$Types.GetResult<rehabilitacionesPayload<ExtArgs>, T, 'findUnique', never> | null, null, ExtArgs>
+
+    /**
+     * Find one Rehabilitaciones that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {rehabilitacionesFindUniqueOrThrowArgs} args - Arguments to find a Rehabilitaciones
+     * @example
+     * // Get one Rehabilitaciones
+     * const rehabilitaciones = await prisma.rehabilitaciones.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends rehabilitacionesFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, rehabilitacionesFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__rehabilitacionesClient<$Types.GetResult<rehabilitacionesPayload<ExtArgs>, T, 'findUniqueOrThrow', never>, never, ExtArgs>
+
+    /**
+     * Find the first Rehabilitaciones that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {rehabilitacionesFindFirstArgs} args - Arguments to find a Rehabilitaciones
+     * @example
+     * // Get one Rehabilitaciones
+     * const rehabilitaciones = await prisma.rehabilitaciones.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends rehabilitacionesFindFirstArgs<ExtArgs>, LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, rehabilitacionesFindFirstArgs<ExtArgs>>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'rehabilitaciones'> extends True ? Prisma__rehabilitacionesClient<$Types.GetResult<rehabilitacionesPayload<ExtArgs>, T, 'findFirst', never>, never, ExtArgs> : Prisma__rehabilitacionesClient<$Types.GetResult<rehabilitacionesPayload<ExtArgs>, T, 'findFirst', never> | null, null, ExtArgs>
+
+    /**
+     * Find the first Rehabilitaciones that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {rehabilitacionesFindFirstOrThrowArgs} args - Arguments to find a Rehabilitaciones
+     * @example
+     * // Get one Rehabilitaciones
+     * const rehabilitaciones = await prisma.rehabilitaciones.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends rehabilitacionesFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, rehabilitacionesFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__rehabilitacionesClient<$Types.GetResult<rehabilitacionesPayload<ExtArgs>, T, 'findFirstOrThrow', never>, never, ExtArgs>
+
+    /**
+     * Find zero or more Rehabilitaciones that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {rehabilitacionesFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Rehabilitaciones
+     * const rehabilitaciones = await prisma.rehabilitaciones.findMany()
+     * 
+     * // Get first 10 Rehabilitaciones
+     * const rehabilitaciones = await prisma.rehabilitaciones.findMany({ take: 10 })
+     * 
+     * // Only select the `idrehab`
+     * const rehabilitacionesWithIdrehabOnly = await prisma.rehabilitaciones.findMany({ select: { idrehab: true } })
+     * 
+    **/
+    findMany<T extends rehabilitacionesFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, rehabilitacionesFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<rehabilitacionesPayload<ExtArgs>, T, 'findMany', never>>
+
+    /**
+     * Create a Rehabilitaciones.
+     * @param {rehabilitacionesCreateArgs} args - Arguments to create a Rehabilitaciones.
+     * @example
+     * // Create one Rehabilitaciones
+     * const Rehabilitaciones = await prisma.rehabilitaciones.create({
+     *   data: {
+     *     // ... data to create a Rehabilitaciones
+     *   }
+     * })
+     * 
+    **/
+    create<T extends rehabilitacionesCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, rehabilitacionesCreateArgs<ExtArgs>>
+    ): Prisma__rehabilitacionesClient<$Types.GetResult<rehabilitacionesPayload<ExtArgs>, T, 'create', never>, never, ExtArgs>
+
+    /**
+     * Create many Rehabilitaciones.
+     *     @param {rehabilitacionesCreateManyArgs} args - Arguments to create many Rehabilitaciones.
+     *     @example
+     *     // Create many Rehabilitaciones
+     *     const rehabilitaciones = await prisma.rehabilitaciones.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends rehabilitacionesCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, rehabilitacionesCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Rehabilitaciones.
+     * @param {rehabilitacionesDeleteArgs} args - Arguments to delete one Rehabilitaciones.
+     * @example
+     * // Delete one Rehabilitaciones
+     * const Rehabilitaciones = await prisma.rehabilitaciones.delete({
+     *   where: {
+     *     // ... filter to delete one Rehabilitaciones
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends rehabilitacionesDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, rehabilitacionesDeleteArgs<ExtArgs>>
+    ): Prisma__rehabilitacionesClient<$Types.GetResult<rehabilitacionesPayload<ExtArgs>, T, 'delete', never>, never, ExtArgs>
+
+    /**
+     * Update one Rehabilitaciones.
+     * @param {rehabilitacionesUpdateArgs} args - Arguments to update one Rehabilitaciones.
+     * @example
+     * // Update one Rehabilitaciones
+     * const rehabilitaciones = await prisma.rehabilitaciones.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends rehabilitacionesUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, rehabilitacionesUpdateArgs<ExtArgs>>
+    ): Prisma__rehabilitacionesClient<$Types.GetResult<rehabilitacionesPayload<ExtArgs>, T, 'update', never>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Rehabilitaciones.
+     * @param {rehabilitacionesDeleteManyArgs} args - Arguments to filter Rehabilitaciones to delete.
+     * @example
+     * // Delete a few Rehabilitaciones
+     * const { count } = await prisma.rehabilitaciones.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends rehabilitacionesDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, rehabilitacionesDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Rehabilitaciones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {rehabilitacionesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Rehabilitaciones
+     * const rehabilitaciones = await prisma.rehabilitaciones.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends rehabilitacionesUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, rehabilitacionesUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Rehabilitaciones.
+     * @param {rehabilitacionesUpsertArgs} args - Arguments to update or create a Rehabilitaciones.
+     * @example
+     * // Update or create a Rehabilitaciones
+     * const rehabilitaciones = await prisma.rehabilitaciones.upsert({
+     *   create: {
+     *     // ... data to create a Rehabilitaciones
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Rehabilitaciones we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends rehabilitacionesUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, rehabilitacionesUpsertArgs<ExtArgs>>
+    ): Prisma__rehabilitacionesClient<$Types.GetResult<rehabilitacionesPayload<ExtArgs>, T, 'upsert', never>, never, ExtArgs>
+
+    /**
+     * Count the number of Rehabilitaciones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {rehabilitacionesCountArgs} args - Arguments to filter Rehabilitaciones to count.
+     * @example
+     * // Count the number of Rehabilitaciones
+     * const count = await prisma.rehabilitaciones.count({
+     *   where: {
+     *     // ... the filter for the Rehabilitaciones we want to count
+     *   }
+     * })
+    **/
+    count<T extends rehabilitacionesCountArgs>(
+      args?: Subset<T, rehabilitacionesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RehabilitacionesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Rehabilitaciones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RehabilitacionesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RehabilitacionesAggregateArgs>(args: Subset<T, RehabilitacionesAggregateArgs>): Prisma.PrismaPromise<GetRehabilitacionesAggregateType<T>>
+
+    /**
+     * Group by Rehabilitaciones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {rehabilitacionesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends rehabilitacionesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: rehabilitacionesGroupByArgs['orderBy'] }
+        : { orderBy?: rehabilitacionesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, rehabilitacionesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRehabilitacionesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the rehabilitaciones model
+   */
+  readonly fields: rehabilitacionesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for rehabilitaciones.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__rehabilitacionesClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  /**
+   * Fields of the rehabilitaciones model
+   */ 
+  interface rehabilitacionesFieldRefs {
+    readonly idrehab: FieldRef<"rehabilitaciones", 'Int'>
+    readonly contrato: FieldRef<"rehabilitaciones", 'String'>
+    readonly apellido: FieldRef<"rehabilitaciones", 'String'>
+    readonly nombre: FieldRef<"rehabilitaciones", 'String'>
+    readonly operador: FieldRef<"rehabilitaciones", 'String'>
+    readonly vigencia: FieldRef<"rehabilitaciones", 'DateTime'>
+    readonly fecha: FieldRef<"rehabilitaciones", 'DateTime'>
+    readonly cuotas: FieldRef<"rehabilitaciones", 'Int'>
+    readonly dni: FieldRef<"rehabilitaciones", 'Int'>
+    readonly empresa: FieldRef<"rehabilitaciones", 'String'>
+    readonly idoperador: FieldRef<"rehabilitaciones", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * rehabilitaciones base type for findUnique actions
+   */
+  export type rehabilitacionesFindUniqueArgsBase<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rehabilitaciones
+     */
+    select?: rehabilitacionesSelect<ExtArgs> | null
+    /**
+     * Filter, which rehabilitaciones to fetch.
+     */
+    where: rehabilitacionesWhereUniqueInput
+  }
+
+  /**
+   * rehabilitaciones findUnique
+   */
+  export interface rehabilitacionesFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends rehabilitacionesFindUniqueArgsBase<ExtArgs> {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * rehabilitaciones findUniqueOrThrow
+   */
+  export type rehabilitacionesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rehabilitaciones
+     */
+    select?: rehabilitacionesSelect<ExtArgs> | null
+    /**
+     * Filter, which rehabilitaciones to fetch.
+     */
+    where: rehabilitacionesWhereUniqueInput
+  }
+
+
+  /**
+   * rehabilitaciones base type for findFirst actions
+   */
+  export type rehabilitacionesFindFirstArgsBase<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rehabilitaciones
+     */
+    select?: rehabilitacionesSelect<ExtArgs> | null
+    /**
+     * Filter, which rehabilitaciones to fetch.
+     */
+    where?: rehabilitacionesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of rehabilitaciones to fetch.
+     */
+    orderBy?: rehabilitacionesOrderByWithRelationInput | rehabilitacionesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for rehabilitaciones.
+     */
+    cursor?: rehabilitacionesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` rehabilitaciones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` rehabilitaciones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of rehabilitaciones.
+     */
+    distinct?: RehabilitacionesScalarFieldEnum | RehabilitacionesScalarFieldEnum[]
+  }
+
+  /**
+   * rehabilitaciones findFirst
+   */
+  export interface rehabilitacionesFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends rehabilitacionesFindFirstArgsBase<ExtArgs> {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * rehabilitaciones findFirstOrThrow
+   */
+  export type rehabilitacionesFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rehabilitaciones
+     */
+    select?: rehabilitacionesSelect<ExtArgs> | null
+    /**
+     * Filter, which rehabilitaciones to fetch.
+     */
+    where?: rehabilitacionesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of rehabilitaciones to fetch.
+     */
+    orderBy?: rehabilitacionesOrderByWithRelationInput | rehabilitacionesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for rehabilitaciones.
+     */
+    cursor?: rehabilitacionesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` rehabilitaciones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` rehabilitaciones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of rehabilitaciones.
+     */
+    distinct?: RehabilitacionesScalarFieldEnum | RehabilitacionesScalarFieldEnum[]
+  }
+
+
+  /**
+   * rehabilitaciones findMany
+   */
+  export type rehabilitacionesFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rehabilitaciones
+     */
+    select?: rehabilitacionesSelect<ExtArgs> | null
+    /**
+     * Filter, which rehabilitaciones to fetch.
+     */
+    where?: rehabilitacionesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of rehabilitaciones to fetch.
+     */
+    orderBy?: rehabilitacionesOrderByWithRelationInput | rehabilitacionesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing rehabilitaciones.
+     */
+    cursor?: rehabilitacionesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` rehabilitaciones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` rehabilitaciones.
+     */
+    skip?: number
+    distinct?: RehabilitacionesScalarFieldEnum | RehabilitacionesScalarFieldEnum[]
+  }
+
+
+  /**
+   * rehabilitaciones create
+   */
+  export type rehabilitacionesCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rehabilitaciones
+     */
+    select?: rehabilitacionesSelect<ExtArgs> | null
+    /**
+     * The data needed to create a rehabilitaciones.
+     */
+    data?: XOR<rehabilitacionesCreateInput, rehabilitacionesUncheckedCreateInput>
+  }
+
+
+  /**
+   * rehabilitaciones createMany
+   */
+  export type rehabilitacionesCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many rehabilitaciones.
+     */
+    data: rehabilitacionesCreateManyInput | rehabilitacionesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * rehabilitaciones update
+   */
+  export type rehabilitacionesUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rehabilitaciones
+     */
+    select?: rehabilitacionesSelect<ExtArgs> | null
+    /**
+     * The data needed to update a rehabilitaciones.
+     */
+    data: XOR<rehabilitacionesUpdateInput, rehabilitacionesUncheckedUpdateInput>
+    /**
+     * Choose, which rehabilitaciones to update.
+     */
+    where: rehabilitacionesWhereUniqueInput
+  }
+
+
+  /**
+   * rehabilitaciones updateMany
+   */
+  export type rehabilitacionesUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update rehabilitaciones.
+     */
+    data: XOR<rehabilitacionesUpdateManyMutationInput, rehabilitacionesUncheckedUpdateManyInput>
+    /**
+     * Filter which rehabilitaciones to update
+     */
+    where?: rehabilitacionesWhereInput
+  }
+
+
+  /**
+   * rehabilitaciones upsert
+   */
+  export type rehabilitacionesUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rehabilitaciones
+     */
+    select?: rehabilitacionesSelect<ExtArgs> | null
+    /**
+     * The filter to search for the rehabilitaciones to update in case it exists.
+     */
+    where: rehabilitacionesWhereUniqueInput
+    /**
+     * In case the rehabilitaciones found by the `where` argument doesn't exist, create a new rehabilitaciones with this data.
+     */
+    create: XOR<rehabilitacionesCreateInput, rehabilitacionesUncheckedCreateInput>
+    /**
+     * In case the rehabilitaciones was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<rehabilitacionesUpdateInput, rehabilitacionesUncheckedUpdateInput>
+  }
+
+
+  /**
+   * rehabilitaciones delete
+   */
+  export type rehabilitacionesDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rehabilitaciones
+     */
+    select?: rehabilitacionesSelect<ExtArgs> | null
+    /**
+     * Filter which rehabilitaciones to delete.
+     */
+    where: rehabilitacionesWhereUniqueInput
+  }
+
+
+  /**
+   * rehabilitaciones deleteMany
+   */
+  export type rehabilitacionesDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which rehabilitaciones to delete
+     */
+    where?: rehabilitacionesWhereInput
+  }
+
+
+  /**
+   * rehabilitaciones without action
+   */
+  export type rehabilitacionesArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the rehabilitaciones
+     */
+    select?: rehabilitacionesSelect<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -20478,6 +21578,23 @@ export namespace Prisma {
   };
 
   export type Gasto_lutoScalarFieldEnum = (typeof Gasto_lutoScalarFieldEnum)[keyof typeof Gasto_lutoScalarFieldEnum]
+
+
+  export const RehabilitacionesScalarFieldEnum: {
+    idrehab: 'idrehab',
+    contrato: 'contrato',
+    apellido: 'apellido',
+    nombre: 'nombre',
+    operador: 'operador',
+    vigencia: 'vigencia',
+    fecha: 'fecha',
+    cuotas: 'cuotas',
+    dni: 'dni',
+    empresa: 'empresa',
+    idoperador: 'idoperador'
+  };
+
+  export type RehabilitacionesScalarFieldEnum = (typeof RehabilitacionesScalarFieldEnum)[keyof typeof RehabilitacionesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -21924,6 +23041,77 @@ export namespace Prisma {
     idgastoluto?: IntWithAggregatesFilter<"gasto_luto"> | number
     gasto1?: IntNullableWithAggregatesFilter<"gasto_luto"> | number | null
     gasto2?: IntNullableWithAggregatesFilter<"gasto_luto"> | number | null
+  }
+
+  export type rehabilitacionesWhereInput = {
+    AND?: rehabilitacionesWhereInput | rehabilitacionesWhereInput[]
+    OR?: rehabilitacionesWhereInput[]
+    NOT?: rehabilitacionesWhereInput | rehabilitacionesWhereInput[]
+    idrehab?: IntFilter<"rehabilitaciones"> | number
+    contrato?: StringNullableFilter<"rehabilitaciones"> | string | null
+    apellido?: StringNullableFilter<"rehabilitaciones"> | string | null
+    nombre?: StringNullableFilter<"rehabilitaciones"> | string | null
+    operador?: StringNullableFilter<"rehabilitaciones"> | string | null
+    vigencia?: DateTimeNullableFilter<"rehabilitaciones"> | Date | string | null
+    fecha?: DateTimeNullableFilter<"rehabilitaciones"> | Date | string | null
+    cuotas?: IntNullableFilter<"rehabilitaciones"> | number | null
+    dni?: IntNullableFilter<"rehabilitaciones"> | number | null
+    empresa?: StringNullableFilter<"rehabilitaciones"> | string | null
+    idoperador?: IntNullableFilter<"rehabilitaciones"> | number | null
+  }
+
+  export type rehabilitacionesOrderByWithRelationInput = {
+    idrehab?: SortOrder
+    contrato?: SortOrderInput | SortOrder
+    apellido?: SortOrderInput | SortOrder
+    nombre?: SortOrderInput | SortOrder
+    operador?: SortOrderInput | SortOrder
+    vigencia?: SortOrderInput | SortOrder
+    fecha?: SortOrderInput | SortOrder
+    cuotas?: SortOrderInput | SortOrder
+    dni?: SortOrderInput | SortOrder
+    empresa?: SortOrderInput | SortOrder
+    idoperador?: SortOrderInput | SortOrder
+  }
+
+  export type rehabilitacionesWhereUniqueInput = {
+    idrehab?: number
+  }
+
+  export type rehabilitacionesOrderByWithAggregationInput = {
+    idrehab?: SortOrder
+    contrato?: SortOrderInput | SortOrder
+    apellido?: SortOrderInput | SortOrder
+    nombre?: SortOrderInput | SortOrder
+    operador?: SortOrderInput | SortOrder
+    vigencia?: SortOrderInput | SortOrder
+    fecha?: SortOrderInput | SortOrder
+    cuotas?: SortOrderInput | SortOrder
+    dni?: SortOrderInput | SortOrder
+    empresa?: SortOrderInput | SortOrder
+    idoperador?: SortOrderInput | SortOrder
+    _count?: rehabilitacionesCountOrderByAggregateInput
+    _avg?: rehabilitacionesAvgOrderByAggregateInput
+    _max?: rehabilitacionesMaxOrderByAggregateInput
+    _min?: rehabilitacionesMinOrderByAggregateInput
+    _sum?: rehabilitacionesSumOrderByAggregateInput
+  }
+
+  export type rehabilitacionesScalarWhereWithAggregatesInput = {
+    AND?: rehabilitacionesScalarWhereWithAggregatesInput | rehabilitacionesScalarWhereWithAggregatesInput[]
+    OR?: rehabilitacionesScalarWhereWithAggregatesInput[]
+    NOT?: rehabilitacionesScalarWhereWithAggregatesInput | rehabilitacionesScalarWhereWithAggregatesInput[]
+    idrehab?: IntWithAggregatesFilter<"rehabilitaciones"> | number
+    contrato?: StringNullableWithAggregatesFilter<"rehabilitaciones"> | string | null
+    apellido?: StringNullableWithAggregatesFilter<"rehabilitaciones"> | string | null
+    nombre?: StringNullableWithAggregatesFilter<"rehabilitaciones"> | string | null
+    operador?: StringNullableWithAggregatesFilter<"rehabilitaciones"> | string | null
+    vigencia?: DateTimeNullableWithAggregatesFilter<"rehabilitaciones"> | Date | string | null
+    fecha?: DateTimeNullableWithAggregatesFilter<"rehabilitaciones"> | Date | string | null
+    cuotas?: IntNullableWithAggregatesFilter<"rehabilitaciones"> | number | null
+    dni?: IntNullableWithAggregatesFilter<"rehabilitaciones"> | number | null
+    empresa?: StringNullableWithAggregatesFilter<"rehabilitaciones"> | string | null
+    idoperador?: IntNullableWithAggregatesFilter<"rehabilitaciones"> | number | null
   }
 
   export type adherentCreateInput = {
@@ -23856,6 +25044,101 @@ export namespace Prisma {
     gasto2?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
+  export type rehabilitacionesCreateInput = {
+    contrato?: string | null
+    apellido?: string | null
+    nombre?: string | null
+    operador?: string | null
+    vigencia?: Date | string | null
+    fecha?: Date | string | null
+    cuotas?: number | null
+    dni?: number | null
+    empresa?: string | null
+    idoperador?: number | null
+  }
+
+  export type rehabilitacionesUncheckedCreateInput = {
+    idrehab?: number
+    contrato?: string | null
+    apellido?: string | null
+    nombre?: string | null
+    operador?: string | null
+    vigencia?: Date | string | null
+    fecha?: Date | string | null
+    cuotas?: number | null
+    dni?: number | null
+    empresa?: string | null
+    idoperador?: number | null
+  }
+
+  export type rehabilitacionesUpdateInput = {
+    contrato?: NullableStringFieldUpdateOperationsInput | string | null
+    apellido?: NullableStringFieldUpdateOperationsInput | string | null
+    nombre?: NullableStringFieldUpdateOperationsInput | string | null
+    operador?: NullableStringFieldUpdateOperationsInput | string | null
+    vigencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cuotas?: NullableIntFieldUpdateOperationsInput | number | null
+    dni?: NullableIntFieldUpdateOperationsInput | number | null
+    empresa?: NullableStringFieldUpdateOperationsInput | string | null
+    idoperador?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type rehabilitacionesUncheckedUpdateInput = {
+    idrehab?: IntFieldUpdateOperationsInput | number
+    contrato?: NullableStringFieldUpdateOperationsInput | string | null
+    apellido?: NullableStringFieldUpdateOperationsInput | string | null
+    nombre?: NullableStringFieldUpdateOperationsInput | string | null
+    operador?: NullableStringFieldUpdateOperationsInput | string | null
+    vigencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cuotas?: NullableIntFieldUpdateOperationsInput | number | null
+    dni?: NullableIntFieldUpdateOperationsInput | number | null
+    empresa?: NullableStringFieldUpdateOperationsInput | string | null
+    idoperador?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type rehabilitacionesCreateManyInput = {
+    idrehab?: number
+    contrato?: string | null
+    apellido?: string | null
+    nombre?: string | null
+    operador?: string | null
+    vigencia?: Date | string | null
+    fecha?: Date | string | null
+    cuotas?: number | null
+    dni?: number | null
+    empresa?: string | null
+    idoperador?: number | null
+  }
+
+  export type rehabilitacionesUpdateManyMutationInput = {
+    contrato?: NullableStringFieldUpdateOperationsInput | string | null
+    apellido?: NullableStringFieldUpdateOperationsInput | string | null
+    nombre?: NullableStringFieldUpdateOperationsInput | string | null
+    operador?: NullableStringFieldUpdateOperationsInput | string | null
+    vigencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cuotas?: NullableIntFieldUpdateOperationsInput | number | null
+    dni?: NullableIntFieldUpdateOperationsInput | number | null
+    empresa?: NullableStringFieldUpdateOperationsInput | string | null
+    idoperador?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type rehabilitacionesUncheckedUpdateManyInput = {
+    idrehab?: IntFieldUpdateOperationsInput | number
+    contrato?: NullableStringFieldUpdateOperationsInput | string | null
+    apellido?: NullableStringFieldUpdateOperationsInput | string | null
+    nombre?: NullableStringFieldUpdateOperationsInput | string | null
+    operador?: NullableStringFieldUpdateOperationsInput | string | null
+    vigencia?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cuotas?: NullableIntFieldUpdateOperationsInput | number | null
+    dni?: NullableIntFieldUpdateOperationsInput | number | null
+    empresa?: NullableStringFieldUpdateOperationsInput | string | null
+    idoperador?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -25210,6 +26493,62 @@ export namespace Prisma {
     idgastoluto?: SortOrder
     gasto1?: SortOrder
     gasto2?: SortOrder
+  }
+
+  export type rehabilitacionesCountOrderByAggregateInput = {
+    idrehab?: SortOrder
+    contrato?: SortOrder
+    apellido?: SortOrder
+    nombre?: SortOrder
+    operador?: SortOrder
+    vigencia?: SortOrder
+    fecha?: SortOrder
+    cuotas?: SortOrder
+    dni?: SortOrder
+    empresa?: SortOrder
+    idoperador?: SortOrder
+  }
+
+  export type rehabilitacionesAvgOrderByAggregateInput = {
+    idrehab?: SortOrder
+    cuotas?: SortOrder
+    dni?: SortOrder
+    idoperador?: SortOrder
+  }
+
+  export type rehabilitacionesMaxOrderByAggregateInput = {
+    idrehab?: SortOrder
+    contrato?: SortOrder
+    apellido?: SortOrder
+    nombre?: SortOrder
+    operador?: SortOrder
+    vigencia?: SortOrder
+    fecha?: SortOrder
+    cuotas?: SortOrder
+    dni?: SortOrder
+    empresa?: SortOrder
+    idoperador?: SortOrder
+  }
+
+  export type rehabilitacionesMinOrderByAggregateInput = {
+    idrehab?: SortOrder
+    contrato?: SortOrder
+    apellido?: SortOrder
+    nombre?: SortOrder
+    operador?: SortOrder
+    vigencia?: SortOrder
+    fecha?: SortOrder
+    cuotas?: SortOrder
+    dni?: SortOrder
+    empresa?: SortOrder
+    idoperador?: SortOrder
+  }
+
+  export type rehabilitacionesSumOrderByAggregateInput = {
+    idrehab?: SortOrder
+    cuotas?: SortOrder
+    dni?: SortOrder
+    idoperador?: SortOrder
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
