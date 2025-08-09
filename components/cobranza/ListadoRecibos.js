@@ -121,7 +121,7 @@ const ListadoRecibos = ({ listado, anularRec }) => {
             <PrinterIcon className="butlist mt-px h-4 w-4" color="blue" />
           </Link>
 
-          {(row.RENDIDO === 0 && row.MOVIM === "P") || row.MOVIM === "N" ? (
+          {row.MOVIM === "P" || row.MOVIM === "N" ? (
             <TrashIcon
               className="butlist mt-px h-4 w-4 ml-1"
               color="red"

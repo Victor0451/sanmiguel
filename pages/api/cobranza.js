@@ -41,10 +41,17 @@ export default async function handler(req, res) {
         where: {
           OPERADOR: req.query.operador,
         },
+        orderBy: {
+          DIA_PAG: "desc",
+        },
       });
       res.status(200).json(listRec);
     } else if (req.query.f && req.query.f === "listado recibos admin") {
-      const listRec = await SanMiguel.pagos.findMany({});
+      const listRec = await SanMiguel.pagos.findMany({
+        orderBy: {
+          DIA_PAG: "desc",
+        },
+      });
       res.status(200).json(listRec);
     } else if (req.query.f && req.query.f === "check so") {
       let tab = `${req.query.tab}`;
