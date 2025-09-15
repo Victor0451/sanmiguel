@@ -18,10 +18,10 @@ export const NavListItems = ({}) => {
   return (
     <>
       <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
-        {usu.administracion === true ? <Administracion /> : null}
+        {usu.administracion === 1 ? <Administracion /> : null}
         {/* {usu.gestion === true ? <Gestion usu={usu} /> : null} */}
-        {usu.cobranza === true ? <Cobranza /> : null}
-        {usu.socios === true ? <Socios /> : null}
+        {usu.cobranza === 1 ? <Cobranza /> : null}
+        {usu.socios === 1 ? <Socios /> : null}
       </ul>
     </>
   );

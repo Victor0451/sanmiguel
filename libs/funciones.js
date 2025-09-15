@@ -12,6 +12,7 @@ export const registrarHistoria = async (data) => {
     f: "reg historia",
   };
 
+  console.log(historial);
   await axios
     .post(`/api/historia`, historial)
     .then((res) => {

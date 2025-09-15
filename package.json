@@ -1,6 +1,6 @@
 {
   "name": "sanmiguel",
-  "version": "1.8.2",
+  "version": "1.9",
   "private": true,
   "scripts": {
     "dev": "next dev -p $PORT",
@@ -20,8 +20,7 @@
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",
     "@material-tailwind/react": "^2.0.0",
-    "@mui/material": "^5.14.7",
-    "@prisma/client": "^4.17.0-dev.38",
+    "@mui/material": "^5.14.7",    
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
@@ -51,8 +50,6 @@
     "swr": "^2.1.5",
     "tailwindcss": "3.3.2",
     "uuid": "^9.0.0"
-  },
-  "devDependencies": {
-    "prisma": "^4.17.0-dev.38"
   }
+ 
 }

@@ -185,6 +185,7 @@ function socios(props) {
             descriGrupo(ficha[0].GRUPO);
             traerCuotas(ficha[0].CONTRATO);
             traerPagos(ficha[0].CONTRATO, ficha[0].EMPRESA);
+            traerPuestos();
           } else {
             guardarAlertas(
               "El DNI ingresado no esta registrado o pertenece a un adherente"
@@ -259,6 +260,7 @@ function socios(props) {
             descriGrupo(ficha[0].GRUPO);
             traerCuotas(ficha[0].CONTRATO);
             traerPagos(ficha[0].CONTRATO, ficha[0].EMPRESA);
+            traerPuestos();
           } else {
             guardarAlertas(
               "El N° de Ficha ingresado no esta registrado o pertenece a un adherente"
@@ -410,8 +412,7 @@ function socios(props) {
       })
       .then((res) => {
         if (res.data) {
-          console.log(res.data.id);
-          guardarRecibo(res.data.id);
+          guardarRecibo(res.data[0].id);
         }
       })
       .catch((error) => {
@@ -610,7 +611,7 @@ function socios(props) {
     }
   };
 
-  useSWR("/api/cobranza", traerPuestos);
+  // useSWR("/api/cobranza", traerPuestos);
 
   if (isLoading === true) return <Skeleton />;
 

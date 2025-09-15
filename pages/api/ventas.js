@@ -1,12 +1,21 @@
+import {
+  werchow,
+  sgi,
+  serv,
+  sep,
+  camp,
+  arch,
+  club,
+  sanmiguel,
+} from "../../libs/db/index";
 import moment from "moment";
-import { SanMiguel, SGI } from "../../libs/config";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
     if (req.query.f && req.query.f === "informe ventas") {
       let tab = `${req.query.tab}`;
 
-      const infoVentas = await SanMiguel.$queryRawUnsafe(`
+      const infoVentas = await sanmiguel.query(`
            SELECT
                 m.CONTRATO,
                 CONCAT(m.APELLIDOS, ', ', m.NOMBRES) AS 'SOCIO',
@@ -42,6 +51,7 @@ export default async function handler(req, res) {
             ORDER BY m.ALTA ASC
   `);
 
+      await sanmiguel.end();
       res
         .status(200)
         .json(

@@ -1,11 +1,19 @@
-import { SanMiguel, SGI, Serv } from "../../libs/config";
+import {
+  werchow,
+  sgi,
+  serv,
+  sep,
+  camp,
+  arch,
+  club,
+  sanmiguel,
+} from "../../libs/db/index";
 import moment from "moment";
-//import { PrismaClient as WerchowSepClient } from '../../../prisma/generated/werchowsep'
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
     if (req.query.f && req.query.f === "maestro") {
-      const mae = await SanMiguel.$queryRaw`
+      const mae = await sanmiguel.query(`
             SELECT
                 m.CONTRATO, 
                 m.GRUPO, 
@@ -41,7 +49,9 @@ export default async function handler(req, res) {
                 INNER JOIN obra_soc as o on o.CODIGO = m.OBRA_SOC
                 WHERE m.NRO_DOC = ${req.query.dni}
 
-    `;
+    `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -51,7 +61,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "maestro contrato") {
-      const mae = await SanMiguel.$queryRaw`
+      const mae = await sanmiguel.query(`
             SELECT
                 m.CONTRATO, 
                 m.GRUPO, 
@@ -88,7 +98,9 @@ export default async function handler(req, res) {
                 INNER JOIN obra_soc as o on o.CODIGO = m.OBRA_SOC
                 WHERE m.CONTRATO = ${req.query.ficha}
 
-    `;
+    `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -98,13 +110,15 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "maestro apellido") {
-      const mae = await SanMiguel.$queryRawUnsafe(`
+      const mae = await sanmiguel.query(`
             SELECT
                *     
             FROM maestro as m               
             WHERE m.APELLIDOS LIKE UPPER('%${req.query.apellido}%')
 
     `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -114,7 +128,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "adh") {
-      const adh = await SanMiguel.$queryRaw`
+      const adh = await sanmiguel.query(`
           SELECT
                 a.CONTRATO, 
                 a.SUCURSAL, 
@@ -141,7 +155,9 @@ export default async function handler(req, res) {
                 WHERE a.CONTRATO = ${req.query.contrato}
                 
 
-    `;
+    `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -151,7 +167,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "mae adh") {
-      const maeAdh = await SanMiguel.$queryRaw`
+      const maeAdh = await sanmiguel.query(`
             SELECT
                 a.CONTRATO, 
                 a.SUCURSAL, 
@@ -182,7 +198,9 @@ export default async function handler(req, res) {
                 WHERE a.NRO_DOC = ${req.query.dni}
                 AND BAJA IS NULL
 
-    `;
+    `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -192,7 +210,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "mae adh baja") {
-      const maeAdh = await SanMiguel.$queryRaw`
+      const maeAdh = await sanmiguel.query(`
             SELECT
                 a.CONTRATO, 
                 a.SUCURSAL, 
@@ -218,7 +236,9 @@ export default async function handler(req, res) {
                 WHERE a.NRO_DOC = ${req.query.dni}
                 AND BAJA IS NOT NULL
 
-    `;
+    `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -228,262 +248,56 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer grupo") {
-      const grup = await SanMiguel.$queryRaw`
+      const grup = await sanmiguel.query(`
             SELECT
                 CODIGO,
                 DESCRIP                
             FROM grupos 
-            WHERE CODIGO = ${req.query.grupo}
+            WHERE CODIGO = ${parseInt(req.query.grupo)}
                 
 
-    `;
+    `);
+
+      await sanmiguel.end();
 
       res.status(200).json(grup);
     } else if (req.query.f && req.query.f === "traer pagos") {
-      const pagos = await SanMiguel.pagos.findMany({
-        where: {
-          CONTRATO: parseInt(req.query.ficha),
-          MOVIM: "P",
-        },
-        orderBy: {
-          DIA_PAG: "desc",
-        },
-      });
+      const pagos = await sanmiguel.query(
+        `
+                SELECT *
+                FROM pagos
+                WHERE CONTRATO = ${parseInt(req.query.ficha)}
+                AND MOVIM = 'P'
+                ORDER BY DIA_PAG DESC
+          `
+      );
+
+      await sanmiguel.end();
 
       res.status(200).json(pagos);
     } else if (req.query.f && req.query.f === "traer pagosb") {
-      const pagos = await SanMiguel.pago_bco.findMany({
-        where: {
-          CONTRATO: parseInt(req.query.ficha),
-        },
-        orderBy: {
-          DIA_PAGO: "desc",
-        },
-      });
+      const pagos = await sanmiguel.query(
+        `
+          SELECT *
+          FROM pago_bco
+          WHERE CONTRATO = ${parseInt(req.query.ficha)}  
+          ORDER BY DIA_PAGO DESC
+          `
+      );
+      await sanmiguel.end();
       res.status(200).json(pagos);
     } else if (req.query.f && req.query.f === "traer archivos") {
-      const archivos = await SGI.legajo_virtual.findMany({
-        where: {
-          contrato: parseInt(req.query.ficha),
-        },
-      });
+      const archivos = await sgi.query(`
+                SELECT *
+                FROM legajo_virtual
+                WHERE contrato = ${parseInt(req.query.ficha)}
+
+                `);
+
+      await sgi.end();
       res.status(200).json(archivos);
-    } else if (req.query.f && req.query.f === "reporte cartera") {
-      let mes = parseInt(req.query.mes);
-      let ano = parseInt(req.query.ano);
-      let cartera = parseInt(req.query.cartera);
-      let zona = "";
-      let grupo = "";
-
-      if (cartera === 0) {
-        grupo = "1000";
-        if (parseInt(req.query.zona) === 1) {
-          zona = "21,22,39,40,41,42,45,23,48,54,69";
-        } else if (parseInt(req.query.zona) === 3) {
-          zona = "14,15";
-        } else if (parseInt(req.query.zona) === 5) {
-          zona = "4,47";
-        } else if (parseInt(req.query.zona) === 60) {
-          zona = "28,63,64,53";
-        }
-      } else if (cartera === 1) {
-        grupo = "1000";
-        zona = parseInt(req.query.zona);
-      } else if (cartera === 2) {
-        grupo = "3400,3600,3700,3800,3900,4000";
-        zona = "99";
-      } else if (cartera === 3) {
-        if (req.query.emp === "W") {
-          const reporte = await SanMiguel.$queryRaw`
-            
-               SELECT 
-                  m.SUCURSAL,
-                  m.GRUPO,
-                  m.ZONA,  
-                  m.CONTRATO,
-                  m.NRO_DOC, 
-                  m.APELLIDOS, 
-                  m.NOMBRES, 
-                  m.ALTA, 
-                  m.CALLE, 
-                  m.NRO_CALLE, 
-                  m.BARRIO,
-                  m.LOCALIDAD, 
-                  m.TELEFONO, 
-                  m.MOVIL, 
-                  CASE
-                  WHEN DAY(CURDATE()) <= 15 
-                      THEN c.IMPORTE          
-                      WHEN DAY(CURDATE()) > 15 && MONTH(CURDATE()) >= ${mes}
-                      THEN c.IMPORTE + (c.IMPORTE * 0.10)
-                      WHEN DAY(CURDATE()) > 15 && MONTH(CURDATE()) < ${mes}
-                      THEN c.IMPORTE 
-                      WHEN DAY(CURDATE()) >= 28 && MONTH(CURDATE()) >= ${mes}
-                      THEN c.IMPORTE + (c.IMPORTE * 0.20)
-                      WHEN DAY(CURDATE()) >= 28 && MONTH(CURDATE()) < ${mes}
-                      THEN c.IMPORTE 
-                  END 'IMPORTE' 
-                  FROM maestro as m
-                  INNER JOIN cuo_fija as c ON c.CONTRATO = m.CONTRATO
-                  WHERE NOT EXISTS
-                  (SELECT * FROM pagos as p
-                  WHERE p.CONTRATO = m.CONTRATO
-                  and p.MES = ${mes}
-                  and p.ANO = ${ano}
-                  and p.MOVIM = 'P'
-                  )
-                   AND NOT EXISTS
-                  (SELECT * FROM pago_bco as p
-                  WHERE p.CONTRATO = m.CONTRATO
-                  and p.MES = ${mes}
-                  and p.ANO = ${ano}                  
-                  )
-                  and m.PLAN != 'P'
-                  AND m.GRUPO > 5000
-                  AND m.GRUPO NOT IN(7777,8500,9999)
-         
-  
-      `;
-
-          res
-            .status(200)
-            .json(
-              JSON.stringify(reporte, (key, value) =>
-                typeof value === "bigint" ? value.toString() : value
-              )
-            );
-        }
-      }
-
-      if (req.query.emp === "W") {
-        const reporte = await SanMiguel.$queryRaw`
-          
-             SELECT 
-                m.SUCURSAL,
-                m.GRUPO,
-                m.ZONA,  
-                m.CONTRATO,
-                m.NRO_DOC, 
-                m.APELLIDOS, 
-                m.NOMBRES, 
-                m.ALTA, 
-                m.CALLE, 
-                m.NRO_CALLE, 
-                m.BARRIO,
-                m.LOCALIDAD, 
-                m.TELEFONO, 
-                m.MOVIL, 
-                CASE
-                WHEN DAY(CURDATE()) <= 15 
-                    THEN c.IMPORTE          
-                    WHEN DAY(CURDATE()) > 15 && MONTH(CURDATE()) >= ${mes}
-                    THEN c.IMPORTE + (c.IMPORTE * 0.10)
-                    WHEN DAY(CURDATE()) > 15 && MONTH(CURDATE()) < ${mes}
-                    THEN c.IMPORTE 
-                    WHEN DAY(CURDATE()) >= 28 && MONTH(CURDATE()) >= ${mes}
-                    THEN c.IMPORTE + (c.IMPORTE * 0.20)
-                    WHEN DAY(CURDATE()) >= 28 && MONTH(CURDATE()) < ${mes}
-                    THEN c.IMPORTE 
-                END 'IMPORTE' 
-                FROM maestro as m
-                INNER JOIN cuo_fija as c ON c.CONTRATO = m.CONTRATO
-                WHERE NOT EXISTS
-                (SELECT * FROM pagos as p
-                WHERE p.CONTRATO = m.CONTRATO
-                and p.MES = ${mes}
-                and p.ANO = ${ano}
-                and p.MOVIM = 'P'
-                )
-                 AND NOT EXISTS
-                (SELECT * FROM pago_bco as p
-                WHERE p.CONTRATO = m.CONTRATO
-                and p.MES = ${mes}
-                and p.ANO = ${ano}                  
-                )
-                and m.PLAN != 'P'
-                AND FIND_IN_SET(GRUPO, ${grupo} )
-                AND FIND_IN_SET(ZONA, ${zona} )
-
-    `;
-
-        res
-          .status(200)
-          .json(
-            JSON.stringify(reporte, (key, value) =>
-              typeof value === "bigint" ? value.toString() : value
-            )
-          );
-      } else if (req.query.emp === "M") {
-        const reporte = await SanMiguel.$queryRaw`
-          
-        SELECT 
-           m.SUCURSAL,
-           m.GRUPO,
-           m.ZONA,  
-           m.CONTRATO,
-           m.NRO_DOC, 
-           m.APELLIDOS, 
-           m.NOMBRES, 
-           m.ALTA, 
-           m.CALLE, 
-           m.NRO_CALLE, 
-           m.BARRIO,
-           m.LOCALIDAD, 
-           m.TELEFONO, 
-           m.MOVIL, 
-           CASE
-           WHEN DAY(CURDATE()) <= 15 
-               THEN c.IMPORTE          
-               WHEN DAY(CURDATE()) > 15 && MONTH(CURDATE()) >= ${mes}
-               THEN c.IMPORTE + (c.IMPORTE * 0.10)
-               WHEN DAY(CURDATE()) > 15 && MONTH(CURDATE()) < ${mes}
-               THEN c.IMPORTE 
-               WHEN DAY(CURDATE()) >= 28 && MONTH(CURDATE()) >= ${mes}
-               THEN c.IMPORTE + (c.IMPORTE * 0.20)
-               WHEN DAY(CURDATE()) >= 28 && MONTH(CURDATE()) < ${mes}
-               THEN c.IMPORTE 
-           END 'IMPORTE' 
-           FROM mutual as m
-           INNER JOIN cuo_mutual as c ON c.CONTRATO = m.CONTRATO
-           WHERE NOT EXISTS
-           (SELECT * FROM pagos_mutual as p
-           WHERE p.CONTRATO = m.CONTRATO
-           and p.MES = ${mes}
-           and p.ANO = ${ano}
-           and p.MOVIM = 'P'
-           )
-           AND NOT EXISTS
-                (SELECT * FROM pago_bcom as p
-                WHERE p.CONTRATO = m.CONTRATO
-                and p.MES = ${mes}
-                and p.ANO = ${ano}                  
-                )
-           and m.PLAN != 'P'
-           AND FIND_IN_SET(GRUPO, ${grupo} )
-           AND FIND_IN_SET(ZONA, ${zona} )
-
-`;
-
-        res
-          .status(200)
-          .json(
-            JSON.stringify(reporte, (key, value) =>
-              typeof value === "bigint" ? value.toString() : value
-            )
-          );
-      }
-    } else if (req.query.f && req.query.f === "generar ncert") {
-      const nCert = await SGI.certificado_estudiantes.findFirst({
-        select: {
-          idcertificado: true,
-        },
-        orderBy: {
-          idcertificado: "desc",
-        },
-      });
-      res.status(200).json(nCert);
     } else if (req.query.f && req.query.f === "traer usos") {
-      const listUsos = await Serv.$queryRaw`
+      const listUsos = await serv.query(`
          
          SELECT
           u.CONTRATO,
@@ -502,8 +316,9 @@ export default async function handler(req, res) {
           u.CONTRATO = ${parseInt(req.query.contrato)}
         AND u.EMPRESA = 'SM'
         ORDER BY u.FECHA DESC
-`;
+`);
 
+      await serv.end();
       res
         .status(200)
         .json(
@@ -512,7 +327,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer grupos") {
-      const grupos = await SGI.$queryRaw`
+      const grupos = await sanmiguel.query(`
          
             SELECT
                CODIGO,
@@ -521,7 +336,9 @@ export default async function handler(req, res) {
                grupos       
         
             ORDER BY CODIGO ASC
-              `;
+              `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -531,7 +348,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer zonas") {
-      const zonas = await SanMiguel.$queryRaw`
+      const zonas = await sanmiguel.query(`
          
             SELECT
                CODIGO,
@@ -540,7 +357,9 @@ export default async function handler(req, res) {
                zonas       
         
             ORDER BY CODIGO ASC
-              `;
+              `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -550,7 +369,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer sucursales") {
-      const sucursales = await SGI.$queryRaw`
+      const sucursales = await sgi.query(`
          
             SELECT
               codigo,
@@ -558,7 +377,9 @@ export default async function handler(req, res) {
             FROM
                sucursal        
             
-              `;
+              `);
+
+      await sgi.end();
 
       res
         .status(200)
@@ -568,7 +389,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer productores") {
-      const producto = await SGI.$queryRaw`
+      const producto = await sgi.query(`
          
             SELECT
                CODIGO,
@@ -578,7 +399,9 @@ export default async function handler(req, res) {
         
             ORDER BY CODIGO ASC      
             
-              `;
+              `);
+
+      await sgi.end();
 
       res
         .status(200)
@@ -588,7 +411,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer localidades") {
-      const localida = await SGI.$queryRaw`
+      const localida = await sgi.query(`
          
             SELECT
                CODIGO,
@@ -598,7 +421,9 @@ export default async function handler(req, res) {
         
             ORDER BY CODIGO ASC      
             
-              `;
+              `);
+
+      await sgi.end();
 
       res
         .status(200)
@@ -608,7 +433,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer obra social") {
-      const localida = await SanMiguel.$queryRaw`
+      const localida = await sanmiguel.query(`
          
             SELECT
                CODIGO,
@@ -618,7 +443,9 @@ export default async function handler(req, res) {
         
             ORDER BY CODIGO ASC      
             
-              `;
+              `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -628,7 +455,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer planes") {
-      const planes = await SanMiguel.$queryRaw`
+      const planes = await sanmiguel.query(`
          
             SELECT
                PLAN,             
@@ -637,7 +464,9 @@ export default async function handler(req, res) {
                planes   
                      
             
-              `;
+              `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -647,22 +476,19 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer n ficha") {
-      const nFicha = await SanMiguel.maestro.findFirst({
-        select: {
-          CONTRATO: true,
-        },
-        where: {
-          CONTRATO: {
-            lte: 100000,
-          },
-        },
-        orderBy: {
-          CONTRATO: "desc",
-        },
-      });
+      const nFicha = await sanmiguel.query(
+        `
+          SELECT CONTRATO
+          FROM maestro          
+          ORDER BY CONTRATO DESC
+          LIMIT 1
+          `
+      );
+
+      await sanmiguel.end();
       res.status(200).json(nFicha);
     } else if (req.query.f && req.query.f === "traer historial") {
-      const histCuota = await SanMiguel.$queryRaw`
+      const histCuota = await sanmiguel.query(`
          
       SELECT
             *
@@ -671,8 +497,10 @@ export default async function handler(req, res) {
       WHERE 
          CONTRATO = ${parseInt(req.query.contrato)}                
 
-      ORDER BY idhistoria ASC
-        `;
+      ORDER BY idhistoria DESC
+        `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -682,18 +510,18 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer cuota mensual") {
-      const cuotaMensual = await SanMiguel.cuo_fija.findMany({
-        select: {
-          IMPORTE: true,
-        },
-        where: {
-          CONTRATO: parseInt(req.query.contrato),
-        },
-      });
+      const cuotaMensual = await sanmiguel.query(
+        `
+          SELECT *
+          FROM cuo_fija
+          WHERE CONTRATO = ${parseInt(req.query.contrato)}
+        `
+      );
 
+      await sanmiguel.end();
       res.status(200).json(cuotaMensual);
     } else if (req.query.f && req.query.f === "traer cuotas") {
-      const histCuota = await SanMiguel.$queryRaw`
+      const histCuota = await sanmiguel.query(`
          
             SELECT
               *
@@ -704,7 +532,9 @@ export default async function handler(req, res) {
             AND 
                ACCION like '%Actualizacion%'                       
             ORDER BY idhistoria DESC
-              `;
+              `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -714,7 +544,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer cuenta") {
-      const cuenta = await SanMiguel.$queryRaw`
+      const cuenta = await sanmiguel.query(`
          
             SELECT
               *
@@ -723,7 +553,9 @@ export default async function handler(req, res) {
             WHERE 
                CONTRATO = ${parseInt(req.query.contrato)}                
             
-              `;
+              `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -732,195 +564,278 @@ export default async function handler(req, res) {
             typeof value === "bigint" ? value.toString() : value
           )
         );
-    } else if (req.query.f && req.query.f === "listado reintegros") {
-      const listReintegros = await SGI.$queryRaw`
-         
-      SELECT
-        *
-      FROM
-        reintegros
-      
-        `;
+    } else if (req.query.f && req.query.f === "gasto luto") {
+      const gastoLuto = await sanmiguel.query(
+        `
+        SELECT *
+        FROM gasto_luto
+      `
+      );
 
-      res
-        .status(200)
-        .json(
-          JSON.stringify(listReintegros, (key, value) =>
-            typeof value === "bigint" ? value.toString() : value
-          )
-        );
-    }
-    if (req.query.f && req.query.f === "gasto luto") {
-      const gastoLuto = await SanMiguel.gasto_luto.findMany();
+      await sanmiguel.end();
 
       res.status(200).json(gastoLuto);
     }
   } else if (req.method === "POST") {
     if (req.body.f && req.body.f === "soli afi") {
-      const regSoli = await SanMiguel.rehabilitaciones.create({
-        data: {
-          contrato: `${req.body.contrato}`,
-          apellido: req.body.apellido,
-          nombre: req.body.nombre,
-          operador: req.body.operador,
-          idoperador: parseInt(req.body.idoperador),
-          vigencia: new Date(req.body.vigencia),
-          fecha: new Date(req.body.fecha),
-          cuotas: parseInt(req.body.cuotas),
-          dni: parseInt(req.body.dni),
-          empresa: req.body.empresa,
-        },
-      });
+      const regSoli = await sanmiguel.query(
+        `
+        INSERT INTO rehabilitaciones
+        (
+          contrato,
+          apellido,
+          nombre,
+          operador,
+          idoperador,
+          vigencia,
+          fecha,
+          cuotas,
+          dni,
+          empresa
+        )
 
-      res.status(200).json(regSoli);
-    } else if (req.body.f && req.body.f === "reg certificado") {
-      const regSoli = await SGI.certificado_estudiantes.create({
-        data: {
-          contrato: parseInt(req.body.contrato),
-          socio: req.body.socio,
-          fecha: new Date(req.body.fecha),
-          operador: req.body.operador,
-          ncert: req.body.ncert,
-        },
-      });
+        VALUES
+        (
+          ${parseInt(req.body.contrato)},
+          '${req.body.apellido}',
+          '${req.body.nombre}',
+          '${req.body.operador}',
+          ${parseInt(req.body.idoperador)},
+          '${moment(req.body.vigencia).format("YYYY-MM-DD")}',
+          '${moment(req.body.fecha).format("YYYY-MM-DD")}',
+          ${parseInt(req.body.cuotas)},
+          ${parseInt(req.body.dni)},
+          '${req.body.empresa}'
+        )
+      
+      `
+      );
+
+      await sanmiguel.end();
 
       res.status(200).json(regSoli);
     } else if (req.body.f && req.body.f === "reg socio") {
-      const regSocio = await SanMiguel.maestro.create({
-        data: {
-          CONTRATO: parseInt(req.body.CONTRATO),
-          GRUPO: parseInt(req.body.GRUPO),
-          ZONA: parseInt(req.body.ZONA),
-          SUCURSAL: req.body.SUCURSAL.toUpperCase(),
-          PRODUCTOR: parseInt(req.body.PRODUCTO),
-          APELLIDOS: req.body.APELLIDOS.toUpperCase(),
-          NOMBRES: req.body.NOMBRES.toUpperCase(),
-          NRO_DOC: parseInt(req.body.NRO_DOC),
-          NACIMIENTO: new Date(req.body.NACIMIENTO),
-          CALLE: req.body.CALLE.toUpperCase(),
-          NRO_CALLE: parseInt(req.body.NRO_CALLE),
-          BARRIO: req.body.BARRIO.toUpperCase(),
-          LOCALIDAD: req.body.LOCALIDAD.toUpperCase(),
-          DOMI_COBR: req.body.DOMI_COBR.toUpperCase(),
-          DOM_LAB: req.body.DOMI_LAB.toUpperCase(),
-          ALTA: new Date(req.body.ALTA),
-          VIGENCIA: new Date(req.body.VIGENCIA),
-          TELEFONO: req.body.TELEFONO,
-          MOVIL: req.body.MOVIL,
-          MAIL: req.body.MAIL.toUpperCase(),
-          EMPRESA: req.body.EMPRESA.toUpperCase(),
-          OPERADOR: req.body.OPERADOR,
-          OBRA_SOC: parseInt(req.body.OBRA_SOC),
-          PLAN: req.body.PLAN,
-          SEXO: req.body.SEXO,
-          ESTADO: req.body.ESTADO,
-        },
-      });
+      const regSocio = await sanmiguel.query(
+        `INSERT INTO maestro
+          (
+              CONTRATO,
+              GRUPO,
+              ZONA,
+              SUCURSAL,
+              PRODUCTOR,
+              APELLIDOS,
+              NOMBRES,
+              NRO_DOC,
+              NACIMIENTO,
+              CALLE,
+              NRO_CALLE,
+              BARRIO,
+              LOCALIDAD,
+              DOMI_COBR,
+              DOM_LAB,
+              ALTA,
+              VIGENCIA,
+              TELEFONO,
+              MOVIL,
+              MAIL,
+              EMPRESA,
+              OPERADOR,
+              OBRA_SOC,
+              PLAN,
+              SEXO,
+              ESTADO
+
+          
+          )
+
+          VALUES
+          (
+               ${parseInt(req.body.CONTRATO)},
+                ${parseInt(req.body.GRUPO)},
+                ${parseInt(req.body.ZONA)},
+                '${req.body.SUCURSAL.toUpperCase()}',
+                ${parseInt(req.body.PRODUCTO)},
+                '${req.body.APELLIDOS.toUpperCase()}',
+                '${req.body.NOMBRES.toUpperCase()}',
+                ${parseInt(req.body.NRO_DOC)},
+                '${moment(req.body.NACIMIENTO).format("YYYY-MM-DD")}',
+                '${req.body.CALLE.toUpperCase()}',
+                ${parseInt(req.body.NRO_CALLE)},
+                '${req.body.BARRIO.toUpperCase()}',
+                '${req.body.LOCALIDAD.toUpperCase()}',
+                '${req.body.DOMI_COBR.toUpperCase()}',
+                '${req.body.DOMI_LAB.toUpperCase()}',
+                '${moment(req.body.ALTA).format("YYYY-MM-DD")}',
+                '${moment(req.body.VIGENCIA).format("YYYY-MM-DD")}',
+                '${req.body.TELEFONO}',
+                '${req.body.MOVIL}',
+                '${req.body.MAIL.toUpperCase()}',
+                '${req.body.EMPRESA.toUpperCase()}',
+                '${req.body.OPERADOR}',
+                ${parseInt(req.body.OBRA_SOC)},
+                '${req.body.PLAN}',
+                '${req.body.SEXO}',
+                ${req.body.ESTADO}
+          )
+
+          `
+      );
+
+      await sanmiguel.end();
 
       res.status(200).json(regSocio);
     } else if (req.body.f && req.body.f === "reg adh") {
-      const regAdh = await SanMiguel.adherent.create({
-        data: {
-          CONTRATO: parseInt(req.body.CONTRATO),
-          SUCURSAL: req.body.SUCURSAL.toUpperCase(),
-          PRODUCTOR: parseInt(req.body.PRODUCTOR),
-          APELLIDOS: req.body.APELLIDOS.toUpperCase(),
-          NOMBRES: req.body.NOMBRES.toUpperCase(),
-          NRO_DOC: parseInt(req.body.NRO_DOC),
-          NACIMIENTO: new Date(req.body.NACIMIENTO),
-          ALTA: new Date(req.body.ALTA),
-          VIGENCIA: new Date(req.body.VIGENCIA),
-          OBRA_SOC: req.body.OBRA_SOC,
-          PLAN: req.body.PLAN,
-          SEXO: req.body.SEXO,
-        },
-      });
+      const regAdh = await sanmiguel.query(
+        `
+            INSERT INTO adherent
+            (
+              CONTRATO,
+              SUCURSAL,
+              PRODUCTOR,
+              APELLIDOS,
+              NOMBRES,
+              NRO_DOC,
+              NACIMIENTO,
+              ALTA,
+              VIGENCIA,
+              OBRA_SOC,
+              PLAN,
+              SEXO
+            )
+
+            VALUES
+            (
+               ${parseInt(req.body.CONTRATO)},
+               '${req.body.SUCURSAL.toUpperCase()}',
+               ${parseInt(req.body.PRODUCTOR)},
+               '${req.body.APELLIDOS.toUpperCase()}',
+               '${req.body.NOMBRES.toUpperCase()}',
+               ${parseInt(req.body.NRO_DOC)},
+               '${moment(req.body.NACIMIENTO).format("YYYY-MM-DD")}',
+               '${moment(req.body.ALTA).format("YYYY-MM-DD")}',
+               '${moment(req.body.VIGENCIA).format("YYYY-MM-DD")}',
+               ${parseInt(req.body.OBRA_SOC)},
+               '${req.body.PLAN}',
+               '${req.body.SEXO}'
+            )
+          `
+      );
+
+      await sanmiguel.end();
 
       res.status(200).json(regAdh);
     } else if (req.body.f && req.body.f === "reg cuota") {
-      const regCuota = await SanMiguel.cuo_fija.create({
-        data: {
-          CONTRATO: parseInt(req.body.CONTRATO),
-          IMPORTE: parseFloat(req.body.IMPORTE),
-          CUO_ANT: parseFloat(req.body.CUO_ANT),
-          DESDE: new Date(req.body.DESDE),
-          OPERADOR: req.body.OPERADOR,
-        },
-      });
+      const regCuota = await sanmiguel.query(
+        `
+            INSERT INTO cuo_fija
+            (
+              CONTRATO,
+              IMPORTE,
+              CUO_ANT,
+              DESDE,
+              OPERADOR
 
-      res.status(200).json(regCuota);
-    } else if (req.body.f && req.body.f === "solicitud reintegro") {
-      const regCuota = await SGI.reintegros.create({
-        data: {
-          contrato: parseInt(req.body.contrato),
-          socio: req.body.socio,
-          dni: parseInt(req.body.dni),
-          entidad: req.body.entidad,
-          norden: req.body.nOrden,
-          importe: parseFloat(req.body.importe),
-          observacion: req.body.observacion,
-          operador: req.body.operador,
-          fecha: new Date(req.body.fecha),
-        },
-      });
+            )
+
+            VALUES
+            (
+               ${parseInt(req.body.CONTRATO)},
+               ${parseFloat(req.body.IMPORTE)},
+               ${parseFloat(req.body.CUO_ANT)},
+               '${moment(req.body.DESDE).format("YYYY-MM-DD")}',
+               '${req.body.OPERADOR}'
+            )
+        `
+      );
+
+      await sanmiguel.end();
 
       res.status(200).json(regCuota);
     } else if (req.body.f && req.body.f === "reg cuenta") {
-      const regCuenta = await SanMiguel.maestro_cuentas.create({
-        data: {
-          contrato: parseInt(req.body.contrato),
-          dni: parseInt(req.body.dni),
-          grupo: parseInt(req.body.grupo),
-          cuenta: req.body.cuenta,
-          observacion: req.body.observacion,
-        },
-      });
+      const regCuenta = await sanmiguel.query(
+        `
+              INSERT INTO maestro_cuentas
+              (
+                contrato,
+                dni,
+                grupo,
+                cuenta,
+                observacion
+              )
+
+              VALUES
+              (
+                 ${parseInt(req.body.contrato)},
+                 ${parseInt(req.body.dni)},
+                 ${parseInt(req.body.grupo)},
+                 '${req.body.cuenta}',
+                 '${req.body.observacion}'
+              )
+          `
+      );
+
+      await sanmiguel.end();
 
       res.status(200).json(regCuenta);
     } else if (req.body.f && req.body.f === "reg pago 0") {
-      const regPag0 = await SanMiguel.pagos.create({
-        data: {
-          SERIE: 0,
-          NRO_RECIBO: 0,
-          MES: parseInt(req.body.mes),
-          ANO: parseInt(req.body.ano),
-          IMPORTE: 0,
-          DIA_REN: new Date(req.body.mes),
-          DIA_CAR: new Date(req.body.mes),
-          DIA_EMI: new Date(req.body.mes),
-          DIA_PAG: new Date(req.body.mes),
-          HORA_CAR: req.body.hora,
-          CONTRATO: parseInt(req.body.contrato),
-          MAN_COM: "-",
-          MOVIM: "P",
-          OPERADOR: req.body.operador,
-          PUESTO: 0,
-          ZONA: 0,
-          SUCURSAL: "-",
-          EMPRESA: "SM",
-          RENDIDO: 0,
-        },
-      });
+      const regPag0 = await sanmiguel.query(
+        `
+      INSERT INTO pagos
+      (    
+          SERIE,
+          NRO_RECIBO,
+          MES,
+          ANO,
+          IMPORTE,
+          DIA_REN,
+          DIA_CAR,
+          DIA_EMI,
+          DIA_PAG,
+          HORA_CAR,
+          CONTRATO,
+          MAN_COM,
+          MOVIM,
+          OPERADOR,
+          PUESTO,
+          ZONA,
+          SUCURSAL,
+          EMPRESA,
+          RENDIDO
+      )
+
+      VALUES
+      (
+          0,
+          0,
+          ${parseInt(req.body.mes)},
+          ${parseInt(req.body.ano)},
+          0,
+          '${moment(req.body.mes).format("YYYY-MM-DD")}',
+          '${moment(req.body.mes).format("YYYY-MM-DD")}',
+          '${moment(req.body.mes).format("YYYY-MM-DD")}',
+          '${moment(req.body.mes).format("YYYY-MM-DD")}',
+          '${req.body.hora}',
+          ${parseInt(req.body.contrato)},
+          "-",
+          "P",
+          '${req.body.operador}',
+          0,
+          0,
+          "-",
+          "SM",
+          0
+      )
+
+      `
+      );
+
+      await sanmiguel.end();
 
       res.status(200).json(regPag0);
     }
   } else if (req.method === "PUT") {
-    if (req.body.f && req.body.f === "renov poliza") {
-      const regAuto = await Sep.autos.update({
-        data: {
-          nro_poliza: req.body.nro_poliza,
-          empresa: req.body.empresa,
-          vencimiento: new Date(req.body.vencimiento),
-          cobertura: req.body.cobertura,
-        },
-        where: {
-          idauto: req.body.idauto,
-        },
-      });
-
-      res.status(200).json(regAuto);
-    } else if (req.body.f && req.body.f === "act valor cuota") {
-      const actCuota = await SanMiguel.$queryRaw`         
+    if (req.body.f && req.body.f === "act valor cuota") {
+      const actCuota = await sanmiguel.query(`         
 
         UPDATE cuo_fija
         SET IMPORTE = ${parseInt(req.body.cuota)},
@@ -928,7 +843,9 @@ export default async function handler(req, res) {
         WHERE CONTRATO =  ${parseInt(req.body.contrato)}    
 
     
-        `;
+        `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -941,7 +858,7 @@ export default async function handler(req, res) {
       if (req.body.tc === "I") {
         let camp = `${req.body.campo}`;
 
-        const socio = await SanMiguel.$queryRawUnsafe(
+        const socio = await sanmiguel.query(
           `      
         UPDATE maestro
         SET ${camp} = ${parseInt(req.body.dato)}         
@@ -949,6 +866,8 @@ export default async function handler(req, res) {
        
          `
         );
+
+        await sanmiguel.end();
 
         res
           .status(200)
@@ -960,7 +879,7 @@ export default async function handler(req, res) {
       } else if (req.body.tc === "S") {
         let camp = `${req.body.campo}`;
 
-        const socio = await SanMiguel.$queryRawUnsafe(
+        const socio = await sanmiguel.query(
           `      
         UPDATE maestro
         SET ${camp} = '${req.body.dato}'        
@@ -968,6 +887,8 @@ export default async function handler(req, res) {
        
          `
         );
+
+        await sanmiguel.end();
 
         res
           .status(200)
@@ -980,7 +901,7 @@ export default async function handler(req, res) {
         let camp = `${req.body.campo}`;
         let dat = moment(req.body.dato).format("YYYY-MM-DD");
 
-        const socio = await SanMiguel.$queryRawUnsafe(
+        const socio = await sanmiguel.query(
           `      
         UPDATE maestro
         SET ${camp} = '${dat}'         
@@ -988,6 +909,7 @@ export default async function handler(req, res) {
        
          `
         );
+        await sanmiguel.end();
 
         res
           .status(200)
@@ -1001,7 +923,7 @@ export default async function handler(req, res) {
       if (req.body.tc === "I") {
         let camp = `${req.body.campo}`;
 
-        const socio = await SanMiguel.$queryRawUnsafe(
+        const socio = await sanmiguel.query(
           `      
         UPDATE adherent
         SET ${camp} = ${parseInt(req.body.dato)}         
@@ -1009,6 +931,7 @@ export default async function handler(req, res) {
        
          `
         );
+        await sanmiguel.end();
 
         res
           .status(200)
@@ -1020,7 +943,7 @@ export default async function handler(req, res) {
       } else if (req.body.tc === "S") {
         let camp = `${req.body.campo}`;
 
-        const socio = await SanMiguel.$queryRawUnsafe(
+        const socio = await sanmiguel.query(
           `      
         UPDATE adherent
         SET ${camp} = '${req.body.dato}'        
@@ -1028,6 +951,8 @@ export default async function handler(req, res) {
        
          `
         );
+
+        await sanmiguel.end();
 
         res
           .status(200)
@@ -1040,7 +965,7 @@ export default async function handler(req, res) {
         let camp = `${req.body.campo}`;
         let dat = moment(req.body.dato).format("YYYY-MM-DD");
 
-        const socio = await SanMiguel.$queryRawUnsafe(
+        const socio = await sanmiguel.query(
           `      
         UPDATE adherent
         SET ${camp} = '${dat}'         
@@ -1048,6 +973,8 @@ export default async function handler(req, res) {
        
          `
         );
+
+        await sanmiguel.end();
 
         res
           .status(200)
@@ -1058,13 +985,15 @@ export default async function handler(req, res) {
           );
       }
     } else if (req.body.f && req.body.f === "baja ficha") {
-      const bajaMae = await SanMiguel.$queryRaw`         
+      const bajaMae = await sanmiguel.query(`         
 
         UPDATE maestro
         SET ESTADO = 0            
         WHERE CONTRATO =  ${parseInt(req.body.contrato)}    
     
-        `;
+        `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -1074,13 +1003,15 @@ export default async function handler(req, res) {
           )
         );
 
-      const bajaAdh = await SanMiguel.$queryRaw`         
+      const bajaAdh = await sanmiguel.query(`         
 
         UPDATE adherent
         SET BAJA = CURDATE()            
         WHERE CONTRATO =  ${parseInt(req.body.contrato)}    
     
-        `;
+        `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -1090,13 +1021,15 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.body.f && req.body.f === "baja adhe") {
-      const bajaAdh = await SanMiguel.$queryRaw`         
+      const bajaAdh = await sanmiguel.query(`         
 
         UPDATE adherent
         SET BAJA = CURDATE()            
         WHERE idadherent =  ${parseInt(req.body.idadh)}    
     
-        `;
+        `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -1106,7 +1039,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.body.f && req.body.f === "reafiliar ficha") {
-      const reafilFicha = await SanMiguel.$queryRaw`         
+      const reafilFicha = await sanmiguel.query(`         
 
         UPDATE maestro
         SET ESTADO = 1,
@@ -1114,7 +1047,9 @@ export default async function handler(req, res) {
         VIGENCIA = TIMESTAMPADD(MONTH, 3, CURDATE())
         WHERE CONTRATO =  ${parseInt(req.body.contrato)}    
     
-        `;
+        `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -1124,7 +1059,7 @@ export default async function handler(req, res) {
           )
         );
 
-      const reafilAdh = await SanMiguel.$queryRaw`         
+      const reafilAdh = await sanmiguel.query(`         
 
         UPDATE adherent
         SET BAJA = NULL,
@@ -1132,7 +1067,9 @@ export default async function handler(req, res) {
         VIGENCIA = TIMESTAMPADD(MONTH, 3, CURDATE())          
         WHERE CONTRATO =  ${parseInt(req.body.contrato)}    
     
-        `;
+        `);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -1142,7 +1079,7 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.body.f && req.body.f === "reafiliar adhe") {
-      const reafilAdh = await SanMiguel.$queryRaw`         
+      const reafilAdh = await sanmiguel.query(`         
 
         UPDATE adherent
         SET BAJA = NULL,
@@ -1150,7 +1087,9 @@ export default async function handler(req, res) {
         VIGENCIA = TIMESTAMPADD(MONTH, 3, CURDATE())          
         WHERE idadherent =  ${parseInt(req.body.idadh)}    
     
-        `;
+        `);
+
+      await sanmiguel.end();
 
       res
         .status(200)

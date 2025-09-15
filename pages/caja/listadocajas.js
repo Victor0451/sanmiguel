@@ -11,6 +11,7 @@ import moment from "moment";
 import { registrarHistoria, regHistorialSocio } from "@/libs/funciones";
 import Router, { useRouter } from "next/router";
 import ListadoCajas from "@/components/caja/ListadoCajas";
+import jsCookie from "js-cookie";
 
 function listadocajas(props) {
   const [cajas, guardarCajas] = useState([]);

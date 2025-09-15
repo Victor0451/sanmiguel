@@ -331,8 +331,8 @@ function cierre(props) {
               let totE = 0;
 
               let caja = {
-                SUCURSAL: "",
-                PUESTO: "",
+                SUCURSAL: usu.sucursal,
+                PUESTO: puestos.puesto_sm,
                 CODIGO: 0,
                 MOVIM: "",
                 CUENTA: "",
@@ -350,10 +350,8 @@ function cierre(props) {
               };
 
               let ingre = ingresos.concat(produc);
-
+              console.log(ingre);
               for (let i = 0; i < ingre.length; i++) {
-                caja.SUCURSAL = ingre[i].SUCURSAL;
-                caja.PUESTO = ingre[i].PUESTO;
                 caja.CODIGO = ingre[i].CODIGO;
                 caja.MOVIM = ingre[i].MOVIM;
                 caja.CUENTA = ingre[i].CUENTA;
@@ -374,7 +372,6 @@ function cierre(props) {
               }
 
               for (let j = 0; j < egresos.length; j++) {
-                caja.SUCURSAL = egresos[j].SUCURSAL;
                 caja.PUESTO = egresos[j].PUESTO;
                 caja.CODIGO = egresos[j].CODIGO;
                 caja.MOVIM = egresos[j].MOVIM;

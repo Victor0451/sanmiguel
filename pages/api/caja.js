@@ -1,9 +1,19 @@
-import { SanMiguel, SGI, Camp } from "../../libs/config";
+import {
+  werchow,
+  sgi,
+  serv,
+  sep,
+  camp,
+  arch,
+  club,
+  sanmiguel,
+} from "../../libs/db/index";
+import moment from "moment";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
     if (req.query.f && req.query.f === "traer movimientos") {
-      const mae = await SanMiguel.$queryRaw`
+      const mae = await sanmiguel.query(`
           SELECT 
                 DIA_EMI,                
                 OPERADOR,
@@ -16,14 +26,18 @@ export default async function handler(req, res) {
                 '0401050000' as 'CUENTA',
                 DATE_FORMAT(CURDATE(), "%Y-%m-%d" ) as 'FECHA',
                 DATE_FORMAT(CURDATE(), "%Y-%m-%d" ) as 'FEC_COMP',
-                DATE_FORMAT(NOW( ), "%H:%i" ) as 'HORA'
+                DATE_FORMAT(NOW( ), "%H:%i" ) as 'HORA',
+                " " as TIPO,
+                " " as CUIT
           FROM pagos
-          WHERE OPERADOR = ${req.query.operador}
+          WHERE OPERADOR = '${req.query.operador}'
           AND RENDIDO = 0
           AND DIA_EMI = CURDATE()
           AND MOVIM = 'P'
           GROUP BY DIA_EMI, PUESTO, OPERADOR, SERIE, NRO_RECIBO
-`;
+`);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -33,12 +47,14 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer cuentas") {
-      const mae = await SanMiguel.$queryRaw`
+      const mae = await sanmiguel.query(`
           SELECT 
                *                               
           FROM subcta
-          WHERE MOVIM in (${req.query.movim}, 'A')
-`;
+          WHERE MOVIM in ('${req.query.movim}', 'A')
+`);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -48,11 +64,13 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer tipo facturas") {
-      const mae = await SGI.$queryRaw`
+      const mae = await sgi.query(`
           SELECT 
                *                               
           FROM tipo_facturas          
-`;
+`);
+
+      await sgi.end();
 
       res
         .status(200)
@@ -62,14 +80,16 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "listado cajas") {
-      const listadoCajas = await SanMiguel.$queryRaw`
+      const listadoCajas = await sanmiguel.query(`
           SELECT FECHA, HORA, IMPORTE, OPERADOR              
           FROM caja
           WHERE DETALLE = 'VALORES A DEPOSITAR'
-          AND OPERADOR = ${req.query.operador}
+          AND OPERADOR = '${req.query.operador}'
           GROUP BY FECHA, HORA, IMPORTE, OPERADOR   
           ORDER BY FECHA DESC   
-`;
+`);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -79,13 +99,15 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "listado cajas admin") {
-      const listadoCajas = await SanMiguel.$queryRaw`
+      const listadoCajas = await sanmiguel.query(`
           SELECT FECHA, HORA, IMPORTE, OPERADOR              
           FROM caja
           WHERE DETALLE = 'VALORES A DEPOSITAR'
           GROUP BY FECHA, HORA, IMPORTE, OPERADOR    
           ORDER BY FECHA DESC 
-`;
+`);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -95,16 +117,18 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer ingresos caja fecha") {
-      const ingFecha = await SanMiguel.$queryRaw`
+      const ingFecha = await sanmiguel.query(`
           SELECT *             
           FROM caja
-          WHERE FECHA = ${req.query.fecha}
+          WHERE FECHA = '${moment(req.query.fecha).format("YYYY-MM-DD")}'
           AND MOVIM = 'I'
           AND DETALLE != ('SALDO INICIAL')
-          AND OPERADOR = ${req.query.usuario}
+          AND OPERADOR = '${req.query.usuario}'
           
           
-`;
+`);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -114,16 +138,17 @@ export default async function handler(req, res) {
           )
         );
     } else if (req.query.f && req.query.f === "traer egresos caja fecha") {
-      const egFecha = await SanMiguel.$queryRaw`
+      const egFecha = await sanmiguel.query(`
           SELECT *             
           FROM caja
-          WHERE FECHA = ${req.query.fecha}
+          WHERE FECHA = '${moment(req.query.fecha).format("YYYY-MM-DD")}'
           AND MOVIM = 'E'
           AND DETALLE != ('VALORES A DEPOSITAR')
-          AND OPERADOR = ${req.query.usuario}
+          AND OPERADOR = '${req.query.usuario}'
           
-          
-`;
+`);
+
+      await sanmiguel.end();
 
       res
         .status(200)
@@ -135,30 +160,55 @@ export default async function handler(req, res) {
     }
   } else if (req.method === "POST") {
     if (req.body.f && req.body.f === "reg caja") {
-      const movCaja = await SanMiguel.caja.create({
-        data: {
-          SUCURSAL: req.body.SUCURSAL,
-          PUESTO: req.body.PUESTO,
-          CODIGO: parseInt(req.body.CODIGO),
-          MOVIM: req.body.MOVIM,
-          CUENTA: req.body.CUENTA,
-          IMPORTE: parseFloat(req.body.IMPORTE),
-          TIPO: req.body.TIPO,
-          SERIE: parseInt(req.body.SERIE),
-          NUMERO: parseInt(req.body.NUMERO),
-          CUIT: req.body.CUIT,
-          DETALLE: req.body.DETALLE,
-          FECHA: req.body.FECHA,
-          FEC_COMP: req.body.FEC_COMP,
-          HORA: req.body.HORA,
-          OPERADOR: req.body.OPERADOR,
-        },
-      });
+      const movCaja = await sanmiguel.query(
+        `
+          INSERT INTO caja
+          (
+            SUCURSAL,
+            PUESTO,
+            CODIGO,
+            MOVIM,
+            CUENTA,
+            IMPORTE,
+            TIPO,
+            SERIE,
+            NUMERO,
+            CUIT,
+            DETALLE,
+            FECHA,
+            FEC_COMP,
+            HORA,
+            OPERADOR
+          )
+
+          VALUES
+          (
+            '${req.body.SUCURSAL}',
+            ${parseInt(req.body.PUESTO)},
+            ${parseInt(req.body.CODIGO)},
+            '${req.body.MOVIM}',
+            '${req.body.CUENTA}',
+            ${parseFloat(req.body.IMPORTE)},
+            '${req.body.TIPO}',
+            ${parseInt(req.body.SERIE)},
+            ${parseInt(req.body.NUMERO)},
+            '${req.body.CUIT}',
+            '${req.body.DETALLE}',
+            '${moment(req.body.FECHA).format("YYYY-MM-DD")}',
+            '${moment(req.body.FEC_COMP).format("YYYY-MM-DD")}',
+            '${req.body.HORA}',
+            '${req.body.OPERADOR}'
+          )
+        `
+      );
+
+      await sanmiguel.end();
+
       res.status(200).json(movCaja);
     }
   } else if (req.method === "PUT") {
     if (req.body.f && req.body.f === "rendir pagos") {
-      const mae = await SanMiguel.$queryRaw`
+      const mae = await sanmiguel.query(`
           UPDATE pagos
           SET RENDIDO = 1,
               FECHA_CAJA = CURDATE()
@@ -166,7 +216,9 @@ export default async function handler(req, res) {
           AND RENDIDO = 0
           AND MOVIM = 'P'
                
-`;
+`);
+
+      await sanmiguel.end();
 
       res
         .status(200)

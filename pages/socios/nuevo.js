@@ -69,8 +69,8 @@ function nuevo(props) {
           },
         })
         .then((res) => {
-          if (res.data) {
-            let ficha = res.data.CONTRATO + 1;
+          if (res.data.length === 1) {
+            let ficha = res.data[0].CONTRATO + 1;
 
             guardarNFicha(ficha);
           } else {
