@@ -188,6 +188,8 @@ function efectividad(props) {
 
     if (mesSel < 10) {
       mesEnv = `0${mesSel}`;
+    } else {
+      mesEnv = mesSel;
     }
 
     let tableName = `so${mesEnv}${anoSel}`;
