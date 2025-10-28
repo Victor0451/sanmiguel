@@ -19,8 +19,8 @@ export default async function handler(req, res) {
         SELECT  NRO_RECIBO,
                 id
         FROM pagos
-        WHERE SERIE = ${parseInt(req.query.serie)}
-        ORDER BY DIA_PAG DESC
+        WHERE SERIE = ${parseInt(req.query.serie)}        
+        ORDER BY NRO_RECIBO DESC
         LIMIT 1
       
       `

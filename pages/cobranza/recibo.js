@@ -412,11 +412,11 @@ function socios(props) {
       })
       .then((res) => {
         if (res.data[0]) {
-          guardarRecibo(res.data[0].id);
+          guardarRecibo(res.data[0].NRO_RECIBO);
         }
       })
       .catch((error) => {
-        toast.error("Ocurrio un error al traer el recibo", "ATENCION");
+        toast.error("Ocurrio un error al traer el recibo, posiblemente no tengas configurada una serie.", "ATENCION");
         console.log(error);
       });
   };
@@ -430,19 +430,19 @@ function socios(props) {
         },
       })
       .then((res) => {
-        if (res.data) {
+        if (res.data.length > 0) {
           let dat = res.data[0];
 
           guardarPuestos(dat);
 
-          setInterval(() => {
-            traerUltimoRecibo(dat.serie_sm, dat.puesto_sm);
-          }, 500);
+          traerUltimoRecibo(dat.serie_sm, dat.puesto_sm);
+        } else if (res.data.length === 0) {
+          toast.warning("El usuario no tiene una serie configurada.");
         }
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Ocurrio un error al traer la cuota mensual");
+        toast.error("Ocurrio un error al traer el puesto y serie");
       });
   };
 
