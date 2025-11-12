@@ -266,6 +266,7 @@ function cierre(props) {
   const updateRendido = async () => {
     let data = {
       f: "rendir pagos",
+      operador: usu.usuario
     };
 
     await axios

@@ -215,6 +215,7 @@ export default async function handler(req, res) {
           WHERE DIA_PAG = CURDATE()  
           AND RENDIDO = 0
           AND MOVIM = 'P'
+          AND OPERADOR = '${req.body.operador}'
                
 `);
 
