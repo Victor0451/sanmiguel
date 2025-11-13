@@ -14,12 +14,12 @@ export const Home = ({
   gestion,
 }) => {
   return (
-    <Card className="h-full w-full">
-      <CardBody floated={"false"} shadow={"false"} className="rounded-none">
+    <Card className="h-full w-full shadow-xl rounded-xl bg-white/90 backdrop-blur-sm">
+      <CardBody floated={false} shadow={true} className="rounded-xl p-8">
         <Alertas noticia={noticia} />
-        <hr className=" border-2 mt-5 mb-5" />
+        <hr className="border-t-2 border-primary/20 mt-6 mb-6" />
         <AccesosDirectos />
-        <hr className=" border-2 mt-5 mb-5" />
+        <hr className="border-t-2 border-primary/20 mt-6 mb-6" />
       </CardBody>
     </Card>
   );

@@ -1,11 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 40, 54, 24;
+  --background-start-rgb: 254, 250, 224;
+  --background-end-rgb: 254, 250, 224;
+  /* CSS HEX */
+  --dark-moss-green: #606c38ff;
+  --pakistan-green: #283618ff;
+  --cornsilk: #fefae0ff;
+  --earth-yellow: #dda15eff;
+  --tigers-eye: #bc6c25ff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,8 +25,10 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: gainsboro;
+  color: #283618; /* pakistan-green para predominancia verdosa */
+  background: #fefae0; /* cornsilk para fondo claro */
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
 }
 
 .werchowlogo {
@@ -67,8 +77,4 @@ body {
   transition: 0s;
 }
 
-.verticalScroll {
-  height: 500px !important;
-  overflow-y: scroll !important;
-}
 

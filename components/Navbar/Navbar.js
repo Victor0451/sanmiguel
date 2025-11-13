@@ -22,7 +22,7 @@ export default function ComplexNavbar({ user, msj, orde, prest }) {
   }, []);
 
   return (
-    <Navbar className="mx-auto max-w-full p-2 lg:pl-6 bg-green-900 ">
+    <Navbar className="mx-auto max-w-full p-2 lg:pl-6 bg-primary shadow-lg">
       <div className="relative mx-auto flex items-center">
         <Typography
           as="a"

@@ -13,8 +13,8 @@ export const FormLogin = ({
 }) => {
   return (
     <div className="flex justify-center">
-      <Card className=" w-1/2 h-1/2  px-6 py-12 lg:px-8 ">
-        <CardHeader floated={false} shadow={false} className="rounded-none">
+      <Card className=" w-1/2 h-auto px-6 py-12 lg:px-8 shadow-xl rounded-xl bg-white/95 backdrop-blur-sm">
+        <CardHeader floated={false} shadow={true} className="rounded-xl">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               className="mx-auto h-10 w-auto"
@@ -22,7 +22,7 @@ export const FormLogin = ({
               alt="Your Company"
             />
 
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-pakistan-green">
               San Miguel Sepelio - Bienvenido
             </h2>
           </div>
@@ -42,7 +42,7 @@ export const FormLogin = ({
                     type="text"
                     placeholder="Usuario"
                     required
-                    className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                     ref={usuarioRef}
                   />
                 </div>
@@ -64,7 +64,7 @@ export const FormLogin = ({
                     type="password"
                     placeholder="Contraseña"
                     required
-                    className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                     ref={contrasenaRef}
                   />
                 </div>
@@ -87,7 +87,7 @@ export const FormLogin = ({
               <div>
                 <button
                   type="submit"
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-dark-moss-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                   onClick={() => iniciarSesion()}
                 >
                   Iniciar Sesion

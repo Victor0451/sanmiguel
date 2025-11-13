@@ -10,6 +10,16 @@ module.exports = withMT({
   ],
   theme: {
     extend: {
+      colors: {
+        'dark-moss-green': '#606c38',
+        'pakistan-green': '#283618',
+        'cornsilk': '#fefae0',
+        'earth-yellow': '#dda15e',
+        'tigers-eye': '#bc6c25',
+        primary: '#606c38', // Enfatizando tono verdoso
+        secondary: '#283618', // Otro tono verdoso
+        accent: '#fefae0',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

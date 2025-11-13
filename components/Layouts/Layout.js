@@ -38,7 +38,7 @@ export const Layout = ({ children }) => {
   useSWR("/api/ordenpago", traerNotificaciones);
 
   return (
-    <div className='div className="min-h-full"'>
+    <div className="min-h-screen bg-gradient-to-br from-cornsilk via-cornsilk to-earth-yellow">
       <Head>
         <title>SAN MIGUEL SEPELIO</title>
 
