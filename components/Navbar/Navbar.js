@@ -15,10 +15,17 @@ export default function ComplexNavbar({ user, msj, orde, prest }) {
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
 
   React.useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth < 1000 && setIsNavOpen(false)
-    );
+    const handleResize = () => {
+      if (window.innerWidth < 1000) {
+        setIsNavOpen(false);
+      }
+    };
+    
+    window.addEventListener("resize", handleResize);
+    
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (

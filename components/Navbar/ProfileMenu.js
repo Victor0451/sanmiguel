@@ -55,6 +55,15 @@ export const ProfileMenu = ({ user, msj, orde, prest }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const closeMenu = () => setIsMenuOpen(false);
 
+  const obtenerIniciales = (usuario) => {
+    if (!usuario || usuario.trim() === "") return "U";
+    const partes = usuario.trim().split(" ");
+    if (partes.length >= 2) {
+      return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
+    }
+    return usuario.substring(0, 2).toUpperCase();
+  };
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -65,30 +74,14 @@ export const ProfileMenu = ({ user, msj, orde, prest }) => {
         >
           {msj > 0 ? (
             <Badge overlap="circular" placement="bottom-end">
-              <Avatar
-                variant="circular"
-                size="sm"
-                alt="candice wu"
-                className={`  ${
-                  msj > 0
-                    ? "border-2 p-0.5 border-red-900"
-                    : "border p-0.5 border-blue-500"
-                }`}
-                src="https://png.pngtree.com/png-clipart/20210915/ourlarge/pngtree-user-avatar-login-interface-abstract-blue-icon-png-image_3917504.jpg"
-              />
+              <div className="w-8 h-8 rounded-full bg-pakistan-green text-white flex items-center justify-center font-bold text-sm border border-blue-500">
+                {obtenerIniciales(user?.nombre + " " + user?.apellido)}
+              </div>
             </Badge>
           ) : (
-            <Avatar
-              variant="circular"
-              size="sm"
-              alt="candice wu"
-              className={`  ${
-                msj > 0
-                  ? "border-2 p-0.5 border-red-900"
-                  : "border p-0.5 border-blue-500"
-              }`}
-              src="https://png.pngtree.com/png-clipart/20210915/ourlarge/pngtree-user-avatar-login-interface-abstract-blue-icon-png-image_3917504.jpg"
-            />
+            <div className="w-8 h-8 rounded-full bg-pakistan-green text-white flex items-center justify-center font-bold text-sm border border-blue-500">
+              {obtenerIniciales(user?.nombre + " " + user?.apellido)}
+            </div>
           )}
 
           <ChevronDownIcon
@@ -103,11 +96,11 @@ export const ProfileMenu = ({ user, msj, orde, prest }) => {
       <MenuList className="p-1">
         <MenuItem className="flex items-end gap-2 rounded">
           <Typography as="span" variant="small" className="font-normal ml-5">
-            <u>Usuario</u>: {user.usuario}
+            <u>Usuario</u>: {user?.usuario}
           </Typography>
         </MenuItem>
         <hr className="" />
-        {profileMenuItems.map(({ label, icon, url, f, user }, key) => {
+        {profileMenuItems.map(({ label, icon, url, f }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
             <MenuItem

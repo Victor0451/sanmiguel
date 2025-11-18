@@ -12,22 +12,22 @@ export const FormLogin = ({
   errores,
 }) => {
   return (
-    <div className="flex justify-center">
-      <Card className=" w-1/2 h-auto px-6 py-12 lg:px-8 shadow-xl rounded-xl bg-white/95 backdrop-blur-sm">
-        <CardHeader floated={false} shadow={true} className="rounded-xl">
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+    <div className="flex items-center justify-center min-h-screen">
+      <Card className="w-full sm:w-96 h-auto px-6 py-8 shadow-xl rounded-xl bg-white/95 backdrop-blur-sm">
+        <CardHeader floated={false} shadow={false} className="rounded-xl">
+          <div className="text-center">
             <img
-              className="mx-auto h-10 w-auto"
+              className="mx-auto h-12 w-auto"
               src="img/logo.png"
               alt="Your Company"
             />
 
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-pakistan-green">
+            <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-pakistan-green">
               San Miguel Sepelio - Bienvenido
             </h2>
           </div>
 
-          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <div className="mt-8">
             <div className="space-y-6">
               <div>
                 <label
@@ -84,13 +84,13 @@ export const FormLogin = ({
                 </Alert>
               ) : null}
 
-              <div>
+              <div className="pt-4">
                 <button
                   type="submit"
-                  className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-dark-moss-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  className="w-full rounded-md bg-primary px-3 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-dark-moss-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors"
                   onClick={() => iniciarSesion()}
                 >
-                  Iniciar Sesion
+                  Iniciar Sesión
                 </button>
               </div>
             </div>

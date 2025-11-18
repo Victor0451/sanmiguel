@@ -52,8 +52,7 @@ export default async function handler(req, res) {
               if (!isMatch) {
                 res.status(400).json({ msg: "Credenciales Invalidas" });
                 sgi.end();
-              }
-              {
+              } else {
                 jwt.sign(
                   { id: user[0].id },
                   configs.get("jwtSecret"),
